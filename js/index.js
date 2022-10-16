@@ -102,8 +102,9 @@
 // 动态md
 window.addEventListener('load', () => {
 
-	var arts=new Array()
-	var arts=document.querySelector(".content")
+	// var arts=new Array()
+	var art=document.querySelector(".content")
+	// var artshow=document.querySelector(".content-show")
 	for(let i=1;i<5;i++)
 	{
 		let url="./article/"+i+".md"
@@ -112,11 +113,25 @@ window.addEventListener('load', () => {
 				data.text().then((text) => {
 					let temp=document.createElement("div")
 					temp.innerHTML=marked.parse(text)
-					arts.appendChild(temp)
-					console.log(marked.parse(text))
+					temp.addEventListener("click",()=>{
+						localStorage.setItem('item', i);
+						window.location.href="./html/index.html"
+						// artshow.appendChild(temp)
+					})
+					art.appendChild(temp)
+					// console.log(marked.parse(text))
 				})
 			})
 	}
+	// var articles=document.querySelector(".content").document.querySelectorAll("div")
+	// for(let x in articles)
+	// {
+	// 	x.addEventListener("click",()=>{
+	// 		this.style.display="none"
+	// 	})
+	// }
+
+
 	
 	
 })
