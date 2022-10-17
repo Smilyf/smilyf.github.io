@@ -5,16 +5,14 @@
 html {
     font-size: 16px;
 }
-
 * {
 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 .body {
-    width: 100vw;
+    max-width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -362,20 +360,19 @@ header .user div {
     width: 60%;
     display: none;
     background: #a0989825;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 .content {
     min-height: 100vh;
-    width: 60%;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
     font-size: 1.3rem;
     line-height: 2.5rem;
-    /* background: #eae5e5bd; */
-
+    align-items: center;
 }
 
 .content>div {
@@ -383,9 +380,6 @@ header .user div {
     display: inline-block;
     padding: 1rem 1rem;
     margin: 1rem 1rem;
-    /* flex-direction: column;
-    justify-content: center;
-    justify-items: stretch; */
     text-align: left;
     border: 0.1rem solid #807979;
     border-radius: 0.8rem;
@@ -397,49 +391,38 @@ header .user div {
 .content>div:hover {
     box-shadow: 0.1rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.329);
 }
-
-
-
 .banner .image {
     max-width: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-
 }
-
 .banner .image>img {
     padding: 2% 2%;
     max-width: 80%;
-
 }
-
-
-
+code{
+    border-radius: 0.3rem;
+}
 /*屏幕宽度小于991px,改变布局和样式*/
 @media screen and (max-width:991px) {
 
     /* .banner .content h2 {
         font-size: 2em;
     } */
-
     header .navigation {
         display: none;
     }
-
     header .search {
         width: 40%;
     }
-
     header .logo {
         width: 15%;
     }
-
     header>.navigation-simplify {
         display: flex;
 
     }
-
     .content {
         width: 80vw;
     }
@@ -452,9 +435,13 @@ header .user div {
         width: 85vw;
     }
     .content-show{
-        width: 85vw;
+        width: 95vw;
     }
 
 }
 
 /* 短作业/优先级 */
+/*定义滚动条高宽及背景
+ 高宽分别对应横竖滚动条的尺寸*/
+ 
+ 
