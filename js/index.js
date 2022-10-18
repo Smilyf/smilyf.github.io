@@ -52,7 +52,6 @@ window.addEventListener('load', () => {
 						}
 					})
 					paging_index.appendChild(button)
-
 				}
 				let buttons = paging_index.querySelectorAll("button")
 				for (let j of buttons) {
@@ -61,10 +60,26 @@ window.addEventListener('load', () => {
 						break;
 					}
 				}
+				document.querySelector(".previous-page").addEventListener("click", () => {
+					let buttons = paging_index.querySelectorAll("button")
+					let index=localStorage.getItem("paging")
+					if (index-1>=1) 
+					{
+						buttons[index-2].click();
+					}
 
+				})
+				let next_page = document.querySelector(".next-page").addEventListener("click", () => {
+					let buttons = paging_index.querySelectorAll("button")
+					let index=localStorage.getItem("paging")
+					if (index+1>=length) 
+					{
+						buttons[index].click()
+					}
+
+				})
 
 			})
 		})
-
 
 })
