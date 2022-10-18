@@ -5,12 +5,14 @@
 html {
     font-size: 16px;
 }
+
 * {
 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 .body {
     max-width: 100vw;
     display: flex;
@@ -336,15 +338,6 @@ header .user div {
 
 }
 
-.sbottom {
-    width: 100%;
-    height: 4rem;
-    background: #181717f1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 
 
 
@@ -383,27 +376,82 @@ header .user div {
     text-align: left;
     border: 0.1rem solid #807979;
     border-radius: 0.8rem;
-    height: 10rem;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: 0.1rem 0.1rem 0.1rem 0.05rem rgba(0, 0, 0, 0.123);
 }
 
 .content>div:hover {
     box-shadow: 0.1rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.329);
 }
+
 .banner .image {
     max-width: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
+
 .banner .image>img {
     padding: 2% 2%;
     max-width: 80%;
 }
-code{
+
+code {
     border-radius: 0.3rem;
 }
+
+.paging {
+    display:flex;
+    justify-content: space-evenly;
+    font-size: 1.1rem;
+    min-width: 20vw;
+    margin: 2rem 2rem;
+    align-items: center;
+}
+.paging>.previous-page{
+    width: 6rem;
+    border-radius: 0.5rem;
+    background: #0f0f0f;
+    color: #fff;
+
+}
+.paging>.next-page{
+    width: 6rem;
+    border-radius: 0.5rem;
+    background: #0f0f0f;
+    color: #fff;
+
+}
+
+.paging>.paging-index{
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.paging>.paging-index>button{
+    width: 2rem;
+    border-radius: 0.5rem;
+    background: #0f0f0f;
+    color: #fff;
+
+}
+.paging button:hover{
+    background: #fff;
+    color: #0f0f0f;
+
+}
+.sbottom {
+    width: 100%;
+    height: 4rem;
+    background: #181717f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 /*屏幕宽度小于991px,改变布局和样式*/
 @media screen and (max-width:991px) {
 
@@ -413,16 +461,20 @@ code{
     header .navigation {
         display: none;
     }
+
     header .search {
         width: 40%;
     }
+
     header .logo {
         width: 15%;
     }
+
     header>.navigation-simplify {
         display: flex;
 
     }
+
     .content {
         width: 80vw;
     }
@@ -434,7 +486,8 @@ code{
     .content {
         width: 85vw;
     }
-    .content-show{
+
+    .content-show {
         width: 95vw;
     }
 
@@ -443,5 +496,3 @@ code{
 /* 短作业/优先级 */
 /*定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸*/
- 
- 

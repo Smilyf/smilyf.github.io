@@ -16,11 +16,8 @@ window.addEventListener('load', () => {
                 temp.querySelectorAll("pre code").forEach((el) => {
                     hljs.highlightElement(el);
                   });
-                
-                
                 artshow.appendChild(temp)
             })
-             
         })
 })
 
