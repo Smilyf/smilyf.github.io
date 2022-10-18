@@ -424,7 +424,7 @@ code {
 }
 
 .paging>.paging-index{
-    width: 80%;
+    min-width: 20%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -437,10 +437,14 @@ code {
     color: #fff;
 
 }
-.paging button:hover{
+.paging>.next-page:active{
+    
     background: #fff;
     color: #0f0f0f;
-
+}
+.paging>.previous-page:active{
+    background: #fff;
+    color: #0f0f0f;
 }
 .sbottom {
     width: 100%;
@@ -490,7 +494,6 @@ code {
     .content-show {
         width: 95vw;
     }
-
 }
 
 /* 短作业/优先级 */

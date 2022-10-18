@@ -2,7 +2,7 @@
 
 
 var article_json;
-var pages = 1
+var pages = 3
 function create(text, index) {
 	let temp = document.createElement("div")
 	let p = document.createElement("p")
