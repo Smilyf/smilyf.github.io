@@ -3,7 +3,6 @@
 
 var article_json;
 var pages = 1
-localStorage.setItem('paging', 1);
 function create(text, index) {
 	let temp = document.createElement("div")
 	let p = document.createElement("p")
@@ -41,26 +40,27 @@ window.addEventListener('load', () => {
 							art.appendChild(create(text, i))
 						}
 						let buttons = paging_index.querySelectorAll("button")
-
-
 						for (let j of buttons) {
 							if (j.value === localStorage.getItem("paging")) {
 								j.style.background = "#fff";
 								j.style.color = "#0f0f0f";
 							}
-							else
-							{
+							else {
 								j.style.background = "#0f0f0f";
 								j.style.color = "#fff";
 							}
 						}
 					})
 					paging_index.appendChild(button)
-					if (i === 1) {
-						paging_index.querySelector("button").click()
+
+				}
+				let buttons = paging_index.querySelectorAll("button")
+				for (let j of buttons) {
+					if (j.value === localStorage.getItem("paging")) {
+						j.click();
+						break;
 					}
 				}
-
 
 
 			})
