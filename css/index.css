@@ -7,7 +7,6 @@ html {
 }
 
 * {
-
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,6 +17,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    justify-items: stretch;
     align-items: center;
 }
 
@@ -60,7 +60,6 @@ header>.navigation {
     justify-items: stretch;
     align-items: center;
     text-align: center;
-
 
 }
 
@@ -169,7 +168,12 @@ header .navigation>div:hover {
 
 header .navigation>div:hover>div {
     /* visibility: visible; */
-    display: inline-block;
+    /* display: inline-block; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
 }
 
 header .navigation>div>div {
@@ -188,7 +192,7 @@ header .navigation>div>div {
 }
 
 header .navigation>div>div>div {
-    margin: 0.6rem 1rem;
+    margin: 0.6rem 0rem;
     width: 13rem;
     height: 4rem;
     display: flex;
@@ -355,10 +359,42 @@ header .user div {
     background: #a0989825;
     font-size: 1.1rem;
 }
-
-.content {
+.layout{
     min-height: 100vh;
-    width: 60vw;
+    width: 100%;
+    /* min-width: 80vw; */
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+
+}
+.layout .catalogue{
+    width:20vw;
+    min-height:100vh ;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(142, 138, 145, 0.332);
+    writing-mode:vertical-lr;
+    font-size: 3rem;
+    letter-spacing: 1.2rem;
+}
+.layout .label{
+    width:20vw;
+    min-height:100vh ;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(142, 138, 145, 0.332);
+    writing-mode:vertical-lr;
+    font-size: 3rem;
+    letter-spacing: 1.2rem;
+}
+.layout .content {
+    min-height: 100vh;
+    width: 40vw;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -368,11 +404,11 @@ header .user div {
     align-items: center;
 }
 
-.content>div {
+.layout .content>div {
     width: 100%;
     display: inline-block;
     padding: 1rem 1rem;
-    margin: 1rem 1rem;
+    margin: 0.5rem 1rem;
     text-align: left;
     border: 0.1rem solid #807979;
     border-radius: 0.8rem;
@@ -380,7 +416,7 @@ header .user div {
     box-shadow: 0.1rem 0.1rem 0.1rem 0.05rem rgba(0, 0, 0, 0.123);
 }
 
-.content>div:hover {
+.layout .content>div:hover {
     box-shadow: 0.1rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.329);
 }
 
@@ -405,7 +441,7 @@ code {
     justify-content: space-evenly;
     font-size: 1.1rem;
     min-width: 20vw;
-    margin: 2rem 2rem;
+    margin: 1rem 2rem;
     align-items: center;
 }
 .paging>.previous-page{
@@ -424,6 +460,7 @@ code {
 }
 
 .paging>.paging-index{
+    margin: 1rem 1rem;
     min-width: 20%;
     display: flex;
     justify-content: space-evenly;
@@ -482,13 +519,27 @@ code {
     .content {
         width: 80vw;
     }
+    .layout .catalogue{
+        display: none;
+
+    }
+    .layout .label{
+        display: none;
+
+    }
+    .layout .content {
+
+        width: 85vw;
+     
+    }
+
 
 }
 
 /*屏幕宽度小于600px,改变布局和样式*/
 @media screen and (max-width:600px) {
     .content {
-        width: 85vw;
+        width: 90vw;
     }
 
     .content-show {

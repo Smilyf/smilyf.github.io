@@ -3,6 +3,7 @@
 var article_json;
 var pages = 3
 var page_num = 1
+var length = 0
 function create(text, index) {
 	let temp = document.createElement("div")
 	let p = document.createElement("p")
@@ -56,10 +57,9 @@ window.addEventListener('load', () => {
 		})
 		.then((text) => {
 			article_json = text
-			let length = Object.keys(text).length;
+			length = Object.keys(text).length;
 			let paging_index = document.querySelector(".paging .paging-index")
 			page_num = (length + pages - 1) / pages
-			let buttons = null
 			for (let i = 1; i <= page_num; i++) {
 				let button = document.createElement("button")
 				button.innerHTML = i;
