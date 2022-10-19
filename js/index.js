@@ -36,7 +36,12 @@ function change_page(buttons) {
 }
 function init_page(buttons) {
 	for (let j of buttons) {
-		if (j.value === localStorage.getItem("paging")) {
+		if(localStorage.getItem("paging")===null )
+		{
+			j.click()
+			break;
+		}
+		else if (j.value === localStorage.getItem("paging")) {
 			j.click();
 			break;
 		}
@@ -69,7 +74,6 @@ window.addEventListener('load', () => {
 					}
 				})
 				paging_index.appendChild(button)
-
 			}
 			return paging_index
 		}
