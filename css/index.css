@@ -173,6 +173,9 @@ header .navigation>div:hover>div {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    animation-name: fade-in;/*动画名称*/  
+    animation-duration: 0.6s;/*动画持续时间*/  
+    -webkit-animation-name:fade-in 0.6s;/*针对webkit内核*/  
 
 }
 
@@ -465,8 +468,8 @@ code {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
 }
+
 .paging>.paging-index>button{
     width: 2rem;
     border-radius: 0.5rem;
@@ -474,6 +477,7 @@ code {
     color: #fff;
 
 }
+
 .paging>.next-page:active{
     
     background: #fff;
@@ -546,7 +550,23 @@ code {
         width: 95vw;
     }
 }
-
+@keyframes fade-in {  
+    0% {opacity: 0;}/*初始状态 透明度为0*/  
+    50% {opacity: 0;}/*过渡状态 透明度为0*/  
+    100% {opacity: 1;}/*结束状态 透明度为1*/  
+}  
+@-webkit-keyframes fade-in {/*针对webkit内核*/  
+    0% {opacity: 0;}  
+    50% {opacity: 0;}  
+    100% {opacity: 1;}  
+}  
+/* #wrapper {    
+    
+}  */
 /* 短作业/优先级 */
 /*定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸*/
+
+
+
+ 
