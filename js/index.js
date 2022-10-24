@@ -13,7 +13,7 @@ function create(text, index) {
 	temp.appendChild(p)
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
-		localStorage.setItem('item', index);
+		sessionStorage.setItem('item', index);
 		window.location.href = "./html/index.html"
 	})
 	return temp;
@@ -21,14 +21,14 @@ function create(text, index) {
 function change_page(buttons) {
 
 	document.querySelector(".previous-page").addEventListener("click", () => {
-		let index = localStorage.getItem("paging")
+		let index = sessionStorage.getItem("paging")
 		index=parseInt(index)
 		if (index - 1 >= 1) {
 			buttons[index - 2].click();
 		}
 	})
 	document.querySelector(".next-page").addEventListener("click", () => {
-		let index = localStorage.getItem("paging")
+		let index = sessionStorage.getItem("paging")
 		index=parseInt(index)
 		if (index + 1 <= page_num) {
 			buttons[index].click()
@@ -37,12 +37,12 @@ function change_page(buttons) {
 }
 function init_page(buttons) {
 	for (let j of buttons) {
-		if(localStorage.getItem("paging")===null )
+		if(sessionStorage.getItem("paging")===null )
 		{
 			j.click()
 			break;
 		}
-		else if (j.value === localStorage.getItem("paging")) {
+		else if (j.value === sessionStorage.getItem("paging")) {
 			j.click();
 			break;
 		}
@@ -66,7 +66,7 @@ window.addEventListener('load', () => {
 				button.value = i.toString()
 				button.addEventListener("click", () => {
 					art.innerHTML = ""
-					localStorage.setItem('paging', i);
+					sessionStorage.setItem('paging', i);
 					let start = (i - 1) * pages + 1
 					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
 					for (let i = start; i < end; i++) {
@@ -83,7 +83,7 @@ window.addEventListener('load', () => {
 			for (let button of buttons) {
 				button.addEventListener("click", () => {
 					for (let j of buttons) {
-						if (j.value === localStorage.getItem("paging")) {
+						if (j.value === sessionStorage.getItem("paging")) {
 							j.style.background = "#fff";
 							j.style.color = "#0f0f0f";
 						}

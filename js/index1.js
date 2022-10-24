@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
     
     var artshow = document.querySelector(".content-show")
     artshow.style.display = "inline-block"
-    let url = "../article/" + localStorage.getItem('item') + ".md"
+    let url = "../article/" + sessionStorage.getItem('item') + ".md"
     fetch(url)
         .then((data) => {
             data.text()
