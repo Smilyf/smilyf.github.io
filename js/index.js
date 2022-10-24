@@ -1,7 +1,7 @@
 "use strict";
 
 var article_json;
-var pages = 3
+var pages = 1
 var page_num = 1
 var length = 0
 function create(text, index) {
