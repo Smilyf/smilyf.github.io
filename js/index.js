@@ -100,6 +100,14 @@ window.addEventListener('load', () => {
 
 			init_page(buttons)
 			change_page(buttons)
+			return buttons
+		}).then((buttons)=>{
+
+			document.querySelector(".logos a").addEventListener("click",()=>{
+				buttons[0].click();
+
+			})
+
 		})
 }
 )
