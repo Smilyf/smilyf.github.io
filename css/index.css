@@ -470,13 +470,34 @@ code {
     align-items: center;
 }
 
-.paging>.paging-index>button{
+.paging>.paging-index> .button_off{
     width: 2rem;
     border-radius: 0.5rem;
     background: #0f0f0f;
     color: #fff;
 
 }
+.paging>.paging-index>.button_off:hover{
+
+    background:#fff;
+    color:  #0f0f0f;
+
+}
+.paging>.paging-index>.button_on{
+    width: 2rem;
+    border-radius: 0.5rem;
+
+    background:#fff;
+    color:  #0f0f0f;
+
+}
+.paging>.paging-index>.button_on:hover{
+    background: #0f0f0f;
+    color: #fff;
+}
+
+
+
 
 .paging>.next-page:active{
     

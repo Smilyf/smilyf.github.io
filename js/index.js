@@ -62,6 +62,7 @@ window.addEventListener('load', () => {
 			page_num = (length + pages - 1) / pages
 			for (let i = 1; i <= page_num; i++) {
 				let button = document.createElement("button")
+				button.className="button_off";
 				button.innerHTML = i;
 				button.value = i.toString()
 				button.addEventListener("click", () => {
@@ -84,12 +85,10 @@ window.addEventListener('load', () => {
 				button.addEventListener("click", () => {
 					for (let j of buttons) {
 						if (j.value === sessionStorage.getItem("paging")) {
-							j.style.background = "#fff";
-							j.style.color = "#0f0f0f";
+							j.className="button_on"
 						}
 						else {
-							j.style.background = "#0f0f0f";
-							j.style.color = "#fff";
+							j.className="button_off"
 						}
 					}
 
