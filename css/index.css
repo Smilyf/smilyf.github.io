@@ -175,7 +175,7 @@ header .navigation>div:hover>div {
     justify-content: space-evenly;
     animation-name: fade-in;/*动画名称*/  
     animation-duration: 0.6s;/*动画持续时间*/  
-    -webkit-animation-name:fade-in 0.6s;/*针对webkit内核*/  
+    -webkit-animation-name:fade-in ;/*针对webkit内核*/  
 
 }
 
@@ -277,8 +277,11 @@ header .user div i {
     color: #fff;
 
 }
+header .user div i:active {
+    color: rgb(177, 128, 206);
+}
 
-header .user div {
+header>.user>div {
     width: 80%;
     display: flex;
     flex-direction: row;
@@ -491,10 +494,10 @@ code {
     color:  #0f0f0f;
 
 }
-.paging>.paging-index>.button_on:hover{
+/* .paging>.paging-index>.button_on:hover{
     background: #0f0f0f;
     color: #fff;
-}
+} */
 
 
 

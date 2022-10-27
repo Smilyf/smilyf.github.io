@@ -110,3 +110,6 @@ window.addEventListener('load', () => {
 		})
 }
 )
+window.addEventListener("load",()=>{
+	// header>.user>div
+})
