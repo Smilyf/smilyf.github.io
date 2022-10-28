@@ -32,8 +32,9 @@ header {
     background: #0f0f0f;
     border-bottom: 0.15rem solid #fff;
     z-index: 9;
-
 }
+
+
 
 header .logos {
     width: 12%;
@@ -46,22 +47,12 @@ header .logos {
 header .logos>a {
     text-decoration: none;
     font-weight: 600;
-    font-size: 1.7rem;
+    font-size: 2.5rem;
     color: #ffffff;
+    letter-spacing: 0.3rem;
 }
 
-header>.navigation {
 
-    height: 100%;
-    min-width: 60%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    justify-items: stretch;
-    align-items: center;
-    text-align: center;
-
-}
 
 header>.navigation-simplify {
     display: none;
@@ -70,6 +61,7 @@ header>.navigation-simplify {
     width: 10%;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     justify-items: stretch;
     text-align: center;
     border: 0.2rem solid #0f0f0f;
@@ -78,22 +70,31 @@ header>.navigation-simplify {
 
 header>.navigation-simplify>div {
     position: absolute;
-    display: none;
+    left: 0rem;
     top: 3rem;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 20rem;
+    display: none;
+    min-height: 4rem;
     width: 15rem;
     background: #030303da;
     border: 0.1rem solid #fff;
     border-radius: 0.5rem;
-    justify-items: center;
-    align-items: center;
+    text-align: center;
 
 }
 
 header>.navigation-simplify:hover>div {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    animation-name: fade-in;
+    /*动画名称*/
+    animation-duration: 0.6s;
+    /*动画持续时间*/
+    -webkit-animation-name: fade-in;
+    /*针对webkit内核*/
+
+
 }
 
 header>.navigation-simplify:hover {
@@ -102,14 +103,15 @@ header>.navigation-simplify:hover {
 
 }
 
-header>.navigation-simplify>i {
-    color: #fff;
+header>.navigation-simplify svg {
+    fill: #fff;
     font-size: 1.7rem;
 }
 
 header .navigation-simplify>div>div {
-    width: 95%;
-    height: 15%;
+    margin: 0.6rem 0rem;
+    width: 13rem;
+    height: 4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -122,16 +124,20 @@ header .navigation-simplify>div>div>div {
     border-left: 0.3rem solid #fff;
 }
 
-header .navigation-simplify>div>div>div:hover {
+header .navigation-simplify>div>div:hover {
     background: rgba(148, 154, 199, 0.377);
 }
+header>.navigation {
 
-header>.navigation-simplify a {
+    height: 100%;
+    min-width: 60%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-items: stretch;
+    align-items: center;
+    text-align: center;
 
-    text-decoration: none;
-    color: #fff;
-    font-weight: 550;
-    letter-spacing: 0.2rem;
 }
 
 header>.navigation>div {
@@ -150,12 +156,12 @@ header>.navigation>div {
     text-align: center;
 }
 
-header>.navigation>div a {
+header a {
 
     text-decoration: none;
     color: #fff;
-    font-weight: 550;
-    font-size: 1.3rem;
+    font-weight: 750;
+    font-size: 1.4rem;
     letter-spacing: 0.2rem;
 
 }
@@ -173,9 +179,12 @@ header .navigation>div:hover>div {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    animation-name: fade-in;/*动画名称*/  
-    animation-duration: 0.6s;/*动画持续时间*/  
-    -webkit-animation-name:fade-in ;/*针对webkit内核*/  
+    animation-name: fade-in;
+    /*动画名称*/
+    animation-duration: 0.6s;
+    /*动画持续时间*/
+    -webkit-animation-name: fade-in;
+    /*针对webkit内核*/
 
 }
 
@@ -186,7 +195,7 @@ header .navigation>div>div {
     left: 0rem;
     top: 3rem;
     display: none;
-    min-height: 10rem;
+    min-height: 4rem;
     width: 15rem;
     background: #030303da;
     border: 0.1rem solid #fff;
@@ -222,9 +231,7 @@ header>.search {
     padding: 0rem 1.2rem;
     display: flex;
     justify-content: space-between;
-
 }
-
 
 header>.search>div {
 
@@ -235,7 +242,7 @@ header>.search>div {
 
 }
 
-header>.search div input::placeholder {
+header>.search>div>input::placeholder {
 
     font-size: 1.1em;
     color: #fff;
@@ -252,15 +259,14 @@ header>.search>div>input {
 
 }
 
-header>.search>div>i {
-    color: #fff;
+header>.search>div>svg {
+    fill: #fff;
 }
 
-header>.search>div>i:active {
-    color: rgb(177, 128, 206);
+header>.search>div>svg:active {
+    fill: rgb(177, 128, 206);
 
 }
-
 
 header>.user {
     width: 10%;
@@ -272,13 +278,14 @@ header>.user {
 
 }
 
-header .user div i {
+header .user div svg {
     font-size: 1.7rem;
-    color: #fff;
+    fill: #fff;
 
 }
-header .user div i:active {
-    color: rgb(177, 128, 206);
+
+header .user div svg:active {
+    fill: rgb(177, 128, 206);
 }
 
 header>.user>div {
@@ -295,21 +302,27 @@ header>.user>div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 15rem;
+    min-height: 20rem;
     background: #0f0f0f;
     display: flex;
     justify-content: space-evenly;
     color: #fff;
 }
 
+.banner p {
+    font-size: 3rem;
+    margin: 2rem 2rem;
+}
+
 .banner>.search {
-    width: 30%;
+    min-width: 30%;
     height: 2.5rem;
     border: 0.1rem solid #fff;
     border-radius: 25px;
     padding: 0rem 1.2rem;
     display: flex;
     justify-content: space-between;
+    margin: 2rem 2rem;
 
 }
 
@@ -339,12 +352,12 @@ header>.user>div {
 
 }
 
-.banner>.search>div>i {
-    color: #fff;
+.banner>.search>div>svg {
+    fill: #fff;
 }
 
-.banner>.search>div>i:active {
-    color: rgb(177, 128, 206);
+.banner>.search>div>svg:active {
+    fill: rgb(177, 128, 206);
 
 }
 
@@ -362,42 +375,48 @@ header>.user>div {
     margin: 1rem 1rem;
     width: 60%;
     display: none;
-    background: #a0989825;
+    background: #c1c1c117;
     font-size: 1.1rem;
+    line-height: 1.8rem;
+    color: #0f0f0f;
 }
-.layout{
+
+.layout {
     min-height: 100vh;
     width: 100%;
     /* min-width: 80vw; */
     display: flex;
     flex-direction: row;
-    justify-content:space-around;
+    justify-content: space-around;
 
 }
-.layout .catalogue{
-    width:20vw;
-    min-height:100vh ;
+
+.layout .catalogue {
+    width: 20vw;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     background: rgba(142, 138, 145, 0.332);
-    writing-mode:vertical-lr;
+    writing-mode: vertical-lr;
     font-size: 3rem;
     letter-spacing: 1.2rem;
 }
-.layout .label{
-    width:20vw;
-    min-height:100vh ;
+
+.layout .label {
+    width: 20vw;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     background: rgba(142, 138, 145, 0.332);
-    writing-mode:vertical-lr;
+    writing-mode: vertical-lr;
     font-size: 3rem;
     letter-spacing: 1.2rem;
 }
+
 .layout .content {
     min-height: 100vh;
     width: 40vw;
@@ -406,7 +425,7 @@ header>.user>div {
     justify-content: start;
     align-items: center;
     font-size: 1.3rem;
-    line-height: 2.5rem;
+    line-height: 2rem;
     align-items: center;
 }
 
@@ -443,21 +462,23 @@ code {
 }
 
 .paging {
-    display:flex;
+    display: flex;
     justify-content: space-evenly;
     font-size: 1.1rem;
     min-width: 20vw;
     margin: 1rem 2rem;
     align-items: center;
 }
-.paging>.previous-page{
+
+.paging>.previous-page {
     width: 6rem;
     border-radius: 0.5rem;
     background: #0f0f0f;
     color: #fff;
 
 }
-.paging>.next-page{
+
+.paging>.next-page {
     width: 6rem;
     border-radius: 0.5rem;
     background: #0f0f0f;
@@ -465,7 +486,7 @@ code {
 
 }
 
-.paging>.paging-index{
+.paging>.paging-index {
     margin: 1rem 1rem;
     min-width: 20%;
     display: flex;
@@ -473,27 +494,30 @@ code {
     align-items: center;
 }
 
-.paging>.paging-index> .button_off{
+.paging>.paging-index>.button_off {
     width: 2rem;
     border-radius: 0.5rem;
     background: #0f0f0f;
     color: #fff;
 
 }
-.paging>.paging-index>.button_off:hover{
 
-    background:#fff;
-    color:  #0f0f0f;
+.paging>.paging-index>.button_off:hover {
+
+    background: #fff;
+    color: #0f0f0f;
 
 }
-.paging>.paging-index>.button_on{
+
+.paging>.paging-index>.button_on {
     width: 2rem;
     border-radius: 0.5rem;
 
-    background:#fff;
-    color:  #0f0f0f;
+    background: #fff;
+    color: #0f0f0f;
 
 }
+
 /* .paging>.paging-index>.button_on:hover{
     background: #0f0f0f;
     color: #fff;
@@ -502,15 +526,17 @@ code {
 
 
 
-.paging>.next-page:active{
-    
+.paging>.next-page:active {
+
     background: #fff;
     color: #0f0f0f;
 }
-.paging>.previous-page:active{
+
+.paging>.previous-page:active {
     background: #fff;
     color: #0f0f0f;
 }
+
 .sbottom {
     width: 100%;
     height: 4rem;
@@ -547,18 +573,21 @@ code {
     .content {
         width: 80vw;
     }
-    .layout .catalogue{
+
+    .layout .catalogue {
         display: none;
 
     }
-    .layout .label{
+
+    .layout .label {
         display: none;
 
     }
+
     .layout .content {
 
         width: 85vw;
-     
+
     }
 
 
@@ -574,23 +603,44 @@ code {
         width: 95vw;
     }
 }
-@keyframes fade-in {  
-    0% {opacity: 0;}/*初始状态 透明度为0*/  
-    50% {opacity: 0;}/*过渡状态 透明度为0*/  
-    100% {opacity: 1;}/*结束状态 透明度为1*/  
-}  
-@-webkit-keyframes fade-in {/*针对webkit内核*/  
-    0% {opacity: 0;}  
-    50% {opacity: 0;}  
-    100% {opacity: 1;}  
-}  
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    /*初始状态 透明度为0*/
+    50% {
+        opacity: 0;
+    }
+
+    /*过渡状态 透明度为0*/
+    100% {
+        opacity: 1;
+    }
+
+    /*结束状态 透明度为1*/
+}
+
+@-webkit-keyframes fade-in {
+
+    /*针对webkit内核*/
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /* #wrapper {    
     
 }  */
 /* 短作业/优先级 */
 /*定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸*/
-
-
-
- 

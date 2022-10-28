@@ -14,7 +14,7 @@ function create(text, index) {
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
 		sessionStorage.setItem('item', index);
-		window.location.href = "./html/index.html"
+		window.location.href = "./html/content.html"
 	})
 	return temp;
 }
