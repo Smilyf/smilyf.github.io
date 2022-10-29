@@ -1,8 +1,11 @@
 "use strict";
 
 var article_json;
+//每页的文章数量
 var pages = 1
+//分页个数
 var page_num = 1
+//文章数
 var length = 0
 function create(text, index) {
 	let temp = document.createElement("div")

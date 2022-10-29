@@ -689,6 +689,9 @@ code {
     /* header>.user {
         width: 10%;
     } */
+    header>.user>div{
+        width: 200%;
+    }
 
 }
 
