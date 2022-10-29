@@ -1,0 +1,73 @@
+html {
+    font-size: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    max-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: stretch;
+    align-items: center;
+}
+.content{
+    width: 60vw;
+    height: 30rem;
+    background: black;
+}
+header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 4rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background:  #000000;
+    border-bottom: 0.15rem solid  #fff;
+    z-index: 9;
+}
+header .logos {
+    margin-left: 15%;
+    width: 30%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+}
+header>.logos>.logo-a{
+    display:flex;
+    height: 90%;
+    flex-direction: column;
+    justify-content:end;
+    width: 85%;
+
+}
+header>.logos a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #fff;
+    letter-spacing: 0.2rem;
+}
+
+header .logos .image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 90%;
+
+}
+header .logos .image>img{
+    height: 100%;
+}

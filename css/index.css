@@ -14,6 +14,7 @@ html {
 
 .body {
     max-width: 100vw;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -37,22 +38,40 @@ header {
 
 
 header .logos {
-    margin: 0 1rem;
-    max-width: 10%;
+    height: 90%;
+    min-width: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
+header>.logos>.logo-a{
+    display:flex;
+    height: 90%;
+    flex-direction: column;
+    justify-content:end;
+    width: 30%;
 
-header .logos>a {
+}
+header>.logos a {
     text-decoration: none;
-    font-weight: 600;
-    font-size: 2rem;
-    color: #ffffff;
-    letter-spacing: 0.3rem;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #fff;
+    letter-spacing: 0.2rem;
 }
 
+header .logos .image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 90%;
+
+}
+header .logos .image>img{
+    height: 100%;
+}
 
 
 header>.navigation-simplify {
@@ -138,6 +157,7 @@ header>.navigation {
     justify-items: stretch;
     align-items: center;
     text-align: center;
+
 
 }
 
@@ -270,12 +290,13 @@ header>.search>div>svg:active {
 }
 
 header>.user {
-    width: 8%;
+    min-width: 8%;
     height: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 
 }
 
