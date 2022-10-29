@@ -36,23 +36,23 @@ header {
 }
 
 
-
 header .logos {
     height: 90%;
-    min-width: 15%;
+    min-width: 10%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-header>.logos>.logo-a{
-    display:flex;
-    height: 90%;
-    flex-direction: column;
     justify-content:end;
-    width: 30%;
-
+    align-items: center;
+    /* background: red; */
 }
+
+header>.logos>.logo-a {
+    display: flex;
+    height: 3rem;
+    flex-direction: column;
+    justify-content: end;
+    width: 50%;
+}
+
 header>.logos a {
     text-decoration: none;
     font-weight: 500;
@@ -61,15 +61,17 @@ header>.logos a {
     letter-spacing: 0.2rem;
 }
 
-header .logos .image{
+header .logos .image {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20%;
+    width: 2.5rem;
     height: 90%;
 
+
 }
-header .logos .image>img{
+
+header .logos .image>img {
     height: 100%;
 }
 
@@ -147,6 +149,7 @@ header .navigation-simplify>div>div>div {
 header .navigation-simplify>div>div:hover {
     background: rgba(148, 154, 199, 0.377);
 }
+
 header>.navigation {
 
     height: 100%;
@@ -157,6 +160,7 @@ header>.navigation {
     justify-items: stretch;
     align-items: center;
     text-align: center;
+    /* background: blue; */
 
 
 }
@@ -252,6 +256,7 @@ header>.search {
     padding: 0rem 1.2rem;
     display: flex;
     justify-content: space-between;
+    /* background: green; */
 }
 
 header>.search>div {
@@ -289,33 +294,85 @@ header>.search>div>svg:active {
 
 }
 
+
+
 header>.user {
-    min-width: 8%;
-    height: 3rem;
+    width: 10%;
+    height: 3.2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
-}
-
-header .user div svg {
-    font-size: 1.7rem;
-    fill: #fff;
-
-}
-
-header .user div svg:active {
-    fill: rgb(177, 128, 206);
+    position: relative;
+    justify-items: stretch;
+    text-align: center;
+    border: 0.2rem solid #0f0f0f;
+    /* background: pink; */
 }
 
 header>.user>div {
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    position: absolute;
+    right:  0rem;
+    top: 3rem;
+    display: none;
+    min-height: 4rem;
+    width: 100%;
+    background: #030303da;
+    border: 0.1rem solid #fff;
+    border-radius: 0.5rem;
+    text-align: center;
 
+}
+
+header>.user:hover>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    animation-name: fade-in;
+    /*动画名称*/
+    animation-duration: 0.6s;
+    /*动画持续时间*/
+    -webkit-animation-name: fade-in;
+    /*针对webkit内核*/
+
+
+}
+
+header>.user:hover {
+    background: rgba(114, 120, 158, 0.5);
+    border-radius: 0.8rem;
+
+}
+
+header>.user svg {
+    fill: #fff;
+    font-size: 1.7rem;
+}
+
+header .user>div>div {
+    margin: 0.6rem 0rem;
+    width: 80%;
+    /* height: 2.5rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+}
+
+header .user>div>div>div {
+    width: 100%;
+    /* border-left: 0.3rem solid #fff; */
+    /* background: red; */
+    margin: 0.5rem 0.5rem;
+}
+
+header .user>div>div:hover {
+    background: rgba(148, 154, 199, 0.377);
+}
+header a{
+   font-weight: 200;
 }
 
 .banner {
@@ -337,7 +394,7 @@ header>.user>div {
 }
 
 .banner>.search {
-    min-width: 30%;
+    min-width: 25%;
     height: 2.5rem;
     border: 0.1rem solid #fff;
     border-radius: 25px;
@@ -494,6 +551,7 @@ code {
 
 .paging>.previous-page {
     width: 6rem;
+    height: 2rem;
     border-radius: 0.5rem;
     background: #0f0f0f;
     color: #fff;
@@ -502,6 +560,7 @@ code {
 
 .paging>.next-page {
     width: 6rem;
+    height: 2rem;
     border-radius: 0.5rem;
     background: #0f0f0f;
     color: #fff;
@@ -518,6 +577,7 @@ code {
 
 .paging>.paging-index>.button_off {
     width: 2rem;
+    height: 2rem;
     border-radius: 0.5rem;
     background: #0f0f0f;
     color: #fff;
@@ -533,6 +593,7 @@ code {
 
 .paging>.paging-index>.button_on {
     width: 2rem;
+    height: 2rem;
     border-radius: 0.5rem;
 
     background: #fff;
@@ -611,6 +672,7 @@ code {
         width: 85vw;
 
     }
+ 
 
 
 }
@@ -624,6 +686,10 @@ code {
     .content-show {
         width: 95vw;
     }
+    /* header>.user {
+        width: 10%;
+    } */
+
 }
 
 @keyframes fade-in {

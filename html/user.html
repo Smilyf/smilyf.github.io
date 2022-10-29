@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/user.css">
+    <script  src="../js/user.js"></script>
     <title>用户</title>
+
 </head>
 
 <body>
@@ -15,14 +17,42 @@
         <header>
             <div class="logos">
                 <div class="image"><img src="../images/picwish1.png" alt=""></div>
-                <div class="logo-a"><a href="">YAM</a></div>
+                <div class="logo-a"><a href="../index.html">YAM</a></div>
             </div>
         </header>
-        <div class="content">
-            <form action="">
-                <div><input type="text"></div>
-                <div><input type="text"></div>
-            </form>
+        <div class="center">
+            <h1>YAM 帐号登录</h1>
+            <div class="content">
+                <div class="c-left">
+
+                </div>
+                <div class="c-center">
+
+                </div>
+                <div class="c-right">
+                    <form action="/action_page.php">
+                        <!-- <label for="fname">First Name</label> -->
+                        <input type="text" id="fname" name="firstname" placeholder="手机号/邮箱地址/用户名" minlength="2"
+                            maxlength="24">
+
+                        <!-- <label for="lname">Last Name</label> -->
+                        <input type="password" id="lname" name="lastname" placeholder="密码" minlength="6" maxlength="18">
+                        <div>
+                            <a href="">短信验证码登录</a>
+                        </div>
+                        <input type="submit" value="登录">
+
+                    </form>
+                    <div> <a href="" id="register">注册</a><a href="">忘记密码</a><a href="">遇到问题</a></div>
+                  
+                       
+                </div>
+
+            </div>
+            <div style="max-width: 100%; max-height:30vh;"></div>
+        </div>
+
+        <div class="sbottom">
         </div>
 
     </div>

@@ -13,14 +13,9 @@ html {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     justify-items: stretch;
     align-items: center;
-}
-.content{
-    width: 60vw;
-    height: 30rem;
-    background: black;
 }
 header {
     position: fixed;
@@ -30,10 +25,11 @@ header {
     display: flex;
     justify-content: start;
     align-items: center;
-    background:  #000000;
-    border-bottom: 0.15rem solid  #fff;
+    background: #000000;
+    border-bottom: 0.15rem solid #fff;
     z-index: 9;
 }
+
 header .logos {
     margin-left: 15%;
     width: 30%;
@@ -44,14 +40,16 @@ header .logos {
     align-items: center;
 
 }
-header>.logos>.logo-a{
-    display:flex;
+
+header>.logos>.logo-a {
+    display: flex;
     height: 90%;
     flex-direction: column;
-    justify-content:end;
+    justify-content: end;
     width: 85%;
 
 }
+
 header>.logos a {
     text-decoration: none;
     font-weight: 500;
@@ -60,7 +58,7 @@ header>.logos a {
     letter-spacing: 0.2rem;
 }
 
-header .logos .image{
+header .logos .image {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,6 +66,148 @@ header .logos .image{
     height: 90%;
 
 }
-header .logos .image>img{
+
+header .logos .image>img {
     height: 100%;
+}
+
+.center {
+    max-width: 60vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    justify-items: stretch;
+    align-items: center;
+    /* background: #000000; */
+
+
+}
+
+.content {
+    width: 60vw;
+    height: 25rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.content .c-left {
+    width: 45%;
+    height: 100%;
+    background: rgb(158, 158, 158);
+
+}
+
+.content .c-center {
+    width: 0.1rem;
+    height: 100%;
+    background-color: #b7b6b6;
+
+}
+
+.content .c-right {
+    width: 45%;
+    height: 100%;
+    /* background: green; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+
+}
+
+
+
+form {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    
+    /* background: rebeccapurple; */
+}
+form a{
+    text-decoration: none;
+    color: rgb(161, 0, 159);
+}
+form>div{
+    display: flex;
+    justify-content: safe;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    /* background: #000000; */
+}
+
+input[type=text],input[type=password],
+select {
+    width: 100%;
+    padding:  1rem  1rem;
+    margin: 1rem 0;
+    /* display: inline-block; */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: rgba(231, 231, 231, 0.875);
+
+}
+
+input[type=submit] {
+    width: 80%;
+    background: #000000;
+    color: white;
+    padding:  1rem  1rem;
+    margin: 1rem 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: rgb(135, 133, 133);
+    color: black;
+}
+.sbottom {
+    width: 100%;
+    height: 4rem;
+    position: fixed;
+    bottom: 0;
+    background: #181717f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:991px) {
+    .content {
+        width: 80vw;
+
+    }
+
+}
+
+/*屏幕宽度小于600px,改变布局和样式*/
+@media screen and (max-width:600px) {
+    .content {
+        width: 90vw;
+    }
+
+    .content .c-left {
+        display: none;
+    }
+
+    .content .c-center {
+        display: none;
+    }
+
+    .content .c-right {
+        width: 100%;
+    }
+
 }
