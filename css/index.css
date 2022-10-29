@@ -38,7 +38,7 @@ header {
 
 header .logos {
     margin: 0 1rem;
-    max-width: 12%;
+    max-width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -270,7 +270,7 @@ header>.search>div>svg:active {
 }
 
 header>.user {
-    width: 5%;
+    width: 8%;
     height: 3rem;
     display: flex;
     flex-direction: column;
