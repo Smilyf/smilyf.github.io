@@ -10,12 +10,13 @@ html {
 
 .body {
     max-width: 100vw;
-    min-height: 100vh;
+   max-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: start;
     justify-items: stretch;
     align-items: center;
+    /* background: rebeccapurple; */
 }
 
 header {
@@ -73,26 +74,31 @@ header .logos .image>img {
 }
 
 .center {
+    margin-top: 4rem;
     max-width: 60vw;
     height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: start;
     justify-items: stretch;
     align-items: center;
-    /* background: #000000; */
-
-
+    /* background: red; */
 }
-
+.title{
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 1rem;
+}
 .content {
     width: 60vw;
-    height: 20rem;
+    height:20rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-
+    /* background: blue; */
 }
 
 .content .c-left {
@@ -191,8 +197,8 @@ input[type=submit]:hover {
 .sbottom {
     width: 100%;
     height: 4rem;
-    position: fixed;
-    bottom: 0;
+    /* position: fixed;
+    bottom: 0; */
     background: #181717f1;
     display: flex;
     justify-content: center;
