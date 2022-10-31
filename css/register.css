@@ -40,7 +40,8 @@ header .logos {
     display: flex;
     flex-direction: row;
     justify-content: start;
-    align-items: center;   
+    align-items: center;
+
 }
 
 header>.logos>.logo-a {
@@ -56,8 +57,6 @@ header>.logos a {
     font-size: 1.5rem;
     color: #fff;
     letter-spacing: 0.2rem;
- 
-
 }
 
 header .logos .image {
@@ -75,15 +74,14 @@ header .logos .image>img {
 
 .center {
     margin-top: 4rem;
-    width: 90%;
     height: 40rem;
+    width: 40rem;
     display: flex;
     flex-direction: column;
     justify-content: start;
     justify-items: stretch;
     align-items: center;
     /* background: red; */
-  
    
 }
 .layout{
@@ -92,64 +90,25 @@ header .logos .image>img {
     display: flex;
     justify-content: center;
     align-items: center;
-  
-    
-
+    /* background: blueviolet; */
+ 
 }
 .title{
     height: 20%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     margin: 1rem 1rem;
 }
 .content {
-    /* width: 90%; */
-    width: 60rem;
+    width:100%;
     height:20rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
- 
-   
-}
-
-.content .c-left {
-    width: 45%;
-    height: 100%;
-    /* background: rgb(158, 158, 158); */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
-
-}
-.content .c-left .er{
-    width: 15rem;
-    height: 15rem;
-    background: #ccc;
-
-}
-
-.content .c-center {
-    width: 0.1rem;
-    height: 100%;
-    background-color: #ccc;
-
-}
-
-.content .c-right {
-    width: 45%;
-    height: 100%;
-    /* background: green; */
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    /* background: blueviolet; */
-
-
+    
 }
 
 
@@ -214,10 +173,7 @@ input[type=submit]:hover {
     width:100%;
     height:10%;
     background: #181717f1;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    /* z-index: 10; */
+
 }
 
 .more {
@@ -237,43 +193,13 @@ input[type=submit]:hover {
 
 
 @media screen and (max-width:991px) {
-    .content {
-        width: 80vw
-    }
-    .content {
-        width: 90vw;
-    }
 
-    .content .c-left {
-        display: none;
-    }
-
-    .content .c-center {
-        display: none;
-    }
-
-    .content .c-right {
-        width: 100%;
-    }
 
 }
 
 /*屏幕宽度小于600px,改变布局和样式*/
 @media screen and (max-width:600px) {
-    .content {
+    .center{
         width: 90vw;
     }
-
-    .content .c-left {
-        display: none;
-    }
-
-    .content .c-center {
-        display: none;
-    }
-
-    .content .c-right {
-        width: 100%;
-    }
-
 }

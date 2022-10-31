@@ -13,8 +13,7 @@ html {
 }
 
 .body {
-    max-width: 100vw;
-    min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -25,7 +24,7 @@ html {
 header {
     position: fixed;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: 4rem;
     display: flex;
     justify-content: space-evenly;
@@ -50,7 +49,9 @@ header>.logos>.logo-a {
     height: 3rem;
     flex-direction: column;
     justify-content: end;
-    width: 50%;
+    justify-items: stretch;
+    align-items:stretch;
+  
 }
 
 header>.logos a {
@@ -188,6 +189,7 @@ header a {
     font-weight: 750;
     font-size: 1.4rem;
     letter-spacing: 0.2rem;
+    /* background: red; */
 
 }
 
@@ -242,7 +244,14 @@ header .navigation>div>div>div {
 header .navigation>div>div>div>div {
     width: 85%;
     border-left: 0.3rem solid #fff;
+    display: flex;
+    flex-direction: column;
+    justify-items:stretch;
+    align-items:stretch;
+   
+   
 }
+
 
 header .navigation>div>div>div:hover {
     background: rgba(148, 154, 199, 0.377);
@@ -331,7 +340,7 @@ header>.user:hover>div {
     justify-content: space-evenly;
     animation-name: fade-in;
     /*动画名称*/
-    animation-duration: 0.6s;
+    animation-duration: 0.3s;
     /*动画持续时间*/
     -webkit-animation-name: fade-in;
     /*针对webkit内核*/
@@ -357,22 +366,27 @@ header .user>div>div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    justify-items: stretch;
+    /* align-items: stretch; */
     border-radius: 0.2rem;
+    /* background: green; */
 }
 
 header .user>div>div>div {
-    width: 100%;
-    /* border-left: 0.3rem solid #fff; */
-    /* background: red; */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: stretch;
+    /* border-left: 0.3rem solid #fff;  */
     margin: 0.5rem 0.5rem;
+  
+   
 }
 
 header .user>div>div:hover {
     background: rgba(148, 154, 199, 0.377);
-}
-header a{
-   font-weight: 200;
 }
 
 .banner {
@@ -381,7 +395,7 @@ header a{
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 20rem;
+    height: 20rem;
     background: #0f0f0f;
     display: flex;
     justify-content: space-evenly;

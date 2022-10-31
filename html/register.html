@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/register.css">
     <link rel="shortcut icon" href="../images/YY.ico" type="image/x-icon">
-    <script  src="../js/login.js"></script>
-    <title>用户登录</title>
+    <title>用户注册</title>
 
 </head>
 
@@ -18,21 +17,20 @@
             <div class="logos">
                 <div class="image"><img src="../images/picwish1.png" alt=""></div>
                 <div class="logo-a"><a href="../index.html">YAM</a></div>
-                
             </div>
         </header>
         <div class="layout">
             <div class="center">
                 <div class="title">
-                 <h1>YAM 帐号登录</h1>
+                    <div>
+                        <h1>YAM 帐号注册</h1>
+                    </div>
+                 <div>
+                     <span>已有帐号 </span><a href="./login.html">去登录></a>
+                 </div>
                 </div>
                  <div class="content">
-                     <div class="c-left">
-                         <div class="er"></div>
-                     </div>
-                     <div class="c-center">
-                     </div>
-                     <div class="c-right">
+    
                          <form action="">
                              <!-- <label for="fname">First Name</label> -->
                              <input type="text" id="fname" name="firstname" placeholder="手机号/邮箱地址/用户名" minlength="2"
@@ -40,23 +38,16 @@
      
                              <!-- <label for="lname">Last Name</label> -->
                              <input type="password" id="lname" name="lastname" placeholder="密码" minlength="6" maxlength="18">
-                             <div>
-                                 <a href="">短信验证码登录</a>
-                             </div>
+                             <input type="password" id="lnames" name="lastname" placeholder="确认密码" minlength="6" maxlength="18">
+                             
                              <input type="submit" value="登录">
      
                          </form>
-                         <div class="more"> <a href="./register.html" id="register">注册</a><div></div><a href="">忘记密码</a><div></div><a href="">遇到问题</a></div>
-                     </div>
                  </div>
-                
+             </div>
         </div>
-        </div>
-         
-
         <div class="sbottom">
         </div>
     </div>
 </body>
-
 </html>
