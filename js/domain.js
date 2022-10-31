@@ -2,22 +2,22 @@
 
 var article_json;
 //每页的文章数量
-var pages = 4
+var pages = 1
 //分页个数
 var page_num = 1
 //文章数
 var length = 0
 function create(text, index) {
 	let temp = document.createElement("div")
-	let h1 = document.createElement("h1")
-	h1.innerHTML = marked.parse(text[index]["title"])
+	let p = document.createElement("p")
+	p.innerHTML = marked.parse(text[index]["title"])
 	let p1 = document.createElement("p")
 	p1.innerHTML = marked.parse(text[index]["content"])
-	temp.appendChild(h1)
+	temp.appendChild(p)
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
 		sessionStorage.setItem('item', index);
-		window.location.href = "./html/content.html"
+		window.location.href = "../html/content.html"
 	})
 	return temp;
 }
@@ -52,7 +52,7 @@ function init_page(buttons) {
 }
 window.addEventListener('load', () => {
 	var art = document.querySelector(".content")
-	let url = "./article/article.json"
+	let url = "../article/article.json"
 	fetch(url)
 		.then((data) => {
 			return data.json()

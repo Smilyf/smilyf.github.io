@@ -42,7 +42,7 @@ header .logos {
     height: 90%;
     min-width: 10%;
     display: flex;
-    justify-content:end;
+    justify-content: end;
     align-items: center;
     /* background: red; */
 }
@@ -53,8 +53,8 @@ header>.logos>.logo-a {
     flex-direction: column;
     justify-content: end;
     justify-items: stretch;
-    align-items:stretch;
-  
+    align-items: stretch;
+
 }
 
 header>.logos a {
@@ -183,7 +183,7 @@ header>.navigation>div {
     border: 0.2rem solid #0f0f0f;
     z-index: 10;
     text-align: center;
-   
+
 }
 
 header a {
@@ -250,10 +250,10 @@ header .navigation>div>div>div>div {
     border-left: 0.3rem solid #fff;
     display: flex;
     flex-direction: column;
-    justify-items:stretch;
-    align-items:stretch;
-   
-   
+    justify-items: stretch;
+    align-items: stretch;
+
+
 }
 
 
@@ -271,12 +271,14 @@ header>.search {
     justify-content: space-between;
     /* background: green; */
 }
-header>.search>.input-{
+
+header>.search>.input- {
     width: 85%;
     height: 100%;
 
 }
-header>.search>.image-{
+
+header>.search>.image- {
     width: 10%;
     height: 100%;
     display: flex;
@@ -311,7 +313,7 @@ header>.search>.input->input {
     background: #0f0f0f;
     color: rgb(255, 255, 255);
     margin: 0.1rem 0.1rem;
-   
+
 }
 
 header>.search>.image->svg {
@@ -341,7 +343,7 @@ header>.user {
 
 header>.user>div {
     position: absolute;
-    right:  0rem;
+    right: 0rem;
     top: 3rem;
     display: none;
     min-height: 4rem;
@@ -393,7 +395,7 @@ header .user>div>div {
 }
 
 header .user>div>div>div {
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -401,116 +403,20 @@ header .user>div>div>div {
     align-items: stretch;
     /* border-left: 0.3rem solid #fff;  */
     margin: 0.5rem 0.5rem;
-  
-   
+
+
 }
 
 header .user>div>div:hover {
     background: rgba(148, 154, 199, 0.377);
 }
 
-.banner {
-    width: 100%;
-    padding: 4rem 0rem 0rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 25rem;
-    background: #0f0f0f;
-    display: flex;
-    justify-content: space-evenly;
-    color: #fff;
-   
-}
-.banner>.description{
-    width: 50%;
-    margin-top: 1rem;
-    min-height: 9rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-   
-}
-.banner>.description h1{
-    font-size: 3.5rem;
-    font-weight: 100;
-    letter-spacing: 0.5rem;
-    line-height: 4.5rem;
-    color: rgba(255, 255, 255, 0.936);
-    
-}
-.banner>.description h3{
-    font-size: 1.5rem;
-    font-weight:lighter;
-    letter-spacing: 0.1rem;
-    line-height: 2rem;
-}
-
-
-.banner>.search {
-    min-width: 25%;
-    height: 2.5rem;
-    border: 0.1rem solid #fff;
-    border-radius: 25px;
-    padding: 0rem 1.2rem;
-    display: flex;
-    justify-content: space-between;
-    margin: 2rem 2rem;
-
-}
-
-.banner>.search>.input-{
-
-    width: 85%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.banner>.search>.image-{
-
-    width: 10%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-
-.banner>.search>.image->input::placeholder {
-
-    font-size: 1.1em;
-    color: #fff;
-   
-}
-
-.banner>.search>.input->input {
-
-    width: 100%;
-    height: 80%;
-    outline: none;
-    border: 0;
-    background: #0f0f0f;
-    color: rgb(255, 255, 255);
-}
-
-.banner>.search>.image->svg {
-    fill: #fff;
-}
-
-.banner>.search>.image->svg:active {
-    fill: rgb(177, 128, 206);
-
-}
-
-
-
 
 .banner-show {
     width: 100%;
     height: 4rem;
 }
+
 
 .content-show {
     padding: 1rem 1rem;
@@ -524,191 +430,8 @@ header .user>div>div:hover {
     color: #0f0f0f;
 }
 
-.layout {
-    min-height: 100vh;
-    width: 100%;
-    /* min-width: 80vw; */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-
-}
-
-.layout .catalogue {
-    width: 20vw;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(142, 138, 145, 0.332);
-    writing-mode: vertical-lr;
-    font-size: 3rem;
-    letter-spacing: 1.2rem;
-}
-
-.layout .label {
-    width: 20vw;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(142, 138, 145, 0.332);
-    writing-mode: vertical-lr;
-    font-size: 3rem;
-    letter-spacing: 1.2rem;
-}
-
-.layout .content {
-    min-height: 90vh;
-    width: 60vw;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(auto-fill, 1fr);
-    grid-row-gap: 1rem;
-    grid-column-gap:1rem;
-    justify-content:space-evenly;
-    align-content: flex-start;
-    justify-items: center;
-    align-items: center;
-}
-
-.layout .content>div {
-    width: 100%;
-    height: 15rem;
-    padding: 1rem 1rem;
-    border: 0.01rem solid #807979;
-    border-radius: 0.8rem;
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.05rem rgba(0, 0, 0, 0.123);
-    background:rgb(255, 255, 255) ;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-}
-
-.layout .content>div>p {
-    width: 100%;
-    font-size: 1.3rem;
-    line-height: 2rem;
-    height: calc(4*2rem);
-    overflow: hidden;
-    position: relative;
-}
-.layout .content>div>p::after {
-    background: linear-gradient(to right,rgba(255, 255, 255, 0.466),rgba(255, 255, 255, 0.829),rgb(255, 255, 255));
-    content: "";
-    display: block;
-    height: 2rem;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 50%;
-    
-}
-
-
-.layout .content>div:hover {
-    box-shadow: 0.1rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.329);
-}
-
-.banner .image {
-    max-width: 100%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.banner .image>img {
-    padding: 2% 2%;
-    max-width: 80%;
-}
-
 code {
     border-radius: 0.3rem;
-}
-
-.paging {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 1.1rem;
-    min-width: 20vw;
-    margin: 1rem 2rem;
-    align-items: center;
-}
-
-.paging>.previous-page {
-    width: 6rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-    background: #0f0f0f;
-    color: #fff;
-
-}
-
-.paging>.next-page {
-    width: 6rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-    background: #0f0f0f;
-    color: #fff;
-
-}
-
-.paging>.paging-index {
-    margin: 1rem 1rem;
-    min-width: 20%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.paging>.paging-index>.button_off {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-    background: #0f0f0f;
-    color: #fff;
-
-}
-
-.paging>.paging-index>.button_off:hover {
-
-    background: #fff;
-    color: #0f0f0f;
-
-}
-
-.paging>.paging-index>.button_on {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-
-    background: #fff;
-    color: #0f0f0f;
-
-}
-
-/* .paging>.paging-index>.button_on:hover{
-    background: #0f0f0f;
-    color: #fff;
-} */
-
-
-
-
-.paging>.next-page:active {
-
-    background: #fff;
-    color: #0f0f0f;
-}
-
-.paging>.previous-page:active {
-    background: #fff;
-    color: #0f0f0f;
 }
 
 .sbottom {
@@ -719,7 +442,6 @@ code {
     justify-content: center;
     align-items: center;
 }
-
 
 /*屏幕宽度小于991px,改变布局和样式*/
 @media screen and (max-width:991px) {
@@ -743,47 +465,16 @@ code {
         display: flex;
 
     }
-
-    .content {
-        width: 80vw;
-    }
-
-    .layout .catalogue {
-        display: none;
-
-    }
-
-    /* .layout .label {
-        display: none;
-
-    }
-
-    .layout .content {
-
-        width: 85vw;
-
-    } */
-    .banner>.description{
-        width: 90%;
-    }
- 
-
-
 }
 
 /*屏幕宽度小于600px,改变布局和样式*/
 @media screen and (max-width:600px) {
-    .content {
-        width: 90vw;
-    }
 
     .content-show {
         width: 95vw;
     }
-    /* header>.user {
-        width: 10%;
-    } */
-    header>.user>div{
+
+    header>.user>div {
         width: 200%;
     }
 
