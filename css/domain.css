@@ -756,7 +756,8 @@ code {
         display: none;
 
     }
-    .label .label{
+    
+    .layout .label {
         display: none;
     }
 
