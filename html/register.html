@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/register.css">
     <link rel="shortcut icon" href="../images/YY.ico" type="image/x-icon">
+    <script  src="../js/register.js"></script>
     <title>用户注册</title>
 
 </head>
@@ -25,29 +26,34 @@
                     <div>
                         <h1>YAM 帐号注册</h1>
                     </div>
-                 <div>
-                     <span>已有帐号 </span><a href="./login.html">去登录></a>
-                 </div>
+                    <div>
+                        <span>已有帐号 </span><a href="./login.html">去登录></a>
+                    </div>
                 </div>
-                 <div class="content">
-    
-                         <form action="">
-                             <!-- <label for="fname">First Name</label> -->
-                             <input type="text" id="fname" name="firstname" placeholder="手机号/邮箱地址/用户名" minlength="2"
-                                 maxlength="24">
-     
-                             <!-- <label for="lname">Last Name</label> -->
-                             <input type="password" id="lname" name="lastname" placeholder="密码" minlength="6" maxlength="18">
-                             <input type="password" id="lnames" name="lastname" placeholder="确认密码" minlength="6" maxlength="18">
-                             
-                             <input type="submit" value="登录">
-     
-                         </form>
-                 </div>
-             </div>
+                <div class="content">
+
+                    <form action="">
+                        <!-- <label for="fname">First Name</label> -->
+                        <input type="text" id="username" name="firstname" placeholder="手机号/邮箱地址/用户名" minlength="2"
+                            maxlength="10">
+                        <span id="username-alert"> </span>
+                        <!-- <label for="lname">Last Name</label> -->
+                        <input type="password" id="password1" name="lastname" placeholder="密码" minlength="6" maxlength="18">
+                        <span id="password-alert1"></span>
+                        <input type="password" id="password2" name="lastname" placeholder="确认密码" minlength="6"
+                            maxlength="18">
+                        <span id="password-alert2"></span>
+                        <span id="password"></span>
+
+                        <input type="submit" value="登录">
+
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="sbottom">
         </div>
     </div>
 </body>
+
 </html>

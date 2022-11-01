@@ -28,22 +28,25 @@
                 </div>
                  <div class="content">
                      <div class="c-left">
-                         <div class="er"></div>
+                         <div class="er"> <span id="verification"></span></div>
                      </div>
                      <div class="c-center">
                      </div>
                      <div class="c-right">
+                       
                          <form action="">
                              <!-- <label for="fname">First Name</label> -->
-                             <input type="text" id="fname" name="firstname" placeholder="手机号/邮箱地址/用户名" minlength="2"
-                                 maxlength="24">
-     
+                            
+                             <input type="text" id="username" name="username" placeholder="手机号/邮箱地址/用户名" minlength="2"
+                                 maxlength="10">
+                               
                              <!-- <label for="lname">Last Name</label> -->
-                             <input type="password" id="lname" name="lastname" placeholder="密码" minlength="6" maxlength="18">
+                             <input type="password" id="password" name="password" placeholder="密码" minlength="6" maxlength="18">
+                           
                              <div>
                                  <a href="">短信验证码登录</a>
                              </div>
-                             <input type="submit" value="登录">
+                             <input id="submit" type="submit" value="登录">
      
                          </form>
                          <div class="more"> <a href="./register.html" id="register">注册</a><div></div><a href="">忘记密码</a><div></div><a href="">遇到问题</a></div>

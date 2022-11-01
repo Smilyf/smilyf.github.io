@@ -82,8 +82,8 @@ header .logos .image>img {
     justify-content: start;
     justify-items: stretch;
     align-items: center;
-    /* background: red; */
-  
+
+
    
 }
 .layout{
@@ -92,8 +92,6 @@ header .logos .image>img {
     display: flex;
     justify-content: center;
     align-items: center;
-  
-    
 
 }
 .title{
@@ -111,8 +109,6 @@ header .logos .image>img {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
- 
-   
 }
 
 .content .c-left {
@@ -153,7 +149,6 @@ header .logos .image>img {
 }
 
 
-
 form {
     width: 90%;
     height: 100%;
@@ -162,8 +157,9 @@ form {
     justify-content: space-evenly;
     align-items: center;
 
-    /* background: rebeccapurple; */
+    
 }
+
 
 a {
     text-decoration: none;
@@ -176,12 +172,11 @@ form>div {
     align-items: center;
     width: 100%;
     height: 10%;
-    /* background: #000000; */
 }
 
 input[type=text],
-input[type=password],
-select {
+input[type=password]
+ {
     width: 100%;
     padding: 1rem 1rem;
     margin: 1rem 0;
