@@ -528,9 +528,12 @@ header .user>div>div:hover {
     min-height: 100vh;
     width: 100%;
     /* min-width: 80vw; */
+    margin-top: 1.5rem;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    
 
 }
 
@@ -558,31 +561,59 @@ header .user>div>div:hover {
     writing-mode: vertical-lr;
     font-size: 3rem;
     letter-spacing: 1.2rem;
+   
 }
 
 .layout .content {
-    min-height: 100vh;
-    width: 40vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    font-size: 1.3rem;
-    line-height: 2rem;
+    min-height: 90vh;
+    width: 60vw;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-row-gap: 1rem;
+    grid-column-gap:1rem;
+    justify-content:space-evenly;
+    align-content: flex-start;
+    justify-items: center;
     align-items: center;
 }
 
 .layout .content>div {
-    width: 100%;
-    display: inline-block;
+    width: 90%;
+    height: 10rem;
     padding: 1rem 1rem;
-    margin: 0.5rem 1rem;
-    text-align: left;
-    border: 0.1rem solid #807979;
+    border: 0.01rem solid #807979;
     border-radius: 0.8rem;
-    /* overflow: hidden; */
     box-shadow: 0.1rem 0.1rem 0.1rem 0.05rem rgba(0, 0, 0, 0.123);
+    background:rgb(255, 255, 255) ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
 }
+
+.layout .content>div>p {
+    width: 100%;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    height: calc(4*2rem);
+    overflow: hidden;
+    position: relative;
+ 
+}
+.layout .content>div>p::after {
+    background: linear-gradient(to right,rgba(255, 255, 255, 0.466),rgba(255, 255, 255, 0.829),rgb(255, 255, 255));
+    content: "";
+    display: block;
+    height: 2rem;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    
+}
+
 
 .layout .content>div:hover {
     box-shadow: 0.1rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.329);
@@ -725,8 +756,11 @@ code {
         display: none;
 
     }
+    .label .label{
+        display: none;
+    }
 
-    .layout .label {
+    /* .layout .label {
         display: none;
 
     }
@@ -735,11 +769,15 @@ code {
 
         width: 85vw;
 
-    }
+    } */
     .banner>.description{
         width: 90%;
     }
- 
+    .layout .content {
+        width: 75%;
+        grid-template-columns: repeat(1, 1fr);
+
+    } 
 
 
 }
@@ -759,6 +797,11 @@ code {
     header>.user>div{
         width: 200%;
     }
+    .layout .content {
+        width: 90%;
+        /* grid-template-columns: repeat(1, 1fr); */
+
+    } 
 
 }
 

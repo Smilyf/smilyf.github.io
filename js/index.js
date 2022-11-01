@@ -16,8 +16,9 @@ function create(text, index) {
 	temp.appendChild(h1)
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
-		sessionStorage.setItem('item', index);
-		window.location.href = "./html/content.html"
+		// sessionStorage.setItem('item', index);
+		sessionStorage.setItem('domain', text[index]["label"]);
+		window.location.href = "./html/domain.html"
 	})
 	return temp;
 }
@@ -52,7 +53,7 @@ function init_page(buttons) {
 }
 window.addEventListener('load', () => {
 	var art = document.querySelector(".content")
-	let url = "./article/article.json"
+	let url = "./article/domain.json"
 	fetch(url)
 		.then((data) => {
 			return data.json()

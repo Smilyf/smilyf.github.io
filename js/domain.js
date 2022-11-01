@@ -9,11 +9,11 @@ var page_num = 1
 var length = 0
 function create(text, index) {
 	let temp = document.createElement("div")
-	let p = document.createElement("p")
-	p.innerHTML = marked.parse(text[index]["title"])
+	let h1 = document.createElement("h1")
+	h1.innerHTML = marked.parse(text[index]["title"])
 	let p1 = document.createElement("p")
 	p1.innerHTML = marked.parse(text[index]["content"])
-	temp.appendChild(p)
+	temp.appendChild(h1)
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
 		sessionStorage.setItem('item', index);
@@ -52,7 +52,7 @@ function init_page(buttons) {
 }
 window.addEventListener('load', () => {
 	var art = document.querySelector(".content")
-	let url = "../article/article.json"
+	let url = "../article/"+sessionStorage.getItem("domain")+"/article.json"
 	fetch(url)
 		.then((data) => {
 			return data.json()
@@ -141,3 +141,19 @@ window.addEventListener('load', () => {
 }
 
 )
+window.addEventListener("load",()=>{
+	let h1 = document.querySelector(".description>h1")
+	let h3 = document.querySelector(".description>h3")
+	let url = "../article/"+sessionStorage.getItem("domain")+"/description.json"
+	fetch(url)
+		.then((data) => {
+			return data.json()
+		})
+		.then((text) => {
+			
+			h1.innerHTML=marked.parse(text["1"]["title"])
+			h3.innerHTML=marked.parse(text["1"]["content"])
+		})
+
+			
+})
