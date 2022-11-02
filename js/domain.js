@@ -48,6 +48,11 @@ function init_page(buttons) {
 			j.click();
 			break;
 		}
+		else
+		{
+			buttons[0].click()
+			break;
+		}
 	}
 }
 window.addEventListener('load', () => {

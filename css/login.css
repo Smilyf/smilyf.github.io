@@ -42,12 +42,27 @@ header .logos {
     justify-content: start;
     align-items: center;   
 }
+header>.logos>.logo-a >.logo-top {
 
+    height: 50%;
+    width: 100%;
+    }
 header>.logos>.logo-a {
     display: flex;
     height: 90%;
     flex-direction: column;
     justify-content: end;
+}
+header>.logos>.logo-a>.logo-top {
+
+    height: 50%;
+    width: 100%;
+}
+
+header>.logos>.logo-a>.logo-buttom {
+
+    height: 50%;
+    width: 100%;
 }
 
 header>.logos a {

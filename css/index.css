@@ -42,9 +42,21 @@ header .logos {
     height: 90%;
     min-width: 10%;
     display: flex;
-    justify-content:end;
+    justify-content: end;
     align-items: center;
     /* background: red; */
+}
+
+header>.logos>.logo-a>.logo-top {
+
+    height: 50%;
+    width: 100%;
+}
+
+header>.logos>.logo-a>.logo-buttom {
+
+    height: 50%;
+    width: 100%;
 }
 
 header>.logos>.logo-a {
@@ -53,8 +65,8 @@ header>.logos>.logo-a {
     flex-direction: column;
     justify-content: end;
     justify-items: stretch;
-    align-items:stretch;
-  
+    align-items: stretch;
+
 }
 
 header>.logos a {
@@ -183,7 +195,7 @@ header>.navigation>div {
     border: 0.2rem solid #0f0f0f;
     z-index: 10;
     text-align: center;
-   
+
 }
 
 header a {
@@ -232,6 +244,15 @@ header .navigation>div>div {
     border: 0.1rem solid #fff;
     border-radius: 0.5rem;
     text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    animation-name: fade-in;
+    /*动画名称*/
+    animation-duration: 0.6s;
+    /*动画持续时间*/
+    -webkit-animation-name: fade-in;
+    /*针对webkit内核*/
 }
 
 header .navigation>div>div>div {
@@ -250,10 +271,10 @@ header .navigation>div>div>div>div {
     border-left: 0.3rem solid #fff;
     display: flex;
     flex-direction: column;
-    justify-items:stretch;
-    align-items:stretch;
-   
-   
+    justify-items: stretch;
+    align-items: stretch;
+
+
 }
 
 
@@ -271,12 +292,14 @@ header>.search {
     justify-content: space-between;
     /* background: green; */
 }
-header>.search>.input-{
+
+header>.search>.input- {
     width: 85%;
     height: 100%;
 
 }
-header>.search>.image-{
+
+header>.search>.image- {
     width: 10%;
     height: 100%;
     display: flex;
@@ -311,7 +334,7 @@ header>.search>.input->input {
     background: #0f0f0f;
     color: rgb(255, 255, 255);
     margin: 0.1rem 0.1rem;
-   
+
 }
 
 header>.search>.image->svg {
@@ -341,7 +364,7 @@ header>.user {
 
 header>.user>div {
     position: absolute;
-    right:  0rem;
+    right: 0rem;
     top: 3rem;
     display: none;
     min-height: 4rem;
@@ -393,7 +416,7 @@ header .user>div>div {
 }
 
 header .user>div>div>div {
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -401,8 +424,8 @@ header .user>div>div>div {
     align-items: stretch;
     /* border-left: 0.3rem solid #fff;  */
     margin: 0.5rem 0.5rem;
-  
-   
+
+
 }
 
 header .user>div>div:hover {
@@ -420,9 +443,10 @@ header .user>div>div:hover {
     display: flex;
     justify-content: space-evenly;
     color: #fff;
-   
+
 }
-.banner>.description{
+
+.banner>.description {
     width: 50%;
     margin-top: 1rem;
     min-height: 9rem;
@@ -430,19 +454,21 @@ header .user>div>div:hover {
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-   
+
 }
-.banner>.description h1{
+
+.banner>.description h1 {
     font-size: 3.5rem;
     font-weight: 100;
     letter-spacing: 0.5rem;
     line-height: 4.5rem;
     color: rgba(255, 255, 255, 0.936);
-    
+
 }
-.banner>.description h3{
+
+.banner>.description h3 {
     font-size: 1.5rem;
-    font-weight:lighter;
+    font-weight: lighter;
     letter-spacing: 0.1rem;
     line-height: 2rem;
 }
@@ -460,7 +486,7 @@ header .user>div>div:hover {
 
 }
 
-.banner>.search>.input-{
+.banner>.search>.input- {
 
     width: 85%;
     height: 100%;
@@ -468,7 +494,8 @@ header .user>div>div:hover {
     flex-direction: column;
     justify-content: center;
 }
-.banner>.search>.image-{
+
+.banner>.search>.image- {
 
     width: 10%;
     height: 100%;
@@ -482,7 +509,7 @@ header .user>div>div:hover {
 
     font-size: 1.1em;
     color: #fff;
-   
+
 }
 
 .banner>.search>.input->input {
@@ -533,7 +560,7 @@ header .user>div>div:hover {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    
+
 
 }
 
@@ -561,7 +588,7 @@ header .user>div>div:hover {
     writing-mode: vertical-lr;
     font-size: 3rem;
     letter-spacing: 1.2rem;
-   
+
 }
 
 .layout .content {
@@ -571,8 +598,8 @@ header .user>div>div:hover {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(auto-fill, 1fr);
     grid-row-gap: 1rem;
-    grid-column-gap:1rem;
-    justify-content:space-evenly;
+    grid-column-gap: 1rem;
+    justify-content: space-evenly;
     align-content: flex-start;
     justify-items: center;
     align-items: center;
@@ -585,7 +612,7 @@ header .user>div>div:hover {
     border: 0.01rem solid #807979;
     border-radius: 0.8rem;
     box-shadow: 0.1rem 0.1rem 0.1rem 0.05rem rgba(0, 0, 0, 0.123);
-    background:rgb(255, 255, 255) ;
+    background: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -600,8 +627,9 @@ header .user>div>div:hover {
     overflow: hidden;
     position: relative;
 }
+
 .layout .content>div>p::after {
-    background: linear-gradient(to right,rgba(255, 255, 255, 0.466),rgba(255, 255, 255, 0.829),rgb(255, 255, 255));
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.466), rgba(255, 255, 255, 0.829), rgb(255, 255, 255));
     content: "";
     display: block;
     height: 2rem;
@@ -610,7 +638,7 @@ header .user>div>div:hover {
     right: 0;
     bottom: 0;
     width: 50%;
-    
+
 }
 
 
@@ -766,14 +794,15 @@ code {
         width: 85vw;
 
     } */
-    .banner>.description{
+    .banner>.description {
         width: 90%;
     }
+
     .layout .content {
         width: 75%;
         grid-template-columns: repeat(1, 1fr);
 
-    } 
+    }
 
 
 }
@@ -787,17 +816,19 @@ code {
     .content-show {
         width: 95vw;
     }
+
     /* header>.user {
         width: 10%;
     } */
-    header>.user>div{
+    header>.user>div {
         width: 200%;
     }
+
     .layout .content {
         width: 90%;
         /* grid-template-columns: repeat(1, 1fr); */
 
-    } 
+    }
 
 }
 
