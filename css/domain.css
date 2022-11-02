@@ -39,7 +39,7 @@ header {
 
 
 header .logos {
-    height: 90%;
+    height: 3rem;
     min-width: 10%;
     display: flex;
     justify-content: end;

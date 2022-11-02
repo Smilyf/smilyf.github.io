@@ -37,9 +37,8 @@ header {
     z-index: 9;
 }
 
-
 header .logos {
-    height: 90%;
+    height: 3rem;
     min-width: 10%;
     display: flex;
     justify-content: end;
@@ -89,7 +88,6 @@ header .logos .image {
 header .logos .image>img {
     height: 120%;
 }
-
 
 header>.navigation-simplify {
     display: none;
