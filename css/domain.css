@@ -73,7 +73,9 @@ header>.logos>.logo-a {
 header>.logos a {
     text-decoration: none;
     font-weight: 400;
-    font-size: 1.7rem;
+    font-size: 2rem;
+    line-height: 2rem;
+    text-align: center;
     color: #fff;
     letter-spacing: 0.0rem;
 }
