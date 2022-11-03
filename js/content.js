@@ -15,15 +15,11 @@ window.addEventListener('load', () => {
         .then((text) => {
                 let temp = document.createElement("div")
                 temp.innerHTML = marked.parse(text)
-                temp.querySelectorAll("pre code").forEach((el) => {
-                    hljs.highlightElement(el);
-                  });
+                for(const element of temp.querySelectorAll("pre code")){
+                    hljs.highlightElement(element);
+                }
                 artshow.appendChild(temp)
             })
         })
 })
-
-
-
-
 

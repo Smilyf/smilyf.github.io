@@ -24,14 +24,20 @@ function create(text, index) {
 function change_page(buttons) {
 
 	document.querySelector(".previous-page").addEventListener("click", () => {
-		let index = sessionStorage.getItem("paging")
+
+
+		// let index = sessionStorage.getItem("paging")
+		let href = window.location.href;
+		let index = href.match(/\?paging=(.*)/)[1]
 		index = parseInt(index)
 		if (index - 1 >= 1) {
 			buttons[index - 2].click();
 		}
 	})
 	document.querySelector(".next-page").addEventListener("click", () => {
-		let index = sessionStorage.getItem("paging")
+		// let index = sessionStorage.getItem("paging")
+		let href = window.location.href;
+		let index = href.match(/\?paging=(.*)/)[1]
 		index = parseInt(index)
 		if (index + 1 <= page_num) {
 			buttons[index].click()
@@ -39,25 +45,35 @@ function change_page(buttons) {
 	})
 }
 function init_page(buttons) {
+	let href = window.location.href;
+
+	// if (sessionStorage.getItem("paging") === null) {
+	// 	j.click()
+	// 	break;
+	// }
+	// else if (j.value === sessionStorage.getItem("paging")) {
+	// 	j.click();
+	// 	break;
+	// }
+
+
 	for (let j of buttons) {
-		if (sessionStorage.getItem("paging") === null) {
+		if (href.match(/\?paging=(.*)/) === null) {
 			j.click()
 			break;
 		}
-		else if (j.value === sessionStorage.getItem("paging")) {
+		else if (j.value === href.match(/\?paging=(.*)/)[1]) {
 			j.click();
 			break;
 		}
-		else
-		{
-			buttons[0].click()
-			break;
-		}
+
 	}
+
+
 }
 window.addEventListener('load', () => {
 	var art = document.querySelector(".content")
-	let url = "../article/"+sessionStorage.getItem("domain")+"/article.json"
+	let url = "../article/" + sessionStorage.getItem("domain") + "/article.json"
 	fetch(url)
 		.then((data) => {
 			return data.json()
@@ -74,16 +90,18 @@ window.addEventListener('load', () => {
 				button.value = i.toString()
 				button.addEventListener("click", () => {
 					art.innerHTML = ""
-					sessionStorage.setItem('paging', i.toString());
+					// sessionStorage.setItem('paging', i.toString());
 					let href = window.location.href;
-					let index="0"
-					if( href.match(/\?(.*)/)!=null)
-					{
-						index = href.match(/\?(.*)/)[1];
+					let index = "0"
+					if (href.match(/\?paging=(.*)/) != null) {
+						index = href.match(/\?paging=(.*)/)[1];
+						if (index != i.toString()) {
+							history.pushState(null, null, '?paging=' + i.toString())
+						}
 					}
-					if(index!=i.toString())
+					else
 					{
-						history.pushState(null, null, '?' + i.toString())
+						history.pushState(null, null, '?paging=' + "1")
 					}
 					let start = (i - 1) * pages + 1
 					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
@@ -100,13 +118,20 @@ window.addEventListener('load', () => {
 			let buttons = paging_index.querySelectorAll("button")
 			for (let button of buttons) {
 				button.addEventListener("click", () => {
+					let href = window.location.href;
 					for (let j of buttons) {
-						if (j.value === sessionStorage.getItem("paging")) {
+						if (j.value === href.match(/\?paging=(.*)/)[1]) {
 							j.className = "button_on"
 						}
 						else {
 							j.className = "button_off"
 						}
+						// if (j.value === sessionStorage.getItem("paging")) {
+						// 	j.className = "button_on"
+						// }
+						// else {
+						// 	j.className = "button_off"
+						// }
 					}
 
 				})
@@ -124,21 +149,19 @@ window.addEventListener('load', () => {
 			})
 			return buttons;
 
-		}).then((buttons)=>{
-			window.addEventListener("popstate",()=>{
+		}).then((buttons) => {
+			window.addEventListener("popstate", () => {
 				let href = window.location.href;
-				let index="0"
+				let index = "0"
 				// var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
 				// var code3 = href.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
 				// buttons[num-1].click()
-				if(href.match(/\?(.*)/)!=null)
-				{
-					index=href.match(/\?(.*)/)[1];//取 data=后面所有字符串
+				if (href.match(/\?paging=(.*)/) != null) {
+					index = href.match(/\?paging=(.*)/)[1];//取 data=后面所有字符串
 				}
-				let num=parseInt(index)
-				if(num!=0)
-				{
-					buttons[num-1].click()
+				let num = parseInt(index)
+				if (num != 0) {
+					buttons[num - 1].click()
 				}
 
 			});
@@ -146,19 +169,19 @@ window.addEventListener('load', () => {
 }
 
 )
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 	let h1 = document.querySelector(".description>h1")
 	let h3 = document.querySelector(".description>h3")
-	let url = "../article/"+sessionStorage.getItem("domain")+"/description.json"
+	let url = "../article/" + sessionStorage.getItem("domain") + "/description.json"
 	fetch(url)
 		.then((data) => {
 			return data.json()
 		})
 		.then((text) => {
-			
-			h1.innerHTML=marked.parse(text["1"]["title"])
-			h3.innerHTML=marked.parse(text["1"]["content"])
+
+			h1.innerHTML = marked.parse(text["1"]["title"])
+			h3.innerHTML = marked.parse(text["1"]["content"])
 		})
 
-			
+
 })
