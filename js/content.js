@@ -5,10 +5,16 @@ import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go
 hljs.registerLanguage('go', go);
 window.addEventListener('load', () => {
 
-    
+    let href = window.location.href
+	let domain = href.match(/\?domain=(.*)/)[1];
+	if(domain.match(/(\S*)\?/)!=null)
+	{
+		domain=domain.match(/(\S*)\?/)[1]
+	}
+    let index=href.match(/\?index=(.*)/)[1];
     var artshow = document.querySelector(".content-show")
     artshow.style.display = "inline-block"
-    let url = "../article/" +sessionStorage.getItem("domain")+"/"+ sessionStorage.getItem('item') + ".md"
+    let url = "../article/" +domain+"/"+ index + ".md"
     fetch(url)
         .then((data) => {
             data.text()

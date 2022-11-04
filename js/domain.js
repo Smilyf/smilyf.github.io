@@ -17,16 +17,13 @@ function create(text, index) {
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
 		sessionStorage.setItem('item', index);
-		window.location.href = "../html/content.html"
+		window.location.href = "../html/content.html?domain="+text[index]["label"]+"?index="+index;
 	})
 	return temp;
 }
 function change_page(buttons) {
 
 	document.querySelector(".previous-page").addEventListener("click", () => {
-
-
-		// let index = sessionStorage.getItem("paging")
 		let href = window.location.href;
 		let index = href.match(/\?paging=(.*)/)[1]
 		index = parseInt(index)
@@ -47,16 +44,6 @@ function change_page(buttons) {
 function init_page(buttons) {
 	let href = window.location.href;
 
-	// if (sessionStorage.getItem("paging") === null) {
-	// 	j.click()
-	// 	break;
-	// }
-	// else if (j.value === sessionStorage.getItem("paging")) {
-	// 	j.click();
-	// 	break;
-	// }
-
-
 	for (let j of buttons) {
 		if (href.match(/\?paging=(.*)/) === null) {
 			j.click()
@@ -72,9 +59,33 @@ function init_page(buttons) {
 
 }
 window.addEventListener('load', () => {
-	var art = document.querySelector(".content")
-	let url = "../article/" + sessionStorage.getItem("domain") + "/article.json"
+
+	let href = window.location.href
+	let domain = href.match(/\?domain=(.*)/)[1];
+	if(domain.match(/(\S*)\?/)!=null)
+	{
+		domain=domain.match(/(\S*)\?/)[1]
+	}
+	let h1 = document.querySelector(".description>h1")
+	let h3 = document.querySelector(".description>h3")
+	let url = "../article/" + domain + "/description.json"
+
+
+
 	fetch(url)
+		.then((data) => {
+			return data.json()
+		})
+		.then((text) => {
+
+			h1.innerHTML = marked.parse(text["1"]["title"])
+			h3.innerHTML = marked.parse(text["1"]["content"])
+		})
+
+	var art = document.querySelector(".content")
+	let ur2 = "../article/" + domain + "/article.json"
+
+	fetch(ur2)
 		.then((data) => {
 			return data.json()
 		})
@@ -86,27 +97,25 @@ window.addEventListener('load', () => {
 			for (let i = 1; i <= page_num; i++) {
 				let button = document.createElement("button")
 				button.className = "button_off";
-				button.innerHTML = i;
+				button.innerHTML =i.toString()
 				button.value = i.toString()
 				button.addEventListener("click", () => {
 					art.innerHTML = ""
-					// sessionStorage.setItem('paging', i.toString());
 					let href = window.location.href;
 					let index = "0"
 					if (href.match(/\?paging=(.*)/) != null) {
 						index = href.match(/\?paging=(.*)/)[1];
 						if (index != i.toString()) {
-							history.pushState(null, null, '?paging=' + i.toString())
+							history.pushState(null, null, '?domain=' + domain + '?paging=' + i.toString())
 						}
 					}
-					else
-					{
-						history.pushState(null, null, '?paging=' + "1")
+					else {
+						history.pushState(null, null, '?domain=' + domain + '?paging=' + "1")
 					}
 					let start = (i - 1) * pages + 1
 					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
 					for (let i = start; i < end; i++) {
-						art.appendChild(create(text, i))
+						art.appendChild(create(text, i.toString()))
 					}
 				})
 				paging_index.appendChild(button)
@@ -126,12 +135,7 @@ window.addEventListener('load', () => {
 						else {
 							j.className = "button_off"
 						}
-						// if (j.value === sessionStorage.getItem("paging")) {
-						// 	j.className = "button_on"
-						// }
-						// else {
-						// 	j.className = "button_off"
-						// }
+
 					}
 
 				})
@@ -169,19 +173,3 @@ window.addEventListener('load', () => {
 }
 
 )
-window.addEventListener("load", () => {
-	let h1 = document.querySelector(".description>h1")
-	let h3 = document.querySelector(".description>h3")
-	let url = "../article/" + sessionStorage.getItem("domain") + "/description.json"
-	fetch(url)
-		.then((data) => {
-			return data.json()
-		})
-		.then((text) => {
-
-			h1.innerHTML = marked.parse(text["1"]["title"])
-			h3.innerHTML = marked.parse(text["1"]["content"])
-		})
-
-
-})

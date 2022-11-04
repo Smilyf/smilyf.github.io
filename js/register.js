@@ -4,8 +4,8 @@ window.addEventListener("load", () => {
     let password_alert2 = document.querySelector("#password-alert2");
     let password = document.querySelector("#password");
     let username = document.querySelector("#username")
-    let usernametext = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{2,10}$/;
-    let passwordtext = /^[A-Za-z0-9]{6,18}$/;
+    let usernametext = /(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{2,10}/;
+    let passwordtext = /[A-Za-z0-9]{6,18}/;
     let password1 = document.querySelector("#password1");
     let password2 = document.querySelector("#password2");
 
@@ -54,13 +54,5 @@ window.addEventListener("load", () => {
 
 
     })
-
-
-
-
-
-
-
-
 
 })

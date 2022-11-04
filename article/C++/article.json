@@ -1,27 +1,28 @@
 {
     "1": {
         "index":"1",
-        "label":"C/C++",
+        "label":"C++",
         "title": "#### if constexpr",
         "content": "今天在阅读代码的时候看到了if constexpr语法，查了一下文档，是c++17引入的新语义。那么，为什么要引入if-constexpr呢？是为了解决什么痛点呢？"
 
     },
     "2": {
         "index":"2",
-        "label":"C/C++",
+        "label":"C++",
         "title": "2",
         "content": "###### content"
     },
     "3": {
         "index":"2",
-        "label":"C/C++",
+        "label":"C++",
         "title": "3",
         "content": "###### content"
     },
     "4": {
         "index":"2",
-        "label":"C/C++",
-        "title": "4",
+        "label":"C++",
+        "title": "3",
         "content": "###### content"
     }
+
 }

@@ -446,7 +446,8 @@ header .user>div>div:hover {
 }
 
 .banner>.description {
-    width: 50%;
+    width: 55rem;
+    max-width: 90%;
     margin-top: 1rem;
     min-height: 9rem;
     display: flex;
@@ -548,6 +549,7 @@ header .user>div>div:hover {
     font-size: 1.1rem;
     line-height: 1.8rem;
     color: #0f0f0f;
+   
 }
 
 .layout {
@@ -592,7 +594,7 @@ header .user>div>div:hover {
 
 .layout .content {
     min-height: 90vh;
-    width: 60vw;
+    width: 55rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(auto-fill, 1fr);
@@ -602,6 +604,7 @@ header .user>div>div:hover {
     align-content: flex-start;
     justify-items: center;
     align-items: center;
+   
 }
 
 .layout .content>div {

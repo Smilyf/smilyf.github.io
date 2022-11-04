@@ -16,28 +16,25 @@ function create(text, index) {
 	temp.appendChild(h1)
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
-		sessionStorage.setItem('domain', text[index]["label"]);
-		window.location.href = "./html/domain.html"
+		window.location.href = "./html/domain.html"+"?domain="+text[index]["label"]
 	})
 	return temp;
 }
+
 function change_page(buttons) {
 
 	document.querySelector(".previous-page").addEventListener("click", () => {
 
-
-		// let index = sessionStorage.getItem("paging")
 		let href = window.location.href;
-		let index = href.match(/\?paging=(.*)/)[1]
+		let index = href.match(/\?domain=(.*)/)[1]
 		index = parseInt(index)
 		if (index - 1 >= 1) {
 			buttons[index - 2].click();
 		}
 	})
 	document.querySelector(".next-page").addEventListener("click", () => {
-		// let index = sessionStorage.getItem("paging")
 		let href = window.location.href;
-		let index = href.match(/\?paging=(.*)/)[1]
+		let index = href.match(/\?domain=(.*)/)[1]
 		index = parseInt(index)
 		if (index + 1 <= page_num) {
 			buttons[index].click()
@@ -47,22 +44,12 @@ function change_page(buttons) {
 function init_page(buttons) {
 	let href = window.location.href;
 
-	// if (sessionStorage.getItem("paging") === null) {
-	// 	j.click()
-	// 	break;
-	// }
-	// else if (j.value === sessionStorage.getItem("paging")) {
-	// 	j.click();
-	// 	break;
-	// }
-
-
 	for (let j of buttons) {
-		if (href.match(/\?paging=(.*)/) === null) {
+		if (href.match(/\?domain=(.*)/) === null) {
 			j.click()
 			break;
 		}
-		else if (j.value === href.match(/\?paging=(.*)/)[1]) {
+		else if (j.value === href.match(/\?domain=(.*)/)[1]) {
 			j.click();
 			break;
 		}
@@ -90,18 +77,17 @@ window.addEventListener('load', () => {
 				button.value = i.toString()
 				button.addEventListener("click", () => {
 					art.innerHTML = ""
-					// sessionStorage.setItem('paging', i.toString());
 					let href = window.location.href;
 					let index = "0"
-					if (href.match(/\?paging=(.*)/) != null) {
-						index = href.match(/\?paging=(.*)/)[1];
+					if (href.match(/\?domain=(.*)/) != null) {
+						index = href.match(/\?domain=(.*)/)[1];
 						if (index != i.toString()) {
-							history.pushState(null, null, '?paging=' + i.toString())
+							history.pushState(null, null, '?domain=' + i.toString())
 						}
 					}
 					else
 					{
-						history.pushState(null, null, '?paging=' + "1")
+						history.pushState(null, null, '?domain=' + "1")
 					}
 					let start = (i - 1) * pages + 1
 					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
@@ -120,18 +106,13 @@ window.addEventListener('load', () => {
 				button.addEventListener("click", () => {
 					let href = window.location.href;
 					for (let j of buttons) {
-						if (j.value === href.match(/\?paging=(.*)/)[1]) {
+						if (j.value === href.match(/\?domain=(.*)/)[1]) {
 							j.className = "button_on"
 						}
 						else {
 							j.className = "button_off"
 						}
-						// if (j.value === sessionStorage.getItem("paging")) {
-						// 	j.className = "button_on"
-						// }
-						// else {
-						// 	j.className = "button_off"
-						// }
+
 					}
 
 				})
@@ -152,18 +133,16 @@ window.addEventListener('load', () => {
 		}).then((buttons)=>{
 			window.addEventListener("popstate",()=>{
 				let href = window.location.href;
-				let index="0"
+				let index = "0"
 				// var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
 				// var code3 = href.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
 				// buttons[num-1].click()
-				if(href.match(/\?(.*)/)!=null)
-				{
-					index=href.match(/\?(.*)/)[1];//取 data=后面所有字符串
+				if (href.match(/\?domain=(.*)/) != null) {
+					index = href.match(/\?domain=(.*)/)[1];//取 data=后面所有字符串
 				}
-				let num=parseInt(index)
-				if(num!=0)
-				{
-					buttons[num-1].click()
+				let num = parseInt(index)
+				if (num != 0) {
+					buttons[num - 1].click()
 				}
 
 			});
