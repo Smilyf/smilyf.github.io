@@ -32,7 +32,6 @@ header {
     border-bottom: 0.15rem solid #fff;
     z-index: 9;
 }
-
 header .logos {
     margin-left: 15%;
     width: 30%;
@@ -57,39 +56,35 @@ header>.logos>.logo-a>.logo-buttom {
 
 header>.logos>.logo-a {
     display: flex;
-    height: 3rem;
+    height: 2rem;
     flex-direction: column;
     justify-content: end;
     justify-items: stretch;
     align-items: stretch;
-
-
 }
 
 header>.logos a {
     text-decoration: none;
     font-weight: 400;
-    font-size: 2rem;
-    line-height: 2rem;
+    font-size: 1.2rem;
+    line-height:1.2rem;
     text-align: center;
     color: #fff;
     letter-spacing: 0.0rem;
+   
 }
-
 
 header .logos .image {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 2.5rem;
-    height: 3rem;
+    height: 2.5rem;
 }
-
 
 header .logos .image>img {
     height: 120%;
 }
-
 .center {
     margin-top: 4rem;
     height: 40rem;
@@ -212,5 +207,8 @@ input[type=submit]:hover {
 @media screen and (max-width:600px) {
     .center{
         width: 90vw;
+    }
+    header .logos {
+        margin-left: 10%;
     }
 }
