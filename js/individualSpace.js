@@ -2,7 +2,7 @@
 
 var article_json;
 //每页的文章数量
-var pages = 4
+var pages =1
 //分页个数
 var page_num = 1
 //文章数
@@ -16,15 +16,14 @@ function create(text, index) {
 	temp.appendChild(h1)
 	temp.appendChild(p1)
 	temp.addEventListener("click", () => {
-		window.location.href = "./html/domain.html"+"?domain="+text[index]["label"]
+		sessionStorage.setItem('item', index);
+		window.location.href = "../html/content.html?domain="+text[index]["label"]+"?index="+index;
 	})
 	return temp;
 }
-
 function change_page(buttons) {
 
 	document.querySelector(".previous-page").addEventListener("click", () => {
-
 		let href = window.location.href;
 		let index = href.match(/\?paging=(.*)/)[1]
 		index = parseInt(index)
@@ -33,6 +32,7 @@ function change_page(buttons) {
 		}
 	})
 	document.querySelector(".next-page").addEventListener("click", () => {
+		// let index = sessionStorage.getItem("paging")
 		let href = window.location.href;
 		let index = href.match(/\?paging=(.*)/)[1]
 		index = parseInt(index)
@@ -42,32 +42,23 @@ function change_page(buttons) {
 	})
 }
 function init_page(buttons) {
-	let href = window.location.href;
-
-	for (let j of buttons) {
-		if (href.match(/\?paging=(.*)/) === null) {
-			j.click()
-			break;
-		}
-		else if (j.value === href.match(/\?paging=(.*)/)[1]) {
-			j.click();
-			break;
-		}
-
-	}
-
+	
+        buttons[0].click()
 
 }
 window.addEventListener('load', () => {
-	
-	
-	let url = "./article/domain.json"
-	fetch(url)
+
+	let href = window.location.href
+	let domain = "C++";
+
+
+	let ur2 = "../article/" + domain + "/article.json"
+
+	fetch(ur2)
 		.then((data) => {
 			return data.json()
 		})
 		.then((text) => {
-			
 			article_json = text
 			length = Object.keys(text).length;
 			let paging_index = document.querySelector(".paging .paging-index")
@@ -75,7 +66,7 @@ window.addEventListener('load', () => {
 			for (let i = 1; i <= page_num; i++) {
 				let button = document.createElement("button")
 				button.className = "button_off";
-				button.innerHTML = i;
+				button.innerHTML =i.toString()
 				button.value = i.toString()
 				button.addEventListener("click", () => {
 					let art = document.querySelector(".content>.articles")
@@ -85,17 +76,16 @@ window.addEventListener('load', () => {
 					if (href.match(/\?paging=(.*)/) != null) {
 						index = href.match(/\?paging=(.*)/)[1];
 						if (index != i.toString()) {
-							history.pushState(null, null, '?paging=' + i.toString())
+							history.pushState(null, null, '?domain=' + domain + '?paging=' + i.toString())
 						}
 					}
-					else
-					{
-						history.pushState(null, null, '?paging=' + "1")
+					else {
+						history.pushState(null, null, '?domain=' + domain + '?paging=' + "1")
 					}
 					let start = (i - 1) * pages + 1
 					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
 					for (let i = start; i < end; i++) {
-						art.appendChild(create(text, i))
+						art.appendChild(create(text, i.toString()))
 					}
 				})
 				paging_index.appendChild(button)
@@ -133,8 +123,8 @@ window.addEventListener('load', () => {
 			})
 			return buttons;
 
-		}).then((buttons)=>{
-			window.addEventListener("popstate",()=>{
+		}).then((buttons) => {
+			window.addEventListener("popstate", () => {
 				let href = window.location.href;
 				let index = "0"
 				// var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串

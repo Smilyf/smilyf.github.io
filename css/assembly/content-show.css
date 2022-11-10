@@ -1,0 +1,29 @@
+.content-show {
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+    padding: 1rem 1rem;
+    min-height: 100vh;
+    width: 60%;
+    display: none;
+    background: #c1c1c117;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    color: #0f0f0f;
+    border: 0.01rem solid #cfcdcd93;
+    box-shadow: 0.15rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.174);
+}
+
+
+code {
+    border-radius: 0.3rem;
+}
+
+@media screen and (max-width:991px) {}
+
+@media screen and (max-width:600px) {
+
+    .content-show {
+        width: 95vw;
+    }
+
+}

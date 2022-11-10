@@ -1,0 +1,12 @@
+.sbottom {
+    width: 100%;
+    height: 4rem;
+    background: #181717f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:991px) {}
+
+@media screen and (max-width:600px) {}

@@ -2,7 +2,7 @@
 
 var article_json;
 //每页的文章数量
-var pages = 1
+var pages = 2
 //分页个数
 var page_num = 1
 //文章数
@@ -77,12 +77,11 @@ window.addEventListener('load', () => {
 			return data.json()
 		})
 		.then((text) => {
-
+			var art = document.querySelector(".content>.articles")
 			h1.innerHTML = marked.parse(text["1"]["title"])
 			h3.innerHTML = marked.parse(text["1"]["content"])
 		})
 
-	var art = document.querySelector(".content")
 	let ur2 = "../article/" + domain + "/article.json"
 
 	fetch(ur2)
@@ -100,6 +99,7 @@ window.addEventListener('load', () => {
 				button.innerHTML =i.toString()
 				button.value = i.toString()
 				button.addEventListener("click", () => {
+					let art = document.querySelector(".content>.articles")
 					art.innerHTML = ""
 					let href = window.location.href;
 					let index = "0"

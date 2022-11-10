@@ -167,7 +167,7 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    /* cursor: not-allowed; */
+    cursor: not-allowed;
 }
 
 input[type=submit]:hover {

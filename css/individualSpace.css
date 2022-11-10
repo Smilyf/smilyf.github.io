@@ -1,0 +1,178 @@
+@import url("./assembly/body.css");
+@import url("./assembly/header.css");
+@import url("./assembly/sbottom.css");
+@import url("./assembly/layout.css");
+@import url("./assembly/paging.css");
+
+
+.layout {
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+    justify-content: start;
+}
+
+.layout .content {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: 0 1rem;
+    padding: 1rem 1rem;
+  
+}
+.layout .content>.articles {
+    width: 100%; 
+    grid-template-columns: repeat(1, 1fr); 
+}
+.layout>.content>.navigation-article {
+    width: 100%;
+    height: 3rem;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    justify-items: center;
+    align-content:center;
+    font-size: 1.2rem;
+    border: 0.01rem solid #d2d2d2;
+    box-shadow: none;
+    border-radius: 0;
+    background: rgb(255, 255, 255);
+    flex-wrap: wrap;
+    background: black;
+
+   
+
+}
+.layout>.content>.navigation-article>div {
+   width: 4rem;
+   height: 2.5rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* border: 0.01rem solid #d2d2d2; */
+   border-radius:0.5rem;
+   margin: 0 0.5rem;
+  
+}
+.layout>.content>.navigation-article>div a{
+    color: white;
+}
+.layout>.content>.navigation-article>div:hover {
+   
+    border: 0.01rem solid #d2d2d2;
+    background: white;
+
+}
+.layout>.content>.navigation-article>div:hover a{
+   
+    color: black;
+}
+.layout>.content>.navigation-article a{
+    text-decoration: none;
+}
+
+
+
+.layout>.content>.navigation-article:hover {
+    box-shadow: none;
+}
+
+.layout .catalogue {
+
+    width: 30%;
+    flex-direction: row;
+    justify-content: end;
+    background: none;
+
+}
+
+.layout>.catalogue>.image-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: white;
+    margin-bottom: 1rem;
+    width: 50%;
+    height: 23rem;
+    border: 0.01rem solid #cfcdcd93;
+    box-shadow: 0.15rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.174);
+
+}
+
+.layout>.catalogue>.image-div>.image-s {
+    min-width: 70%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.1rem solid #e4e4e4;
+
+}
+
+.layout>.catalogue>.image-div>.image-s>img {
+    height: 70%;
+}
+
+.layout>.catalogue>.image-div>button {
+    width: 6rem;
+    height: 2.5rem;
+    border-radius: 0.4rem;
+    color: white;
+    background: black;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    border: 0.01rem solid #95959593;
+}
+
+.layout>.catalogue>.image-div>button:active {
+
+    background: white;
+    color: black;
+
+}
+
+
+@media screen and (max-width:991px) {
+    .layout .content {
+        width: 90%;
+        /* grid-template-columns: repeat(1, 1fr); */
+        align-items: center;
+
+
+    }
+
+
+    .layout {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .layout .catalogue {
+        width: 90%;
+        justify-content: center;
+
+
+    }
+
+
+    .layout>.catalogue>.image-div {
+        width: 90%;
+        height: 23rem;
+        border: 0.01rem solid #cfcdcd93;
+        box-shadow: 0.15rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.174);
+
+    }
+
+    .layout>.content>.information {
+        width: 90%;
+    }
+
+
+}
+
+@media screen and (max-width:600px) {}

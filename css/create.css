@@ -1,0 +1,28 @@
+@import url("./assembly/body.css");
+@import url("./assembly/header.css");
+@import url("./assembly/layout.css");
+@import url("./assembly/sbottom.css");
+
+@media screen and (max-width:991px) {
+    .layout .content {
+        width: 75%;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .layout .catalogue {
+        display: none;
+
+    }
+    .layout .label{
+        display: none;
+    }
+    
+}
+
+@media screen and (max-width:600px) {
+    .layout .content {
+        width: 90%;
+        /* grid-template-columns: repeat(1, 1fr); */
+
+    }
+}
