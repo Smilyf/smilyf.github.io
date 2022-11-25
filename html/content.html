@@ -8,7 +8,10 @@
   <link rel="stylesheet" href="../css/content.css">
   <script type="module" src="../js/content.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css"> -->
+ <!--  <link rel="stylesheet" href="../highlight.js/styles/base16/google-dark.css"> -->
+  <!-- <link rel="stylesheet" href="../highlight.js/styles/base16/google-light.css"> -->
+  
   <link rel="shortcut icon" href="../images/YY.ico" type="image/x-icon">
 </head>
 
@@ -123,7 +126,7 @@
         </div>
       </div>
 
-      <div class="user">
+      <div class="user" id="identity-visitor">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path d="M4 22a8 8 0 1 1 16 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z" />
@@ -138,8 +141,39 @@
             
           </div>
       </div>
+      <div class="user-hidden" id="identity-user">
+        <img  src="../images/Y.ico" alt="">
+        <div>
+          <div>
+            <div><a href="../html/information.html">个人信息</a></div>
+          </div>
+          <div>
+            <div><a href="../html/individualSpace.html">个人空间</a></div>
+          </div>
+        </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    </div>
     </header>
+    <div class="caozuo">
+      <button>修改</button>
+      <button>删除</button>
+    </div>
     <div class="content-show">
+    </div>
+    <div class="discuss" >
+      <div class="pinglun">1评论</div>
+      <input type="text" id="password" name="password" placeholder="评论内容" minlength="6" maxlength="28">
+      <button>提交评论</button>
+    </div>
+    <div class="pinglun-s" >
+      <div class="image"> <img src="../images/Y.ico" alt=""></div>
+      <div class="user">
+        <div>
+          用户名
+        </div>
+        <div>
+          评论内容
+        </div>
+      </div>
     </div>
     <div class="sbottom"></div>
   </div>

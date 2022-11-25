@@ -7,6 +7,7 @@
     <title>YAM</title>
     <link rel="stylesheet" href="../css/information.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="module" src="../js/information.js"></script>
     <link rel="shortcut icon" href="../images/YY.ico" type="image/x-icon">
 
 </head>
@@ -125,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="user">
+            <div class="user" id="identity-visitor">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0h24v24H0z" />
                     <path d="M4 22a8 8 0 1 1 16 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z" />
@@ -140,6 +141,17 @@
 
                 </div>
             </div>
+            <div class="user-hidden" id="identity-user">
+                <img  src="../images/Y.ico" alt="">
+                <div>
+                    <div>
+                      <div><a href="../html/information.html">个人信息</a></div>
+                    </div>
+                    <div>
+                      <div><a href="../html/individualSpace.html">个人空间</a></div>
+                    </div>
+                  </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+            </div>
         </header>
 
         <div class="layout">
@@ -151,7 +163,7 @@
                     <button>更新头像</button>
                 </div>
             </div>
-            <div class="content">
+            <div class="layout-content">
                 <div class="information">
                     <div>
                         <p>个人信息</p>

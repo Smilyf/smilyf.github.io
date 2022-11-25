@@ -14,17 +14,17 @@
     min-width: 20%;
 }
 
-.layout .content {
+.layout .layout-content {
     width: 60%; 
    
 }
-.layout .content>.articles {
+.layout .layout-content>.articles {
     width: 100%; 
     grid-template-columns: repeat(1, 1fr); 
 }
 
 @media screen and (max-width:991px) {
-    .layout .content {
+    .layout .layout-content {
         width: 95%;
        
     }

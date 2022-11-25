@@ -14,16 +14,16 @@
     min-width: 20%;
 }
 
-.layout .content>.articles {
+.layout .layout-content>.articles {
     width: 100%; 
     grid-template-columns: repeat(2, 1fr); 
 }
 
 @media screen and (max-width:991px) {
-    .layout .content{
+    .layout .layout-content{
         width: 80%;
     }
-    .layout .content>.articles {
+    .layout .layout-content>.articles {
         width: 75%;
         grid-template-columns: repeat(1, 1fr);
     }
@@ -39,10 +39,10 @@
 }
 
 @media screen and (max-width:600px) {
-    .layout .content{
+    .layout .layout-content{
         width: 90%;
     }
-    .layout .content>.articles {
+    .layout .layout-content>.articles {
         width: 90%;
         /* grid-template-columns: repeat(1, 1fr); */
 

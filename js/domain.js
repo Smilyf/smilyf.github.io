@@ -77,7 +77,7 @@ window.addEventListener('load', () => {
 			return data.json()
 		})
 		.then((text) => {
-			var art = document.querySelector(".content>.articles")
+			var art = document.querySelector(".layout-content>.articles")
 			h1.innerHTML = marked.parse(text["1"]["title"])
 			h3.innerHTML = marked.parse(text["1"]["content"])
 		})
@@ -99,7 +99,7 @@ window.addEventListener('load', () => {
 				button.innerHTML =i.toString()
 				button.value = i.toString()
 				button.addEventListener("click", () => {
-					let art = document.querySelector(".content>.articles")
+					let art = document.querySelector(".layout-content>.articles")
 					art.innerHTML = ""
 					let href = window.location.href;
 					let index = "0"
@@ -173,3 +173,12 @@ window.addEventListener('load', () => {
 }
 
 )
+window.addEventListener("load",()=>{
+	// sessionStorage.setItem("identity","s")
+	if(sessionStorage.getItem("identity")!=null)
+	{
+		document.querySelector("#identity-user").className="user"
+		document.querySelector("#identity-visitor").className="user-hidden"
+	}
+
+})

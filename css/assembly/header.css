@@ -319,6 +319,9 @@ header>.search>.image->svg:active {
 }
 
 
+header>.user-hidden {
+    display: none;
+}
 
 header>.user {
     width: 10%;
@@ -334,17 +337,32 @@ header>.user {
     /* background: pink; */
 }
 
+header>.user {
+    width: 10%;
+    height: 3.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    justify-items: stretch;
+    text-align: center;
+    border: 0.2rem solid #0f0f0f;
+    
+}
+
 header>.user>div {
     position: absolute;
     right: 0rem;
     top: 3rem;
     display: none;
     min-height: 4rem;
-    width: 100%;
+    min-width: 9rem;
     background: #030303da;
     border: 0.1rem solid #fff;
     border-radius: 0.5rem;
     text-align: center;
+    
 
 }
 
@@ -373,10 +391,15 @@ header>.user svg {
     fill: #fff;
     font-size: 1.7rem;
 }
+header>.user> img{
+    
+    height: 75%;
+    border-radius: 2rem;
+
+}
 
 header .user>div>div {
     margin: 0.6rem 0rem;
-    width: 80%;
     /* height: 2.5rem; */
     display: flex;
     flex-direction: column;
@@ -384,7 +407,11 @@ header .user>div>div {
     justify-items: stretch;
     /* align-items: stretch; */
     border-radius: 0.2rem;
-    /* background: green; */
+    width: 90%;
+   
+   
+  
+   
 }
 
 header .user>div>div>div {
@@ -396,8 +423,9 @@ header .user>div>div>div {
     align-items: stretch;
     /* border-left: 0.3rem solid #fff;  */
     margin: 0.5rem 0.5rem;
-
-
+   
+   
+   
 }
 
 header .user>div>div:hover {

@@ -78,7 +78,7 @@ window.addEventListener('load', () => {
 				button.innerHTML = i;
 				button.value = i.toString()
 				button.addEventListener("click", () => {
-					let art = document.querySelector(".content>.articles")
+					let art = document.querySelector(".layout-content>.articles")
 					art.innerHTML = ""
 					let href = window.location.href;
 					let index = "0"
@@ -153,3 +153,13 @@ window.addEventListener('load', () => {
 }
 
 )
+window.addEventListener("load",()=>{
+	// sessionStorage.setItem("identity","s")
+	
+	if(sessionStorage.getItem("identity")!=null)
+	{
+		document.querySelector("#identity-user").className="user"
+		document.querySelector("#identity-visitor").className="user-hidden"
+	}
+
+})
