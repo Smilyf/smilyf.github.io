@@ -3,16 +3,36 @@
 @import url("./assembly/sbottom.css");
 @import url("./assembly/layout.css");
 @import url("./assembly/paging.css");
+
 @import url("../highlight.js/styles/base16/google-dark.css");
+
+/* .content-show {
+  
+    height: 100%;
+    width: 100%;
+    display: none;
+    background: #c1c1c117;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    color: #0f0f0f;
+    border: 0.1rem solid #717171;
+    
+    overflow-y:auto;
+} */
 
 .layout {
     margin-top: 5rem;
     margin-bottom: 1rem;
     justify-content: start;
 }
+.layout_hidden
+{
+    display: none;
+}
 
 .layout .layout-content {
     width: 60%;
+    min-height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -45,17 +65,14 @@
 
 .create {
     width: 100%;
-    min-height: 80vh;
-    /* background: rgb(123, 31, 31); */
+    min-height: 60rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-  
-    
-
+    justify-content: start;
+   
 }
-.create>.banner{
+.banner{
     width:100%;
     height: 4rem;
     display: flex;
@@ -63,10 +80,9 @@
     align-items: center;
     margin: 0.2rem 0;
     
-
 }
 
-.create>.banner>select{
+.banner>select{
 
     width: 25%;
     height: 3rem;
@@ -78,9 +94,10 @@
     cursor: pointer;
     border: 0.1rem solid #717171;
     margin-right: 2%;
+    font-size: 1.1rem;
 
 }
-.create>.banner>input[type=text] {
+.banner>input[type=text] {
 
     width: 73%;
     height: 3rem;
@@ -90,49 +107,82 @@
     border: none;
     border-radius: 0.5rem;
     border: 0.1rem solid #717171;
+    font-size: 1.1rem;
    
 }
-.create>.synopsis
+.synopsis
 {
     width: 100%;
     height: 5rem;
     margin: 0.2rem 0;
+    
+   
 }
-.create textarea{
+.synopsis>textarea
+{
     resize: none;
     border-radius: 4px;
     width: 100%;
     height:100%;
     border: 0.1rem solid #717171;
     margin: 0.2rem 0;
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.3rem;
 }
 
 
+.un_full_screen
+{
+   
+    width: 100%;
+    height: 45rem;
+    /* background: yellow; */
+   
+}
 
-.create>.article-content
+.full_screen
+{
+    padding: 0 0.5rem;
+    left: 0rem;
+    width: 100%;
+    height: 90vh;
+    margin: 3rem 1rem 1rem;
+}
+
+.full_screen_hidden
+{
+    display: none;
+   
+}
+
+
+.article-content
 {
     width: 100%;
-    height: 40rem;
+    height: 100%;
     margin: 0.5rem 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: start;
+    /* background: red; */
+   
+   
 }
-.create>.article-content>.auxiliary
+.article-content>.auxiliary
 {
     width: 100%;
-    height: 2.5rem;
+    height: 3rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 0.2rem 0;
+    margin: 1rem 0;
     background: rgba(214, 214, 214, 0.664);
     flex-wrap: wrap;
+ 
    
+
 }
-.create>.article-content>.auxiliary>div
+.article-content>.auxiliary>div
 {
     width: 2rem;
     height: 2rem;
@@ -141,39 +191,116 @@
     justify-content: center;
     align-items: center;
 }
-.create>.article-content>.auxiliary>div:hover
+.article-content>.auxiliary>div:hover
 {
     /* border: 0.1rem solid #cbcbcb; */
     background:black;
 
 }
-.create>.article-content>.auxiliary>div svg
-{
-    fill:black;
-}
 
-.create>.article-content>.auxiliary>div:hover svg
+
+.article-content>.auxiliary>div:hover svg
 {
     fill:white;
 }
 
-
-
-
-
-
-.create>.article-submit
+.div_svg_show
 {
-    width: 100%;
-    height: 4.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background: red; */
- 
-
+    
+  
 }
-.create>.article-submit>input[type=submit]
+.div_svg_hidden
+{
+    display: none !important;
+}
+
+
+
+
+
+
+
+.article-content>.content
+{
+    width: 100%;
+    height: calc(100% - 5rem);
+    display: flex;
+    justify-content: start;
+    font-size: 1.1rem;
+  
+}
+.article-content>.content>.content-left-unfull
+{
+   width: 50%;
+   height:100%;
+ 
+}
+.article-content>.content>.content-left-unfull>textarea
+{
+    resize: none;
+    border-radius: 4px;
+    width: 100%;
+    height:100%;
+    border: 0.1rem solid #717171;
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+   
+}
+.article-content>.content textarea::-webkit-scrollbar
+{
+   display: none;
+}
+
+.article-content>.content>.content-left-full
+{
+   width: 100%;
+   height:100%;
+   
+}
+
+.article-content>.content>.content-left-full>textarea
+{
+    resize: none;
+    border-radius: 4px;
+    width: 100%;
+    height:100%;
+    border: 0.1rem solid #717171;
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+}
+
+
+.article-content>.content>.content-right-full
+
+{
+   
+   width: 50%;
+   height:100%;
+   border: 0.1rem solid #717171;
+   overflow-y:auto;
+  
+  
+  
+}
+.article-content>.content>.content-right-unfull
+{
+  display: none;
+}
+
+
+
+.article-submit
+{
+    width: 100%;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.article-submit>input[type=submit]
 {
     min-width: 6rem;
     height: 2.5rem;
@@ -183,14 +310,14 @@
     justify-content: center;
     align-items: center;
     border-radius: 0.5rem;
-    margin: 0 0.5rem;
+    margin: 0 01rem;
     padding: 0 0.5rem;
  
     /* cursor: pointer;
     cursor: not-allowed; */
 }
 
-.create>.article-submit>input[type=submit]:hover {
+.article-submit>input[type=submit]:hover {
     border: 0.1rem solid #000000;
     background: white;
     color: black;
@@ -349,13 +476,13 @@
 
 
 
-    .create>.banner>select{
+    .banner>select{
 
         width: 35%;
         margin-right: 5%;
     
     }
-    .create>.banner>input[type=text] {
+   .banner>input[type=text] {
     
        width: 60%;
        
