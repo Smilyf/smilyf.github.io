@@ -43,6 +43,7 @@
     align-items: center;
     font-size: 1.7rem;
     border-bottom: 0.1rem solid #d2d2d2;
+
     
 }
 
@@ -61,17 +62,26 @@
     display: flex;
     flex-direction: row;
     justify-content: end;
+
    
 
 }
 
-.layout>.layout-content>.information>form>div>input {
+.layout>.layout-content>.information>form>div .in {
     width: 80%;
     height: 3rem;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: start;
+    padding: 0 2rem;
 
+}
+.layout>.layout-content>.information>form>div .if {
+    width: 15%;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 
 }
 
@@ -82,9 +92,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
     font-size: 1.2rem;
-
 }
 
 .layout>.layout-content>.information>form>input {
@@ -149,7 +157,14 @@
     font-size: 1rem;
     border: 0.01rem solid #95959593;
 }
-
+#vip{
+    width: 6rem;
+    height: 2.5rem;
+    border-radius: 0.4rem;
+    color: white;
+    background: black;
+    border: 0.01rem solid #95959593;
+}
 .layout>.catalogue>.image-div>button:active {
 
     background: white;

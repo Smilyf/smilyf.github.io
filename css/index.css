@@ -16,7 +16,7 @@
 
 .layout .layout-content>.articles {
     width: 100%; 
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
 }
 
 @media screen and (max-width:991px) {

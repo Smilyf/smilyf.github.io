@@ -1,50 +1,49 @@
+function getBasePath() {
+    var obj = window.location;
+    var contextPath = obj.pathname.split("/")[1];
+    var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
+    return basePath;
+}
 
 
-window.addEventListener("load", () => {
+window.addEventListener("load", () => { 
 
 
+    let submit = document.querySelector("#submit")
+    submit.addEventListener("click", () => {
+
+        let password = document.querySelector("#password").value;
+        let username = document.querySelector("#username").value;
+        //发送异步请求获取数据
+        // alert(getBasePath()+'/login?password=' + password + '&username=' + username)
+        fetch(getBasePath() + '/login?password=' + password + '&username=' + username, {
+            method: 'POST',
+            body: "",
+            headers: {}
+        }).then(resp => resp.text()).then(datas => {
 
 
-    document.querySelector("#submit").addEventListener("click", () => {
-    //     let password=document.querySelector("#password").value;
-    //     let username=document.querySelector("#username").value;
+            sessionStorage.setItem("identity", datas)
 
-    //     data = new FormData(); // 将表单节点数据封装为 FormData 格式
-    //     data.append("password",password);
-    //     data.append("username",username);
 
-    //     //发送异步请求获取数据
-    //     fetch('http://localhost:8080/webblogs_war_exploded/test', {
-    //         method: 'POST',
-    //         body: data,
-    //         headers: {
-    //         }
-    //     }).then(resp => resp.text()).then(datas => {
-    //         if (datas != "") {
-    //             sessionStorage.setItem("identity", datas)
-    //             console.log(datas);
-    //             // window.history.go(-1);
-    //         } else {
-    //             alert("用户名或密码错误！")
-    //             console.log(datas);
-    //         }
-    //     })
-    sessionStorage.setItem("identity","s")
-    alert("登录成功！")
-    window.location.href=document.referrer;
+        }).then(() => {
+
+                // let response=JSON.parse( sessionStorage.getItem("identity"))
+
+                if (sessionStorage.getItem("identity").length > 2) {
+
+
+                    window.location.href = getBasePath() + "/index.html"
+                } else {
+                    alert("用户名或密码错误")
+                }
+            }
+        )
+
+
+    })
+
 
 })
 
 
-})
-
-window.addEventListener("load",()=>{
-	// sessionStorage.setItem("identity","s")
-	
-	if(sessionStorage.getItem("identity")!=null)
-	{
-		document.querySelector("#identity-user").className="user"
-		document.querySelector("#identity-visitor").className="user-hidden"
-	}
-
-})

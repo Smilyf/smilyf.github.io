@@ -13,10 +13,15 @@
     box-shadow: 0.15rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.174);
 
 }
+.content-show img{
+    width: 90%;
+    margin :1rem 1rem;
 
+}
 
 code {
     border-radius: 0.3rem;
+    border: 0.1rem solid black;
 }
 
 @media screen and (max-width:991px) {}

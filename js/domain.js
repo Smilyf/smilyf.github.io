@@ -175,7 +175,7 @@ window.addEventListener('load', () => {
 )
 window.addEventListener("load",()=>{
 	// sessionStorage.setItem("identity","s")
-	if(sessionStorage.getItem("identity")!=null)
+	if (sessionStorage.getItem("identity").length>2)
 	{
 		document.querySelector("#identity-user").className="user"
 		document.querySelector("#identity-visitor").className="user-hidden"

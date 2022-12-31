@@ -4,7 +4,7 @@ var article_json;
 //每页的文章数量
 var pages = 4
 //分页个数
-var page_num = 1
+var page_num = 1 
 //文章数
 var length = 0
 function create(text, index) {
@@ -61,7 +61,7 @@ function init_page(buttons) {
 window.addEventListener('load', () => {
 	
 	
-	let url = "./article/domain.json"
+	let url = "article/domain.json"
 	fetch(url)
 		.then((data) => {
 			return data.json()
@@ -155,11 +155,36 @@ window.addEventListener('load', () => {
 )
 window.addEventListener("load",()=>{
 	// sessionStorage.setItem("identity","s")
-	
-	if(sessionStorage.getItem("identity")!=null)
+
+
+	if (sessionStorage.getItem("identity").length>2)
 	{
 		document.querySelector("#identity-user").className="user"
 		document.querySelector("#identity-visitor").className="user-hidden"
+
+	}
+	else
+	{
+		document.querySelector("#identity-user").className="user-hidden"
+		document.querySelector("#identity-visitor").className="user"
+
 	}
 
 })
+window.addEventListener("load",()=>{
+	// sessionStorage.setItem("identity","s")
+	if(sessionStorage.getItem("identity")==null)
+	{
+		sessionStorage.setItem("identity","");
+	}
+	document.querySelector("#exit").addEventListener("click",()=>{
+
+		sessionStorage.setItem("identity","");
+		document.querySelector("#identity-user").className="user-hidden"
+		document.querySelector("#identity-visitor").className="user"
+	})
+
+
+
+})
+
