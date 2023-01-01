@@ -481,21 +481,6 @@ window.addEventListener("load", () => {
 
 
 
-window.addEventListener("load", () => {
-
-    if (sessionStorage.getItem("identity").length>2) {
-        document.querySelector("#identity-user").className = "user"
-        document.querySelector("#identity-visitor").className = "user-hidden"
-    }
-    else
-    {
-        document.querySelector("#identity-user").className = "user-hidden"
-        document.querySelector("#identity-visitor").className = "user"
-        window.location.href="../html/login.html"
-    }
-
-
-})
 
 window.addEventListener("load",()=>{
 

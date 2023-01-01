@@ -332,6 +332,7 @@
     box-shadow: 0.1rem 0.1rem 0.1rem 0.05rem rgba(0, 0, 0, 0.123);
     margin: 1rem 1rem;
     background: white;
+    letter-spacing: 1rem;
 }
 .layout .title{
     width: 100%;
@@ -387,20 +388,22 @@
     min-height: 5rem;
     display: flex;
     justify-content: start;
-    flex-wrap: wrap;
     align-items: center;
     font-size: 1.4rem;
     font-weight: 500;
     margin-left: 1rem;
+    flex-wrap: wrap;
     border-bottom: 0.1rem solid #dcdcdc;
 
 }
 .layout .catalogue .heads{
-
+   
+    min-width: 12rem;
+    height: 4rem;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    height: 60%;
+    font-size: 1.5rem;
     font-weight: 600;
     background: rgba(255, 255, 255, 0.87);
     color: rgb(0, 0, 0);
@@ -408,12 +411,12 @@
     border-radius: 0.5rem;
     margin-right: 1rem;
     padding: 0 0.2rem;
-
+   
 }
 .layout .catalogue input{
     min-width: 8.5rem;
     font-size: 1.2rem;
-    letter-spacing: 1.1rem;
+    letter-spacing: 0.7rem;
     height: 2.5rem;
     font-weight: 400;
     padding: 0 0.5rem;
@@ -476,20 +479,27 @@
 
 .banner>.search>.input- {
 
-    width: 85%;
+    
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
+.search .search-images  {
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .banner>.search>.image- {
 
-    width: 10%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+   
 }
 
 

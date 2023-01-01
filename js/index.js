@@ -1,5 +1,12 @@
 "use strict";
-
+import Time from "./time.js";
+//获取网页根目录
+function getBasePath() {
+    var obj = window.location;
+    var contextPath = obj.pathname.split("/")[1];
+    var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
+    return basePath;
+}
 var article_json;
 //每页的文章数量
 var pages = 4
@@ -153,38 +160,33 @@ window.addEventListener('load', () => {
 }
 
 )
+
+
+//indivdualSpace
 window.addEventListener("load",()=>{
-	// sessionStorage.setItem("identity","s")
-
-
-	if (sessionStorage.getItem("identity").length>2)
-	{
-		document.querySelector("#identity-user").className="user"
-		document.querySelector("#identity-visitor").className="user-hidden"
-
-	}
-	else
-	{
-		document.querySelector("#identity-user").className="user-hidden"
-		document.querySelector("#identity-visitor").className="user"
-
-	}
+	
+	document.querySelector("#identity-visitor").addEventListener("click",()=>{
+		
+		window.location.href="../html/individualSpace.html"
+	})
+	
 
 })
+//complex search 
 window.addEventListener("load",()=>{
-	// sessionStorage.setItem("identity","s")
-	if(sessionStorage.getItem("identity")==null)
+	let searchs=document.querySelectorAll(".search-complex svg")
+	for(let x of searchs)
 	{
-		sessionStorage.setItem("identity","");
+		x.addEventListener("click",()=>{
+			window.location.href="../html/search.html"
+		})
 	}
-	document.querySelector("#exit").addEventListener("click",()=>{
+	
+})
 
-		sessionStorage.setItem("identity","");
-		document.querySelector("#identity-user").className="user-hidden"
-		document.querySelector("#identity-visitor").className="user"
-	})
-
-
-
+window.addEventListener("load",()=>{
+	
+	Time.time()
+	
 })
 

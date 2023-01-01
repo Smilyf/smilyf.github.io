@@ -1,0 +1,96 @@
+@font-face {
+    font-family: unidreamLED;
+    src: url('../../font/UnidreamLED.ttf')
+    /* src: url("./UnidreamLED.ttf"); */
+}
+.time{
+
+    position: fixed;
+    top: 0rem;
+    left: calc( (-100rem + 100vw )/ 2);
+    font-size:1rem;
+    height:55.5rem;
+    --width1: 100rem;
+    width:calc(var(--width1));
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b0b0b076;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.562);
+    font-family: unidreamLED;
+    z-index: -1;
+    font-size: 1.5rem;
+    justify-items: stretch;
+}
+.NowData{
+    background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.356), rgba(121, 8, 220, 0.346));
+    background-size: 100% 1rem;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+   
+}
+.yearBox{
+    height: 10%;
+    width: 10%;
+    position: absolute;
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: 1s;
+    background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.291), rgba(121, 8, 220, 0.38));
+    background-size: 100% 1rem;
+    font-size: 1.5rem;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.mounthBox{
+    height: 25%;
+    width: 25%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    transition: 1s;
+}
+.dayBox{
+    height: 40%;
+    width: 40%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    transition: 1s;
+}
+.hourBox{
+    height: 55%;
+    width: 55%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    transition: 1s;
+    border-radius: 50%;
+}
+.minuteBox{
+    height: 70%;
+    width: 70%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    transition: 1s;
+}
+.secondBox{
+    height: 85%;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    border-radius: 50%;
+    transition: 1s;
+   
+}
