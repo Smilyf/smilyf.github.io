@@ -79,7 +79,14 @@ function time() {
             mounth360 = mounth360 + 1
         }
 
-
+        if(sencond360>=24*60)
+        {
+            sencond360 = 0
+            Minute360 = 0
+            hour360 = 0
+            day360 = 0
+            mounth360 = 0
+        }
         document.querySelector('.secondBox').style.transform = `rotate(${sencond360*360+(sencond) * 6}deg)`
         document.querySelector('.minuteBox').style.transform = `rotate(${Minute360*360+(minute) * 6}deg)`
         document.querySelector('.hourBox').style.transform = `rotate(${hour360*360+ (hour) * 15}deg)`
@@ -103,7 +110,6 @@ function time() {
         oldmounth = mounth
        
     }                                                                                                                        
-    transformBox()
     setInterval(() => {
         transformBox()
 
