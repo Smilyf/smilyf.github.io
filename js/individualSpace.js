@@ -25,34 +25,34 @@ function create(text, index) {
     let temp = document.createElement("div")
     let h1 = document.createElement("h1")
     let div = document.createElement("div")
-    div.className="user_and_time"
-    let authorname= document.createElement("a")
-    let createtime= document.createElement("div")
+    div.className = "user_and_time"
+    let authorname = document.createElement("a")
+    let createtime = document.createElement("div")
     //
-    let indexx= Object.keys(text).sort(function(a,b){return b-a})[index-1]
+    let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
     // let indexx= Object.keys(text)[index-1]
     h1.innerHTML = marked.parse(text[indexx]["title"])
     let p1 = document.createElement("p")
-     p1.innerHTML = marked.parse(text[indexx]["synopsis"])
-    authorname.innerHTML= "作者："+(text[indexx]["authorname"])
-    authorname.addEventListener("click",()=>{
-        sessionStorage.setItem("author_id",text[indexx]["author_id"])
+    p1.innerHTML = marked.parse(text[indexx]["synopsis"])
+    authorname.innerHTML = "作者：" + (text[indexx]["authorname"])
+    authorname.addEventListener("click", () => {
+        sessionStorage.setItem("author_id", text[indexx]["author_id"])
     })
 
-    let span0=document.createElement("span")
-    let span1=document.createElement("span")
-    let span2=document.createElement("span")
-    let span3=document.createElement("span")
-    span0.innerHTML="文章类别："+text[indexx]["actegory"]
-    span1.innerHTML="评论数："+text[indexx]["comment_amount"]
-    span2.innerHTML="点赞数："+text[indexx]["favorite_amount"]
-    span3.innerHTML="发布时间："+ (text[indexx]["createtime"])
-    authorname.href=getBasePath()+"/html/individualSpace.html"
+    let span0 = document.createElement("span")
+    let span1 = document.createElement("span")
+    let span2 = document.createElement("span")
+    let span3 = document.createElement("span")
+    span0.innerHTML = "文章类别：" + text[indexx]["actegory"]
+    span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
+    span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
+    span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
+    authorname.href = getBasePath() + "/html/individualSpace.html"
     createtime.appendChild(span0)
     createtime.appendChild(span1)
     createtime.appendChild(span2)
     createtime.appendChild(span3)
-    authorname.href=getBasePath()+"/html/individualSpace.html"
+    authorname.href = getBasePath() + "/html/individualSpace.html"
     temp.appendChild(h1)
     temp.appendChild(p1)
     div.appendChild(authorname)
@@ -104,46 +104,42 @@ function article_display() {
 
     let href = window.location.href
     let domain = "C++";
-    let ur2 = "../article/" + domain + "/article.json"
-    let url1=getBasePath()+'/ShowArticles'
-    let inf=JSON.parse( sessionStorage.getItem("identity"))
-    if(sessionStorage.getItem("author_id")=="0"||sessionStorage.getItem("author_id")==inf["userid"])
-    {
+    // let ur2 = "../article/" + domain + "/article.json"
+    // let url1=getBasePath()+'/ShowArticles'
+    let url1 = "/"
+    // let inf=JSON.parse( sessionStorage.getItem("identity"))
+    // if(sessionStorage.getItem("author_id")=="0"||sessionStorage.getItem("author_id")==inf["userid"])
+    // {
 
-        url1+="?id="+inf["userid"]+'&flag=1'
+    //     url1+="?id="+inf["userid"]+'&flag=1'
 
-    }
-    else {
-
-
-        document.querySelector("#manuscript").remove()
-        document.querySelector("#create-articles").remove()
-        url1+="?id="+sessionStorage.getItem("author_id")+'&flag=1'
-        sessionStorage.setItem("author_id",0)
+    // }
+    // else {
 
 
-    }
+    //     document.querySelector("#manuscript").remove()
+    //     document.querySelector("#create-articles").remove()
+    //     url1+="?id="+sessionStorage.getItem("author_id")+'&flag=1'
+    //     sessionStorage.setItem("author_id",0)
+
+
+    // }
 
 
 
-    // fetch(ur2)
-    //     .then((data) => {
-    //         return data.json()
-    //     })
-
-
-    // fetch('http://localhost:8080/webblogs_war_exploded/ShowArticles?beginum=1&endnum=2',
 
     fetch(url1,
         {
-        method: 'POST',
-        body: "",
-        headers: {}
+            method: 'POST',
+            body: "hhhhhh=123&sssss=323 3123#",
+            headers: { 'Content-Type': "application/json; charset=utf-8" },
+
         }).then(resp => resp.text()).then((data) => {
+            console.log(data)
 
-                  return  JSON.parse(data)
+            return JSON.parse(data)
 
-             })
+        })
         .then((text) => {
             article_json = text
             length = Object.keys(text).length;
@@ -235,27 +231,27 @@ function select(content_index) {
     const manuscript = document.querySelector("#manuscript")
     const create_articles = document.querySelector("#create-articles")
 
-    if (content_index == "dynamic" ) {
+    if (content_index == "dynamic") {
 
-        dynamic.className="navigation-article-show"
+        dynamic.className = "navigation-article-show"
 
 
     }
     else {
 
-        dynamic.className="navigation-article-hidden"
+        dynamic.className = "navigation-article-hidden"
     }
 
     if (content_index == "manuscript") {
 
-        manuscript.className="navigation-article-show"
+        manuscript.className = "navigation-article-show"
     }
     else {
 
-        manuscript.className="navigation-article-hidden"
+        manuscript.className = "navigation-article-hidden"
     }
 
-    if (content_index == "dynamic"||content_index == "manuscript" ) {
+    if (content_index == "dynamic" || content_index == "manuscript") {
         content.className = "articles"
         paging.className = "paging"
 
@@ -274,12 +270,12 @@ function select(content_index) {
 
     if (content_index == "create-articles") {
         create.className = "create"
-        create_articles.className="navigation-article-show"
+        create_articles.className = "navigation-article-show"
 
     }
     else {
         create.className = "create-hidden"
-        create_articles.className="navigation-article-hidden"
+        create_articles.className = "navigation-article-hidden"
     }
 
 }
@@ -309,7 +305,7 @@ window.addEventListener("load", () => {
     let full_preview = document.querySelector("#full_preview")
     let full_un_preview = document.querySelector("#full_un_preview")
     let un_full_preview = document.querySelector("#un_full_preview")
-    let un_full_un_preview=document.querySelector("#un_full_un_preview")
+    let un_full_un_preview = document.querySelector("#un_full_un_preview")
     let full_screen_div_left = document.querySelector("#full_screen_div_left")
     let full_screen_div_right = document.querySelector("#full_screen_div_right")
     let un_full_screen_div_left = document.querySelector("#un_full_screen_div_left")
@@ -482,153 +478,138 @@ window.addEventListener("load", () => {
 
 
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
 
 
     let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
 
-    document.querySelector("#un_full_bold").addEventListener("click",()=>{
-        un_full_screen_content_left.value+="****";
+    document.querySelector("#un_full_bold").addEventListener("click", () => {
+        un_full_screen_content_left.value += "****";
         un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -=2;
+        un_full_screen_content_left.selectionEnd -= 2;
 
     })
-    document.querySelector("#un_full_italic").addEventListener("click",()=>{
-        un_full_screen_content_left.value+="**";
+    document.querySelector("#un_full_italic").addEventListener("click", () => {
+        un_full_screen_content_left.value += "**";
         un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -=1;
+        un_full_screen_content_left.selectionEnd -= 1;
 
     })
 
-     document.querySelector("#un_full_color").addEventListener("change", (event)=>{
+    document.querySelector("#un_full_color").addEventListener("change", (event) => {
 
-         un_full_screen_content_left.value+="<span style=\"color:"+event.target.value+"\"></span>";
-         un_full_screen_content_left.focus();
-         un_full_screen_content_left.selectionEnd -=7;
-
-     })
-    document.querySelector("#un_full_strikethrough").addEventListener("click", ()=>{
-
-
-        un_full_screen_content_left.value+="~~~~";
+        un_full_screen_content_left.value += "<span style=\"color:" + event.target.value + "\"></span>";
         un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -=2;
+        un_full_screen_content_left.selectionEnd -= 7;
+
+    })
+    document.querySelector("#un_full_strikethrough").addEventListener("click", () => {
+
+
+        un_full_screen_content_left.value += "~~~~";
+        un_full_screen_content_left.focus();
+        un_full_screen_content_left.selectionEnd -= 2;
     })
 
-    document.querySelector("#un_full_unordered_list").addEventListener("click", ()=>{
+    document.querySelector("#un_full_unordered_list").addEventListener("click", () => {
 
-        un_full_screen_content_left.value+="* \n* \n* \n";
+        un_full_screen_content_left.value += "* \n* \n* \n";
         un_full_screen_content_left.focus();
     })
-    document.querySelector("#un_full_ordered_list").addEventListener("click", ()=>{
+    document.querySelector("#un_full_ordered_list").addEventListener("click", () => {
 
-        un_full_screen_content_left.value+="1. \n2. \n3. \n";
+        un_full_screen_content_left.value += "1. \n2. \n3. \n";
         un_full_screen_content_left.focus();
     })
-    document.querySelector("#un_full_unordered_code").addEventListener("click", ()=>{
+    document.querySelector("#un_full_unordered_code").addEventListener("click", () => {
 
-        un_full_screen_content_left.value+="```\n\n```\n";
+        un_full_screen_content_left.value += "```\n\n```\n";
         un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -=5;
+        un_full_screen_content_left.selectionEnd -= 5;
     })
-    document.querySelector("#un_full_unordered_link").addEventListener("click", ()=>{
+    document.querySelector("#un_full_unordered_link").addEventListener("click", () => {
 
 
-        un_full_screen_content_left.value+="[](https:// \"Title\")";
+        un_full_screen_content_left.value += "[](https:// \"Title\")";
         un_full_screen_content_left.focus();
         // un_full_screen_content_left.selectionEnd -=5;
     })
-    document.querySelector("#un_full_unordered_link_photo").addEventListener("click", ()=>{
+    document.querySelector("#un_full_unordered_link_photo").addEventListener("click", () => {
 
 
-        un_full_screen_content_left.value+="![](https:// )";
+        un_full_screen_content_left.value += "![](https:// )";
         un_full_screen_content_left.focus();
         // un_full_screen_content_left.selectionEnd -=5;
     })
 
 })
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
 
     let full_screen_content_left = document.querySelector("#full_screen_content_left")
 
-    document.querySelector("#full_bold").addEventListener("click",()=>{
-        full_screen_content_left.value+="****";
+    document.querySelector("#full_bold").addEventListener("click", () => {
+        full_screen_content_left.value += "****";
         full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -=2;
+        full_screen_content_left.selectionEnd -= 2;
 
     })
-    document.querySelector("#full_italic").addEventListener("click",()=>{
-        full_screen_content_left.value+="**";
+    document.querySelector("#full_italic").addEventListener("click", () => {
+        full_screen_content_left.value += "**";
         full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -=1;
+        full_screen_content_left.selectionEnd -= 1;
 
     })
 
-    document.querySelector("#full_color").addEventListener("change", (event)=>{
+    document.querySelector("#full_color").addEventListener("change", (event) => {
 
-        full_screen_content_left.value+="<span style=\"color:"+event.target.value+"\"></span>";
+        full_screen_content_left.value += "<span style=\"color:" + event.target.value + "\"></span>";
         full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -=7;
+        full_screen_content_left.selectionEnd -= 7;
 
     })
-    document.querySelector("#full_strikethrough").addEventListener("click", ()=>{
+    document.querySelector("#full_strikethrough").addEventListener("click", () => {
 
 
-        full_screen_content_left.value+="~~~~";
+        full_screen_content_left.value += "~~~~";
         full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -=2;
+        full_screen_content_left.selectionEnd -= 2;
     })
 
-    document.querySelector("#full_unordered_list").addEventListener("click", ()=>{
+    document.querySelector("#full_unordered_list").addEventListener("click", () => {
 
-        full_screen_content_left.value+="* \n* \n* \n";
+        full_screen_content_left.value += "* \n* \n* \n";
         full_screen_content_left.focus();
     })
-    document.querySelector("#full_ordered_list").addEventListener("click", ()=>{
+    document.querySelector("#full_ordered_list").addEventListener("click", () => {
 
-        full_screen_content_left.value+="1. \n2. \n3. \n";
+        full_screen_content_left.value += "1. \n2. \n3. \n";
         full_screen_content_left.focus();
     })
-    document.querySelector("#full_unordered_code").addEventListener("click", ()=>{
+    document.querySelector("#full_unordered_code").addEventListener("click", () => {
 
-        full_screen_content_left.value+="```\n\n```\n";
+        full_screen_content_left.value += "```\n\n```\n";
         full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -=5;
+        full_screen_content_left.selectionEnd -= 5;
     })
-    document.querySelector("#full_unordered_link").addEventListener("click", ()=>{
+    document.querySelector("#full_unordered_link").addEventListener("click", () => {
 
 
-        full_screen_content_left.value+="[](https:// \"Title\")";
+        full_screen_content_left.value += "[](https:// \"Title\")";
         full_screen_content_left.focus();
         // full_screen_content_left.selectionEnd -=5;
     })
-    document.querySelector("#full_unordered_link_photo").addEventListener("click", ()=>{
+    document.querySelector("#full_unordered_link_photo").addEventListener("click", () => {
 
 
-        full_screen_content_left.value+="![](https:// )";
+        full_screen_content_left.value += "![](https:// )";
         full_screen_content_left.focus();
         // full_screen_content_left.selectionEnd -=5;
     })
 
 })
-
-
-window.addEventListener("load",()=>{
-    let username=document.querySelector("#username")
-    let userid=document.querySelector("#userid")
-
-    let inf=JSON.parse( sessionStorage.getItem("identity"))
-    username.value=inf["username"]
-    userid.value=inf["userid"]
-
-})
-
-
-
-
 
 
 

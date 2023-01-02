@@ -118,10 +118,7 @@ function time() {
 
 
 
-function init()
-{
-    
-}
+
 export default {
     time
 }

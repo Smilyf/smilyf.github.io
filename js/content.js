@@ -10,73 +10,89 @@ function getBasePath() {
     var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
     return basePath;
 }
-
 window.addEventListener('load', () => {
 
-
     let href = window.location.href
-    let domain = href.match(/\?domain=(.*)/)[1];
-    if (domain.match(/(\S*)\?/) != null) {
-        domain = domain.match(/(\S*)\?/)[1]
-    }
-    let index = href.match(/\?index=(.*)/)[1];
+	let domain = href.match(/\?domain=(.*)/)[1];
+	if(domain.match(/(\S*)\?/)!=null)
+	{
+		domain=domain.match(/(\S*)\?/)[1]
+	}
+    let index=href.match(/\?index=(.*)/)[1];
     var artshow = document.querySelector(".content-show")
     artshow.style.display = "inline-block"
-
-    // let url = "../article/" +domain+"/"+ index + ".md"
-
-    fetch(getBasePath() + '/Content?index=' + index,
-        {
-            method: 'POST',
-            body: "",
-            headers: {}
-        }).then(resp => resp.text()).then((data) => {
-        return JSON.parse(data)
-    })
-        .then((texts) => {
-
-            let text = texts[index]["content"]
-
-
-            let temp = document.createElement("div")
-            temp.innerHTML = marked.parse(text)
-            for (const element of temp.querySelectorAll("pre code")) {
-                hljs.highlightElement(element);
-            }
-            artshow.appendChild(temp)
-        }).then(() => {
-            showcomment(index)
-
-
-        }
-    )
-    document.querySelector("#sssss").addEventListener("click",
-        ()=>{
-            let inf = JSON.parse(sessionStorage.getItem("identity"))
-            let username = inf["username"]
-            let userid = inf["userid"]
-
-            let cc=document.querySelector("#sssiii").value
-
-            addcomment(username, userid, index, cc, "0","1")
-
-        }
-    )
-
-
+    let url = "../article/" +domain+"/"+ index + ".md"
+    fetch(url)
+        .then((data) => {
+            data.text()
+        .then((text) => {
+                let temp = document.createElement("div")
+                temp.innerHTML = marked.parse(text)
+                for(const element of temp.querySelectorAll("pre code")){
+                    hljs.highlightElement(element);
+                }
+                artshow.appendChild(temp)
+            })
+        })
 })
 
-window.addEventListener("load", () => {
-    // sessionStorage.setItem("identity","s")
-    if (sessionStorage.getItem("identity").length > 2) {
-        document.querySelector("#identity-user").className = "user"
-        document.querySelector("#identity-visitor").className = "user-hidden"
-    }
+
+// window.addEventListener('load', () => {
 
 
+//     let href = window.location.href
+//     let domain = href.match(/\?domain=(.*)/)[1];
+//     if (domain.match(/(\S*)\?/) != null) {
+//         domain = domain.match(/(\S*)\?/)[1]
+//     }
+//     let index = href.match(/\?index=(.*)/)[1];
+//     var artshow = document.querySelector(".content-show")
+//     artshow.style.display = "inline-block"
+
+//     let url = "../article/" +domain+"/"+ index + ".md"
+
+//     fetch(getBasePath() + '/Content?index=' + index,
+//         {
+//             method: 'POST',
+//             body: "",
+//             headers: {}
+//         }).then(resp => resp.text()).then((data) => {
+//         return JSON.parse(data)
+//     })
+//         .then((texts) => {
+
+//             let text = texts[index]["content"]
 
 
-})
+//             let temp = document.createElement("div")
+//             temp.innerHTML = marked.parse(text)
+//             for (const element of temp.querySelectorAll("pre code")) {
+//                 hljs.highlightElement(element);
+//             }
+//             artshow.appendChild(temp)
+//         }).then(() => {
+//             // showcomment()
+
+
+//         }
+//     )
+//     document.querySelector("#sssss").addEventListener("click",
+//         ()=>{
+//             let inf = JSON.parse(sessionStorage.getItem("identity"))
+//             let username = inf["username"]
+//             let userid = inf["userid"]
+
+//             let cc=document.querySelector("#sssiii").value
+
+//             addcomment(username, userid, index, cc, "0","1")
+
+//         }
+//     )
+
+
+// })
+
+
 
 function addcomment(username, userid, index, content1, comment1, flag) {
     {
@@ -91,15 +107,25 @@ function addcomment(username, userid, index, content1, comment1, flag) {
             })
             .then(() => {
 
-                    showcomment(index);
+                    // showcomment();
                 }
             )
 
     }
 }
 
-function showcomment(index) {
-    let url = getBasePath() + '/Comment?articleid=' + index
+function showcomment() {
+    // let url = getBasePath() + '/Comment?articleid=' + index
+    let href = window.location.href
+	let domain = href.match(/\?domain=(.*)/)[1];
+	if(domain.match(/(\S*)\?/)!=null)
+	{
+		domain=domain.match(/(\S*)\?/)[1]
+	}
+    let index=href.match(/\?index=(.*)/)[1];
+    var artshow = document.querySelector(".content-show")
+    artshow.style.display = "inline-block"
+    let url = "../article/" +domain+"/"+ index + ".md"
     fetch(url,
         {
             method: 'POST',

@@ -4,4 +4,4 @@
 @import url("./assembly/content-show.css");
 @import url("./assembly/discuss.css");
 /*@import url("../highlight.js/styles/base16/google-dark.css");*/
-@import url("../highlight.js/styles/base16/google-light.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css");

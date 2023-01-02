@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "forever": "^4.0.3"
+  },
+  "scripts": {
+    "forever":"forever start service.js",
+    "forever_exit":"forever stop service.js"
+
+  }
+}

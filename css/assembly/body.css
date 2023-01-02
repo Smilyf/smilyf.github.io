@@ -18,7 +18,7 @@ html {
     flex-direction: column;
     justify-content: space-evenly;
     justify-items: stretch;
-    align-items: stretch;
+    align-items: center;
     background:rgba(255, 255, 255, 0);
     position: relative;
   
