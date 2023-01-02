@@ -103,7 +103,17 @@ function init_page(buttons) {
 function article_display() {
 
     let href = window.location.href
-    let domain = "C++";
+	let domain = href.match(/\?domain=(.*)/)[1];
+	if(domain.match(/(\S*)\?/)!=null)
+	{
+		domain=domain.match(/(\S*)\?/)[1]
+	}
+    let index=href.match(/\?index=(.*)/)[1];
+    var artshow = document.querySelector(".content-show")
+    artshow.style.display = "inline-block"
+
+    
+
     // let ur2 = "../article/" + domain + "/article.json"
     // let url1=getBasePath()+'/ShowArticles'
     let url1 = "/"
@@ -122,7 +132,6 @@ function article_display() {
     //     url1+="?id="+sessionStorage.getItem("author_id")+'&flag=1'
     //     sessionStorage.setItem("author_id",0)
 
-
     // }
 
 
@@ -131,12 +140,12 @@ function article_display() {
     fetch(url1,
         {
             method: 'POST',
-            body: "hhhhhh=123&sssss=323 3123#",
+            body: "",
             headers: { 'Content-Type': "application/json; charset=utf-8" },
 
         }).then(resp => resp.text()).then((data) => {
-            console.log(data)
-
+           
+            alert(data)
             return JSON.parse(data)
 
         })

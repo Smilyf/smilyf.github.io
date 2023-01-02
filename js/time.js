@@ -90,7 +90,7 @@ function time() {
         document.querySelector('.secondBox').style.transform = `rotate(${sencond360*360+(sencond) * 6}deg)`
         document.querySelector('.minuteBox').style.transform = `rotate(${Minute360*360+(minute) * 6}deg)`
         document.querySelector('.hourBox').style.transform = `rotate(${hour360*360+ (hour) * 15}deg)`
-        document.querySelector('.dayBox').style.transform = `rotate(${day360*360+mounth*360/d.getDate()}deg)`
+        document.querySelector('.dayBox').style.transform = `rotate(${day360*360+(day-1)*360/d.getDate()}deg)`
         document.querySelector('.mounthBox').style.transform = `rotate(${mounth360*360+(mounth) * 30}deg)`
         document.querySelector('.yearBox').innerHTML = year + ' 年'
         let nowDates = document.querySelectorAll('.NowData')

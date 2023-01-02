@@ -56,7 +56,6 @@ function init_page(buttons) {
 
 	}
 
-
 }
 window.addEventListener('load', () => {
 
