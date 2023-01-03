@@ -1,3 +1,16 @@
+
+a {
+
+    text-decoration: none;
+    /* color: #fff;
+    font-weight: 250;
+    font-size: 1.4rem;
+    letter-spacing: 0.2rem;
+    background: red; */
+}
+
+
+
 .layout {
     min-height: 100vh;
     width: 100%;
@@ -63,6 +76,29 @@
     align-items: flex-start;
 
     
+}
+
+.user_and_time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.user_and_time > div {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+
+}
+.user_and_time > div span {
+   margin: 0 2rem;
+
+}
+
+.user_and_time > a {
+    display: flex;
+    justify-content: start;
 }
 
 .layout>.layout-content>.articles>div {

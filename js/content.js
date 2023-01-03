@@ -1,8 +1,8 @@
-import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
-//  and it's easy to individually load & register additional languages
-import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
+// import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
+// //  and it's easy to individually load & register additional languages
+// import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
 
-hljs.registerLanguage('go', go);
+// hljs.registerLanguage('go', go);
 
 function getBasePath() {
     var obj = window.location;
@@ -11,6 +11,7 @@ function getBasePath() {
     return basePath;
 }
 window.addEventListener('load', () => {
+   
 
     let href = window.location.href
 	let domain = href.match(/\?domain=(.*)/)[1];
@@ -21,7 +22,7 @@ window.addEventListener('load', () => {
     let index=href.match(/\?index=(.*)/)[1];
     var artshow = document.querySelector(".content-show")
     artshow.style.display = "inline-block"
-    let url = "../article/" +domain+"/"+ index + ".md"
+    let url = "../article/" +domain+"/md/"+ index + ".md"
     fetch(url)
         .then((data) => {
             data.text()

@@ -7,19 +7,56 @@ var pages = 2
 var page_num = 1
 //文章数
 var length = 0
+//获取网页根目录
+function getBasePath() {
+    var obj = window.location;
+    var contextPath = obj.pathname.split("/")[1];
+    var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
+    return basePath;
+}
 function create(text, index) {
-	let temp = document.createElement("div")
-	let h1 = document.createElement("h1")
-	h1.innerHTML = marked.parse(text[index]["title"])
-	let p1 = document.createElement("p")
-	p1.innerHTML = marked.parse(text[index]["content"])
-	temp.appendChild(h1)
-	temp.appendChild(p1)
-	temp.addEventListener("click", () => {
-		sessionStorage.setItem('item', index);
-		window.location.href = "../html/content.html?domain="+text[index]["label"]+"?index="+index;
-	})
-	return temp;
+    let temp = document.createElement("div")
+    let h1 = document.createElement("h1")
+    let div = document.createElement("div")
+    div.className = "user_and_time"
+    let authorname = document.createElement("a")
+    let createtime = document.createElement("div")
+    //
+    let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
+    // let indexx= Object.keys(text)[index-1]
+    h1.innerHTML = marked.parse(text[indexx]["title"])
+    let p1 = document.createElement("p")
+    p1.innerHTML = marked.parse(text[indexx]["synopsis"])
+    authorname.innerHTML = "作者：" + (text[indexx]["authorname"])
+    authorname.addEventListener("click", () => {
+        sessionStorage.setItem("author_id", text[indexx]["author_id"])
+    })
+
+    let span0 = document.createElement("span")
+    let span1 = document.createElement("span")
+    let span2 = document.createElement("span")
+    let span3 = document.createElement("span")
+    // span0.innerHTML = "文章类别：" + text[indexx]["actegory"]
+    // span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
+    // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
+    span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
+    authorname.href = getBasePath() + "/html/individualSpace.html"
+    // createtime.appendChild(span0)
+    // createtime.appendChild(span1)
+    // createtime.appendChild(span2)
+    createtime.appendChild(span3)
+    authorname.href = getBasePath() + "/html/individualSpace.html"
+    temp.appendChild(h1)
+    temp.appendChild(p1)
+    // div.appendChild(authorname)
+    div.appendChild(createtime)
+    temp.appendChild(div)
+    h1.addEventListener("click", () => {
+        sessionStorage.setItem('item', indexx);
+		sessionStorage.setItem('temp', text[indexx]);
+        window.location.href = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+    })
+    return temp;
 }
 function change_page(buttons) {
 
@@ -172,12 +209,12 @@ window.addEventListener('load', () => {
 }
 
 )
-window.addEventListener("load",()=>{
-	// sessionStorage.setItem("identity","s")
-	if (sessionStorage.getItem("identity").length>2)
-	{
-		document.querySelector("#identity-user").className="user"
-		document.querySelector("#identity-visitor").className="user-hidden"
-	}
+// window.addEventListener("load",()=>{
+// 	// sessionStorage.setItem("identity","s")
+// 	if (sessionStorage.getItem("identity").length>2)
+// 	{
+// 		document.querySelector("#identity-user").className="user"
+// 		document.querySelector("#identity-visitor").className="user-hidden"
+// 	}
 
-})
+// })

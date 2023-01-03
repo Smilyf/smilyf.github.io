@@ -335,9 +335,11 @@ header>.user-hidden {
 
 
 header>.user {
+
     width: 7%;
     height: 3.2rem;
-    display: flex;
+    display: none;
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -446,9 +448,9 @@ header .user>div>div:hover {
         display: flex;
 
     }
-    /* header>.user{
+    header>.user{
         display: none;
-    } */
+    }
 
 }
 

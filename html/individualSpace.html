@@ -10,6 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="module" src="../js/individualSpace.js"></script>
     <link rel="shortcut icon" href="../images/YY.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/go.min.js"></script>
 
 
 </head>
@@ -186,7 +189,7 @@
                         <input type="text" name="username" id="username" value="Smily">
                     </div>
                     <div class="banner">
-                        <select name="category">
+                        <select name="category" id="category">
                             <option value="C++">C++</option>
                             <option value="Java">Java</option>
                             <option value="Python">Python</option>
@@ -308,7 +311,7 @@
                     </div>
                     <div class="article-submit">
                         <input type="button" name="drafts" id="d" value="保存到草稿">
-                        <input type="button" name="announce" id="s" value="发布">
+                        <input type="button" name="announce" id="announce" value="发布">
 
                     </div>
                 </form>
