@@ -7,10 +7,9 @@
 
     position: fixed;
     top: 0;
-    left: calc( (-100rem + 100vw )/ 2);
-    font-size:1rem;
-    height:55.5rem;
-    --width1: 100rem;
+    left: calc( (-100vw + 100vw )/ 2);
+    height:100vh;
+    --width1: 100vw;
     width:calc(var(--width1));
     padding: 0;
     margin: 0;
@@ -21,12 +20,12 @@
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.562);
     font-family: unidreamLED;
-    z-index: -1;
-    font-size: 1.5rem;
+    z-index: -10;
+    font-size: 1.2vw;
     justify-items: stretch;
 }
 .NowData{
-    background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.356), rgba(121, 8, 220, 0.346));
+    background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.356), rgba(67, 0, 126, 0.346));
     background-size: 100% 1rem;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -37,14 +36,13 @@
     width: 10%;
     position: absolute;
     display: flex;
-    font-size: 1rem;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     transition: 1s;
-    background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.291), rgba(121, 8, 220, 0.38));
+    background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.291), rgba(73, 2, 135, 0.38));
     background-size: 100% 1rem;
-    font-size: 1.5rem;
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
