@@ -114,16 +114,16 @@ function announce_article() {
     let category = document.querySelector("#category").value
     let content = sessionStorage.getItem("content")
 
-    let body_ = ""
-    body_ += "flag=" + "announce&"
-    body_ += "title=" + title + "&"
-    body_ += "synopsis=" + synopsis + "&"
-    body_ += "category=" + category + "&"
-    body_ += "content=" + content
+    let body_ ={}
+    body_["flag"]="announce"
+    body_["title"]=title
+    body_["synopsis"]=synopsis
+    body_["category"]=category
+    body_["content"]=content
     fetch(url,
         {
             method: 'POST',
-            body: body_,
+            body:JSON.stringify (body_),
             headers: { 'Content-Type': "application/json; charset=utf-8" },
 
         }).then(resp => resp.text()).then((data) => {

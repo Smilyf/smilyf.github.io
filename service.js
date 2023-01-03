@@ -32,12 +32,12 @@ function article_show(req, res) {
         if (postData.length > 0) {
             postData = postData.split("&");
             let jsons = {};
-            for (let i of postData) {
-                jsons[i.split("=")[0]] = i.split("=")[1];  //对数组每项用=分解开，=前为对象属性名，=后为属性值
-            }
-            let length = Object.keys(jsons).length
+            // for (let i of postData) {
+            //     jsons[i.split("======")[0]] = i.split("======")[1];  //对数组每项用=分解开，=前为对象属性名，=后为属性值
+            // }
+            // let length = Object.keys(jsons).length
 
-
+            jsons=JSON.parse(postData)
 
             const announce = async () => {
                 let ans = await open_article_json(jsons)
