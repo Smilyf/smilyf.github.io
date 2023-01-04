@@ -59,7 +59,6 @@ a {
     /*min-height: 50vh;*/
     background:rgba(255, 255, 255, 0);
    
-
 }
 
 .layout>.layout-content>.articles {
@@ -75,7 +74,6 @@ a {
     justify-items: center;
     align-items: flex-start;
 
-    
 }
 
 .user_and_time {
