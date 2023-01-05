@@ -667,7 +667,7 @@ window.addEventListener("load", () => {
         e.addEventListener("scroll", combineDebounceThrottle(function () {
             if(flag==1)
             {
-                console.log("03")
+                
                 let scrollTop = e.scrollTop
                 let scrollHeight = e.scrollHeight
                 let clientHeight = e.clientHeight
