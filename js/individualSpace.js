@@ -17,6 +17,7 @@ function getBasePath() {
 if (sessionStorage.getItem("content") == null) {
     sessionStorage.setItem("content", "")
 }
+var scrolltime = null;
 var article_json;
 //每页的文章数量
 var pages = 3
@@ -64,10 +65,10 @@ function create(text, index) {
     h1.addEventListener("click", () => {
         sessionStorage.setItem('item', indexx);
         sessionStorage.setItem('temp', text[indexx]);
-        let url="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+        let url = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
         // window.location.href = url
         window.open(url)
-        
+
     })
     return temp;
 }
@@ -114,16 +115,16 @@ function announce_article() {
     let category = document.querySelector("#category").value
     let content = sessionStorage.getItem("content")
 
-    let body_ ={}
-    body_["flag"]="announce"
-    body_["title"]=title
-    body_["synopsis"]=synopsis
-    body_["category"]=category
-    body_["content"]=content
+    let body_ = {}
+    body_["flag"] = "announce"
+    body_["title"] = title
+    body_["synopsis"] = synopsis
+    body_["category"] = category
+    body_["content"] = content
     fetch(url,
         {
             method: 'POST',
-            body:JSON.stringify (body_),
+            body: JSON.stringify(body_),
             headers: { 'Content-Type': "application/json; charset=utf-8" },
 
         }).then(resp => resp.text()).then((data) => {
@@ -143,7 +144,7 @@ async function article_display() {
     // 	domain=domain.match(/(\S*)\?/)[1]
     // }
     let domain = "C++"
-    let url = getBasePath() + "./article/" + domain + "/article.json"
+    let url = getBasePath() + "/article/" + domain + "/article.json"
 
 
 
@@ -401,6 +402,8 @@ window.addEventListener("load", () => {
 
     }
     full_screen_content_left.addEventListener('input', () => {
+        console.log("sdas")
+
 
 
         let temp = document.createElement("div")
@@ -622,8 +625,97 @@ window.addEventListener("load", () => {
     })
 
 })
+function combineDebounceThrottle(func, wait) {
+    var lastTime = 0
+    var timeoutD
+    var timeoutT
+
+    var later = function (...args) {
+        clearTimeout(timeoutD)
+        clearTimeout(timeoutT)
+        timeoutD = null
+        timeoutT = null
+        lastTime = Date.now()
+        func.apply(null, args)
+    }
+
+    return function (...args) {
+        var now = Date.now()
+        var coolingDown = now - lastTime < wait
+
+        clearTimeout(timeoutD)
+
+        if (!timeoutT && !coolingDown) {
+            timeoutT = setTimeout(later, wait, 'throttle', ...args)
+        }
+        else {
+            timeoutD = setTimeout(later, wait, 'debounce', ...args)
+        }
+    }
+}
+window.addEventListener("load", () => {
+    
+ let flag=1
+    function addscrollListener(e) {
+
+       
+        let full_screen_content_left = document.querySelector("#full_screen_content_left")
+        let full_screen_content_right = document.querySelector("#full_screen_div_right")
+        let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
+        let un_full_screen_content_right = document.querySelector("#un_full_screen_div_right")
+
+        e.addEventListener("scroll", combineDebounceThrottle(function () {
+            if(flag==1)
+            {
+                console.log("03")
+                let scrollTop = e.scrollTop
+                let scrollHeight = e.scrollHeight
+                let clientHeight = e.clientHeight
+                let ratio = scrollTop / (scrollHeight - clientHeight)
+                sessionStorage.setItem("ratio", ratio)
+
+                
+                set_scroll(full_screen_content_left)
+                set_scroll(full_screen_content_right)
+                set_scroll(un_full_screen_content_left)
+                set_scroll(un_full_screen_content_right)
+                flag=0
+               
+            }
+            else{
+                flag=1
+            }
+          
+               
+        }, 500)
+
+        )
+    }
+    let full_screen_content_left = document.querySelector("#full_screen_content_left")
+    let full_screen_content_right = document.querySelector("#full_screen_div_right")
+    let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
+    let un_full_screen_content_right = document.querySelector("#un_full_screen_div_right")
+
+    addscrollListener(full_screen_content_left)
+    addscrollListener(full_screen_content_right)
+    addscrollListener(un_full_screen_content_left)
+    addscrollListener(un_full_screen_content_right)
 
 
+    function set_scroll(e) {
+
+       
+        let scrollHeight = e.scrollHeight
+        let clientHeight = e.clientHeight
+        let ratio = Number(sessionStorage.getItem("ratio"))
+        let scrollTop = ratio * (scrollHeight - clientHeight)
+        e.scrollTop = scrollTop
+      
+    }
+
+
+
+})
 
 window.addEventListener("load", () => {
 

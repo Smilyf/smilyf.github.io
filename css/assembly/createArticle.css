@@ -27,7 +27,7 @@
     height: 100%;
     border: 0.1rem solid #717171;
     margin: 0.2rem 0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 1.3rem;
     padding: 0.5rem 0.5rem;
 
@@ -55,7 +55,7 @@
     cursor: pointer;
     border: 0.1rem solid #717171;
     margin-right: 2%;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 
 }
 
@@ -69,7 +69,7 @@
     border: none;
     border-radius: 0.5rem;
     border: 0.1rem solid #717171;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 
 }
 
@@ -133,7 +133,7 @@
     height: calc(100% - 5rem);
     display: flex;
     justify-content: start;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 
 }
 
@@ -156,18 +156,16 @@
     height: 100%;
     border: 0.1rem solid #717171;
     padding: 0.5rem 0.5rem;
-    font-size: 1.5rem;
-
+    font-size: 1.2rem;
 }
 
-.article-content > .content textarea::-webkit-scrollbar {
+/* .article-content > .content textarea::-webkit-scrollbar {
     display: none;
-}
+} */
 
 .article-content > .content > .content-left-full {
     width: 100%;
     height: 100%;
-
 }
 
 .article-content > .content > .content-left-full > textarea {
@@ -176,7 +174,7 @@
     width: 100%;
     height: 100%;
     border: 0.1rem solid #717171;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     padding: 0.5rem 0.5rem;
     
 }
@@ -191,7 +189,6 @@
     overflow-x: auto;
     padding: 0.5rem 0.5rem;
     
-
 }
 
 .article-content > .content > .content-right-unfull {
