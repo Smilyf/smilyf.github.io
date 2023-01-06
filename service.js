@@ -37,7 +37,7 @@ function article_show(req, res) {
             // }
             // let length = Object.keys(jsons).length
 
-            jsons=JSON.parse(postData)
+            jsons = JSON.parse(postData)
 
             const announce = async () => {
                 let ans = await open_article_json(jsons)
@@ -215,7 +215,7 @@ server.on('request', (req, res) => {
 
         if (url_t == "/") {
 
-            fs.readFile("./html/individualSpace.html", function (err, data) {
+            fs.readFile("./index.html", function (err, data) {
                 if (err) {
                     console.log(err);
 
@@ -245,7 +245,7 @@ server.on('request', (req, res) => {
                     }
                     else {
 
-                        res.writeHead(200, { "Content-Type": "application/javascript;charset=UTF-8" });
+                         res.writeHead(200, { "Content-Type": "application/javascript;charset=UTF-8" });
 
                         res.end(data);
 
@@ -279,9 +279,8 @@ server.on('request', (req, res) => {
                 }
 
             }
+
         }
-
-
     }
 
 

@@ -1,10 +1,11 @@
 {
   "dependencies": {
-    "forever": "^4.0.3"
+    "forever": "^4.0.3",
+    "github-markdown-css": "^5.1.0",
+    "highlight.js": "^11.7.0"
   },
   "scripts": {
-    "forever":"forever start service.js",
-    "forever_exit":"forever stop service.js"
-
+    "forever": "forever start --minUptime 1000 --spinSleepTime 1000 service.js",
+    "forever_stop": "forever stop service.js"
   }
 }

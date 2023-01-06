@@ -2,7 +2,7 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    min-height: 4.5rem;
+    min-height: 4rem;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -44,7 +44,7 @@ header>.logos>.logo-a {
 header>.logos a {
     text-decoration: none;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 1.2rem;
     text-align: center;
     color: #fff;
@@ -176,7 +176,7 @@ header a {
     text-decoration: none;
     color: #fff;
     font-weight: 250;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     letter-spacing: 0.2rem;
     /* background: red; */
 

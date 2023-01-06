@@ -10,7 +10,7 @@
 //获取网页根目录
 function getBasePath() {
     var obj = window.location;
-    var contextPath = obj.pathname.split("/")[1];
+    var contextPath = obj.pathname.split("/")[0];
     var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
     return basePath;
 }
@@ -109,7 +109,7 @@ function init_page(buttons) {
 
 }
 function announce_article() {
-    let url = "/article"
+    let url ="/article"
     let title = document.querySelector("#title").value
     let synopsis = document.querySelector("#synopsis").value
     let category = document.querySelector("#category").value
@@ -145,9 +145,6 @@ async function article_display() {
     // }
     let domain = "C++"
     let url = getBasePath() + "/article/" + domain + "/article.json"
-
-
-
 
     let articlejson = await fetch(url,
         {
@@ -402,7 +399,7 @@ window.addEventListener("load", () => {
 
     }
     full_screen_content_left.addEventListener('input', () => {
-        console.log("sdas")
+        
 
 
 
@@ -500,6 +497,7 @@ window.addEventListener("load", () => {
     let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
 
     document.querySelector("#un_full_bold").addEventListener("click", () => {
+       
         un_full_screen_content_left.value += "****";
         un_full_screen_content_left.focus();
         un_full_screen_content_left.selectionEnd -= 2;
@@ -654,39 +652,40 @@ function combineDebounceThrottle(func, wait) {
     }
 }
 window.addEventListener("load", () => {
-    
- let flag=1
+
+    let flag = 1
     function addscrollListener(e) {
 
-       
+
         let full_screen_content_left = document.querySelector("#full_screen_content_left")
         let full_screen_content_right = document.querySelector("#full_screen_div_right")
         let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
         let un_full_screen_content_right = document.querySelector("#un_full_screen_div_right")
 
         e.addEventListener("scroll", combineDebounceThrottle(function () {
-            if(flag==1)
-            {
-                
+            if (flag == 1) {
+
                 let scrollTop = e.scrollTop
                 let scrollHeight = e.scrollHeight
                 let clientHeight = e.clientHeight
                 let ratio = scrollTop / (scrollHeight - clientHeight)
                 sessionStorage.setItem("ratio", ratio)
 
-                
+
                 set_scroll(full_screen_content_left)
                 set_scroll(full_screen_content_right)
                 set_scroll(un_full_screen_content_left)
                 set_scroll(un_full_screen_content_right)
-                flag=0
-               
+                set_scroll(un_full_screen_content_right)
+                flag = 0
+                
             }
-            else{
-                flag=1
+            else {
+                flag = 1
+                
             }
-          
-               
+            
+
         }, 500)
 
         )
@@ -704,13 +703,14 @@ window.addEventListener("load", () => {
 
     function set_scroll(e) {
 
-       
+
         let scrollHeight = e.scrollHeight
         let clientHeight = e.clientHeight
         let ratio = Number(sessionStorage.getItem("ratio"))
         let scrollTop = ratio * (scrollHeight - clientHeight)
         e.scrollTop = scrollTop
-      
+        
+        
     }
 
 
