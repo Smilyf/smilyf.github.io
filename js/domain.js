@@ -16,7 +16,7 @@ function getBasePath() {
 }
 function create(text, index) {
     let temp = document.createElement("div")
-    let h1 = document.createElement("h1")
+    let h1 = document.createElement("a")
     let div = document.createElement("div")
     div.className = "user_and_time"
     let authorname = document.createElement("a")
@@ -24,7 +24,8 @@ function create(text, index) {
     //
     let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
     // let indexx= Object.keys(text)[index-1]
-    h1.innerHTML = marked.parse(text[indexx]["title"])
+    // h1.innerHTML = marked.parse(text[indexx]["title"])
+	h1.innerHTML = (text[indexx]["title"])
     let p1 = document.createElement("p")
     p1.innerHTML = marked.parse(text[indexx]["synopsis"])
     authorname.innerHTML = "作者：" + (text[indexx]["authorname"])
@@ -51,10 +52,12 @@ function create(text, index) {
     // div.appendChild(authorname)
     div.appendChild(createtime)
     temp.appendChild(div)
+	h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
     h1.addEventListener("click", () => {
-        sessionStorage.setItem('item', indexx);
-		sessionStorage.setItem('temp', text[indexx]);
-        window.location.href = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+        // sessionStorage.setItem('item', indexx);
+		// sessionStorage.setItem('temp', text[indexx]);
+
+        // window.location.href = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
     })
     return temp;
 }

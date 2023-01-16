@@ -1,10 +1,10 @@
 "use strict";
 // import "../js/check.js"
-import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
-//  and it's easy to individually load & register additional languages
-import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
+// import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
+// //  and it's easy to individually load & register additional languages
+// import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
 
-hljs.registerLanguage('go', go);
+// hljs.registerLanguage('go', go);
 // const { configConsumerProps } = require("antd/lib/config-provider");
 
 //获取网页根目录
@@ -81,7 +81,7 @@ function create(text, index) {
     div.appendChild(createtime)
     temp.appendChild(div)
     h1.addEventListener("click", () => {
-        sessionStorage.setItem('item', index);
+        // sessionStorage.setItem('item', index);
         window.location.href = "../html/content.html?domain=" + text[index]["label"] + "?index=" + indexx;
     })
     return temp;
@@ -480,11 +480,11 @@ window.addEventListener("load", () => {
     let pages = document.querySelector("#svalue")
     let cccc = document.querySelector("#cccc")
 
-    cccc.addEventListener("click", () => {
-        sessionStorage.setItem("svalue", pages.value)
-        //触发servlet
-        article_display()
+    // cccc.addEventListener("click", () => {
+    //     sessionStorage.setItem("svalue", pages.value)
+    //     //触发servlet
+    //     article_display()
 
-    })
+    // })
 
 })

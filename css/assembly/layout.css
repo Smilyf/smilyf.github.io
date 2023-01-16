@@ -75,6 +75,12 @@ a {
     align-items: flex-start;
 
 }
+.layout>.layout-content>.articles a{
+  
+    font-size: 2rem;
+    font-weight: 400;
+
+}
 
 .user_and_time {
     display: flex;

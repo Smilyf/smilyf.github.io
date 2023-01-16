@@ -54,7 +54,7 @@ var page_num = 1
 var length = 0
 function create(text, index) {
     let temp = document.createElement("div")
-    let h1 = document.createElement("h1")
+    let h1 = document.createElement("a")
     let div = document.createElement("div")
     div.className = "user_and_time"
     let authorname = document.createElement("a")
@@ -89,14 +89,16 @@ function create(text, index) {
     // div.appendChild(authorname)
     div.appendChild(createtime)
     temp.appendChild(div)
-    h1.addEventListener("click", () => {
-        sessionStorage.setItem('item', indexx);
-        sessionStorage.setItem('temp', text[indexx]);
-        let url = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
-        // window.location.href = url
-        window.open(url)
+    h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+    h1.target="_blank"
+    // h1.addEventListener("click", () => {
+    //     // sessionStorage.setItem('item', indexx);
+    //     // sessionStorage.setItem('temp', text[indexx]);
+    //     // let url = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+    //     // window.location.href = url
+    //     // window.open(url)
 
-    })
+    // })
     return temp;
 }
 
