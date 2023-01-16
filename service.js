@@ -158,8 +158,6 @@ function article_show(req, res) {
                     await create_jsons(url1, articles_json)
                     await create_json_one(url2, articles_json_one)
 
-
-
                 }
                 const create_article_md = async function (jsons) {
                     return new Promise(function (resolve, reject) {

@@ -1,15 +1,13 @@
+@import url("../../node_modules/github-markdown-css/github-markdown.css");
 @import url("../../node_modules/highlight.js/styles/base16/google-dark.css");
-li {
-    margin-left: 2.1rem;
-}
 .content-show {
     margin-top: 5rem;
     margin-bottom: 1rem;
     padding: 1rem 1rem;
     min-height: 100vh;
     width: 60%;
-    display: none;
-    background: #c1c1c117;
+    display: flex;
+    background: #ffffff17;
     font-size: 1.2rem;
     line-height: 1.8rem;
     color: #0f0f0f;
@@ -17,6 +15,14 @@ li {
     box-shadow: 0.15rem 0.15rem 0.15rem 0.1rem rgba(0, 0, 0, 0.174);
 
 }
+/* .content-show div *{
+    margin-top: 1rem ;
+    margin-bottom: 1rem ;
+   
+} */
+/* li {
+    margin-left: 2.1rem;
+} */
 .content-show img{
     width: 90%;
     margin :1rem 1rem;
@@ -29,7 +35,7 @@ code {
 
 .markdown-body {
     box-sizing: border-box;
-
+    
 }
 
 @media screen and (max-width:991px) {}

@@ -49,6 +49,22 @@
         "stdexcept": "cpp",
         "stop_token": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "cstring": "cpp",
+        "ios": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xlocnum": "cpp",
+        "xmemory": "cpp",
+        "xstddef": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp",
+        "chrono": "cpp",
+        "condition_variable": "cpp",
+        "list": "cpp",
+        "mutex": "cpp"
     }
 }

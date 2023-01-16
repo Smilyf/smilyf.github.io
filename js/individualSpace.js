@@ -6,7 +6,34 @@
 // import { waitForDebugger } from 'inspector';
 // hljs.registerLanguage('go', go);
 // // const { configConsumerProps } = require("antd/lib/config-provider");
+function combineDebounceThrottle(func, wait) {
+    var lastTime = 0
+    var timeoutD
+    var timeoutT
 
+    var later = function (...args) {
+        clearTimeout(timeoutD)
+        clearTimeout(timeoutT)
+        timeoutD = null
+        timeoutT = null
+        lastTime = Date.now()
+        func.apply(null, args)
+    }
+
+    return function (...args) {
+        var now = Date.now()
+        var coolingDown = now - lastTime < wait
+
+        clearTimeout(timeoutD)
+
+        if (!timeoutT && !coolingDown) {
+            timeoutT = setTimeout(later, wait, 'throttle', ...args)
+        }
+        else {
+            timeoutD = setTimeout(later, wait, 'debounce', ...args)
+        }
+    }
+}
 //获取网页根目录
 function getBasePath() {
     var obj = window.location;
@@ -109,7 +136,7 @@ function init_page(buttons) {
 
 }
 function announce_article() {
-    let url ="/article"
+    let url = "/article"
     let title = document.querySelector("#title").value
     let synopsis = document.querySelector("#synopsis").value
     let category = document.querySelector("#category").value
@@ -322,6 +349,14 @@ window.addEventListener("load", () => {
     let un_full_screen_div_right = document.querySelector("#un_full_screen_div_right")
 
     full_preview.addEventListener("click", () => {
+        let full_screen_content_right = document.querySelector("#full_screen_content_right")
+        let temp = document.createElement("div")
+        full_screen_content_right.innerHTML = ""
+        temp.innerHTML = marked.parse(sessionStorage.getItem("content") )
+        for (const element of temp.querySelectorAll("pre code")) {
+            hljs.highlightElement(element);
+        }
+        full_screen_content_right.appendChild(temp)
 
         full_preview.className = "div_svg_hidden"
         full_un_preview.className = "div_svg_show"
@@ -349,6 +384,14 @@ window.addEventListener("load", () => {
 
     un_full_preview.addEventListener("click", () => {
 
+        let un_full_screen_content_right = document.querySelector("#un_full_screen_content_right")
+        let temp = document.createElement("div")
+        un_full_screen_content_right.innerHTML = ""
+        temp.innerHTML = marked.parse(sessionStorage.getItem("content") )
+        for (const element of temp.querySelectorAll("pre code")) {
+            hljs.highlightElement(element);
+        }
+        un_full_screen_content_right.appendChild(temp)
         un_full_un_preview.className = "div_svg_show"
         un_full_preview.className = "div_svg_hidden"
         un_full_screen_div_left.className = "content-left-unfull"
@@ -398,69 +441,36 @@ window.addEventListener("load", () => {
         un_full_screen_content_right.appendChild(temp1)
 
     }
-    full_screen_content_left.addEventListener('input', () => {
-        
 
+    full_screen_content_left.addEventListener('input', combineDebounceThrottle(() => {
 
-
-        let temp = document.createElement("div")
-        let temp1 = document.createElement("div")
-
-        full_screen_content_right.innerHTML = ""
-        un_full_screen_content_right.innerHTML = ""
         text = full_screen_content_left.value;
-        un_full_screen_content_left.value = full_screen_content_left.value;
         sessionStorage.setItem("content", text)
-
-        temp.innerHTML = marked.parse(text)
-
-        for (const element of temp.querySelectorAll("pre code")) {
-            hljs.highlightElement(element);
+        if (full_screen_div_right.className == "content-right-full") {
+            let temp = document.createElement("div")
+            full_screen_content_right.innerHTML = ""
+            temp.innerHTML = marked.parse(text)
+            for (const element of temp.querySelectorAll("pre code")) {
+                hljs.highlightElement(element);
+            }
+            full_screen_content_right.appendChild(temp)
         }
+    }), 500)
 
-        temp1.innerHTML = marked.parse(text)
+    un_full_screen_content_left.addEventListener('input', combineDebounceThrottle(() => {
 
-        for (const element of temp1.querySelectorAll("pre code")) {
-            hljs.highlightElement(element);
-        }
-
-        full_screen_content_right.appendChild(temp)
-
-        un_full_screen_content_right.appendChild(temp1)
-
-
-
-    })
-
-    un_full_screen_content_left.addEventListener('input', () => {
-
-
-        let temp = document.createElement("div")
-        let temp1 = document.createElement("div")
-
-        full_screen_content_right.innerHTML = ""
-        un_full_screen_content_right.innerHTML = ""
         text = un_full_screen_content_left.value;
-        full_screen_content_left.value = un_full_screen_content_left.value;
         sessionStorage.setItem("content", text)
-
-        temp.innerHTML = marked.parse(text)
-
-        for (const element of temp.querySelectorAll("pre code")) {
-            hljs.highlightElement(element);
+        if (un_full_screen_div_right.className == "content-right-full") {
+            let temp = document.createElement("div")
+            un_full_screen_content_right.innerHTML = ""
+            temp.innerHTML = marked.parse(text)
+            for (const element of temp.querySelectorAll("pre code")) {
+                hljs.highlightElement(element);
+            }
+            un_full_screen_content_right.appendChild(temp)
         }
-
-        temp1.innerHTML = marked.parse(text)
-
-        for (const element of temp1.querySelectorAll("pre code")) {
-            hljs.highlightElement(element);
-        }
-
-        full_screen_content_right.appendChild(temp)
-
-        un_full_screen_content_right.appendChild(temp1)
-
-    })
+    }, 500))
 })
 
 
@@ -472,10 +482,24 @@ window.addEventListener("load", () => {
     let full_screen_show = document.querySelector("#full_screen_show")
     let layout = document.querySelector("#layout")
     let un_full_screen = document.querySelector("#un_full_screen")
-
+    
     full_screen.addEventListener("click", () => {
+
         layout.className = "layout"
         full_screen_show.className = "full_screen_hidden"
+        let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
+        un_full_screen_content_left.value=sessionStorage.getItem("content")
+        let un_full_screen_div_right=document.querySelector("#un_full_screen_div_right")
+        if (un_full_screen_div_right.className == "content-right-full") {
+            let un_full_screen_content_right = document.querySelector("#un_full_screen_content_right")
+            let temp = document.createElement("div")
+            un_full_screen_content_right.innerHTML = ""
+            temp.innerHTML = marked.parse(sessionStorage.getItem("content"))
+            for (const element of temp.querySelectorAll("pre code")) {
+                hljs.highlightElement(element);
+            }
+            un_full_screen_content_right.appendChild(temp)
+        }
 
     })
 
@@ -483,6 +507,19 @@ window.addEventListener("load", () => {
 
         layout.className = "layout_hidden"
         full_screen_show.className = "full_screen"
+        let full_screen_content_left = document.querySelector("#full_screen_content_left")
+        full_screen_content_left.value=sessionStorage.getItem("content")
+        let full_screen_div_right=document.querySelector("#full_screen_div_right")
+        if (full_screen_div_right.className == "content-right-full") {
+            let full_screen_content_right= document.querySelector("#full_screen_content_right")
+            let temp = document.createElement("div")
+            full_screen_content_right.innerHTML = ""
+            temp.innerHTML = marked.parse(sessionStorage.getItem("content"))
+            for (const element of temp.querySelectorAll("pre code")) {
+                hljs.highlightElement(element);
+            }
+            full_screen_content_right.appendChild(temp)
+        }
     })
 
 })
@@ -497,7 +534,7 @@ window.addEventListener("load", () => {
     let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
 
     document.querySelector("#un_full_bold").addEventListener("click", () => {
-       
+
         un_full_screen_content_left.value += "****";
         un_full_screen_content_left.focus();
         un_full_screen_content_left.selectionEnd -= 2;
@@ -623,34 +660,7 @@ window.addEventListener("load", () => {
     })
 
 })
-function combineDebounceThrottle(func, wait) {
-    var lastTime = 0
-    var timeoutD
-    var timeoutT
 
-    var later = function (...args) {
-        clearTimeout(timeoutD)
-        clearTimeout(timeoutT)
-        timeoutD = null
-        timeoutT = null
-        lastTime = Date.now()
-        func.apply(null, args)
-    }
-
-    return function (...args) {
-        var now = Date.now()
-        var coolingDown = now - lastTime < wait
-
-        clearTimeout(timeoutD)
-
-        if (!timeoutT && !coolingDown) {
-            timeoutT = setTimeout(later, wait, 'throttle', ...args)
-        }
-        else {
-            timeoutD = setTimeout(later, wait, 'debounce', ...args)
-        }
-    }
-}
 window.addEventListener("load", () => {
 
     let flag = 1
@@ -678,13 +688,13 @@ window.addEventListener("load", () => {
                 set_scroll(un_full_screen_content_right)
                 set_scroll(un_full_screen_content_right)
                 flag = 0
-                
+
             }
             else {
                 flag = 1
-                
+
             }
-            
+
 
         }, 500)
 
@@ -709,8 +719,8 @@ window.addEventListener("load", () => {
         let ratio = Number(sessionStorage.getItem("ratio"))
         let scrollTop = ratio * (scrollHeight - clientHeight)
         e.scrollTop = scrollTop
-        
-        
+
+
     }
 
 

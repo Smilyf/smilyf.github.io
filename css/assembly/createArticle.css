@@ -2,7 +2,6 @@
 @import url("../../node_modules/highlight.js/styles/base16/google-dark.css");
 .markdown-body {
     box-sizing: border-box;
-
 }
 .create {
     width: 100%;

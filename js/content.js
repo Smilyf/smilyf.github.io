@@ -20,8 +20,8 @@ window.addEventListener('load', () => {
 		domain=domain.match(/(\S*)\?/)[1]
 	}
     let index=href.match(/\?index=(.*)/)[1];
-    var artshow = document.querySelector(".content-show")
-    artshow.style.display = "inline-block"
+    var artshow = document.querySelector("#content-sss")
+    // artshow.style.display = "inline-block"
     let url = "../article/" +domain+"/md/"+ index + ".md"
     fetch(url)
         .then((data) => {
