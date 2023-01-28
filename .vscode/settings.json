@@ -66,5 +66,6 @@
         "condition_variable": "cpp",
         "list": "cpp",
         "mutex": "cpp"
-    }
+    },
+    "livePreview.defaultPreviewPath": "c:\\Users\\Smily\\smilyf.github.io\\index.html"
 }
