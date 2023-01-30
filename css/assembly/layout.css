@@ -1,8 +1,6 @@
 
 
 
-
-
 .layout {
     min-height: 40rem;
     width: 100%;
@@ -74,11 +72,17 @@
 
 }
 .layout>.layout-content>.articles .title_a>a{
-  
+
+    color: rgb(0, 0, 0);
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: 0.5rem;
 
 }
+.layout>.layout-content>.articles .title_a>a:hover{
+    color: rgb(139, 20, 219);
+}
+
 
 .user_and_time {
     display: flex;
@@ -104,6 +108,9 @@
     font-size: 1.1rem ; 
     display: flex;
     justify-content: start;
+    color: rgb(0, 0, 0);
+    
+
 }
 
 .layout>.layout-content>.articles>div {
@@ -124,14 +131,8 @@
 /*.layout>.layout-content>.articles>div *{*/
 /*    min-width: 100%;*/
 /*}*/
-.layout .layout-content>.articles>div>a {
-    width: 100%;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    /* border-bottom: 0.08rem solid #777777; */
-}
+
+
 .layout .layout-content>.articles>div>.div_s {
     width: 100%;
     height: 8rem;

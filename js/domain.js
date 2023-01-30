@@ -14,9 +14,13 @@ function getBasePath() {
     var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
     return basePath;
 }
+
+
 function create(text, index) {
     let temp = document.createElement("div")
     let h1 = document.createElement("a")
+    let title=document.createElement("div")
+    title.className="title_a"
     let div = document.createElement("div")
     div.className = "user_and_time"
     let authorname = document.createElement("a")
@@ -24,11 +28,22 @@ function create(text, index) {
     //
     let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
     // let indexx= Object.keys(text)[index-1]
-    // h1.innerHTML = marked.parse(text[indexx]["title"])
-	h1.innerHTML = (text[indexx]["title"])
-    let p1 = document.createElement("p")
-    p1.innerHTML = marked.parse(text[indexx]["synopsis"])
-    authorname.innerHTML = "作者：" + (text[indexx]["authorname"])
+    h1.innerHTML = marked.parse(text[indexx]["title"])
+
+    // let div_buttons = document.createElement("div")
+    // div_buttons.className="div_buttons"
+    // let div_button1 = document.createElement("div")
+    // div_button1.innerHTML="修改"
+    // let div_button2 = document.createElement("div")
+    // div_button2.innerHTML="删除"
+    // div_buttons.appendChild(div_button1)
+    // div_buttons.appendChild(div_button2)
+    let div_s= document.createElement("div")
+    div_s.className="div_s"
+    let div_p = document.createElement("div")
+    div_p.className="div_p"
+    div_p.innerHTML = marked.parse(text[indexx]["synopsis"])
+    authorname.innerHTML = "作者：" + (text[indexx]["author"])
     authorname.addEventListener("click", () => {
         sessionStorage.setItem("author_id", text[indexx]["author_id"])
     })
@@ -37,30 +52,28 @@ function create(text, index) {
     let span1 = document.createElement("span")
     let span2 = document.createElement("span")
     let span3 = document.createElement("span")
-    // span0.innerHTML = "文章类别：" + text[indexx]["actegory"]
+     span0.innerHTML = "文章类别：" + text[indexx]["category"]
     // span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
     // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
     span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
-    authorname.href = getBasePath() + "/html/individualSpace.html"
-    // createtime.appendChild(span0)
+    authorname.href = getBasePath() + "/individualSpace.html"
+     createtime.appendChild(span0)
     // createtime.appendChild(span1)
     // createtime.appendChild(span2)
     createtime.appendChild(span3)
-    authorname.href = getBasePath() + "/html/individualSpace.html"
-    temp.appendChild(h1)
-    temp.appendChild(p1)
-    // div.appendChild(authorname)
+    title.appendChild(h1)
+    temp.appendChild(title)
+    div_s.appendChild(div_p)
+    // div_s.appendChild(div_buttons)
+    temp.appendChild(div_s)
+     div.appendChild(authorname)
     div.appendChild(createtime)
     temp.appendChild(div)
-	h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
-    h1.addEventListener("click", () => {
-        // sessionStorage.setItem('item', indexx);
-		// sessionStorage.setItem('temp', text[indexx]);
-
-        // window.location.href = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
-    })
+    h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+    h1.target="_blank"
     return temp;
 }
+
 function change_page(buttons) {
 
 	document.querySelector(".previous-page").addEventListener("click", () => {

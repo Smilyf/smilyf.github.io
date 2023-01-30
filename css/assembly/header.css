@@ -43,7 +43,7 @@ header>.logos>.logo-a {
 
 header>.logos a {
     text-decoration: none;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.1rem;
     line-height: 1.2rem;
     text-align: center;
@@ -89,7 +89,7 @@ header>.navigation-simplify>div {
     border: 0.1rem solid #fff;
     border-radius: 0.5rem;
     text-align: center;
-
+    
 }
 
 header>.navigation-simplify:hover>div {
@@ -168,6 +168,7 @@ header>.navigation>div {
     border: 0.2rem solid #0f0f0f;
     z-index: 10;
     text-align: center;
+    
 
 }
 
@@ -177,9 +178,16 @@ header a {
     color: #fff;
     font-weight: 250;
     font-size: 1.3rem;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.3rem;
     /* background: red; */
+    font-weight: 500;
 
+}
+header a:hover {
+
+  
+    color: rgb(255, 255, 255);
+    
 }
 
 header .navigation>div:hover {

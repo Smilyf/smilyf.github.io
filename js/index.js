@@ -21,13 +21,15 @@ function create(text, index) {
 	h1.innerHTML = marked.parse(text[index]["title"])
 	let div_p = document.createElement("div")
 	div_p.className="div_p"
-	
+	let title=document.createElement("div")
+    title.className="title_a"
 	div_p.innerHTML = marked.parse(text[index]["content"])
 	// let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
 	let div_s= document.createElement("div")
     div_s.className="div_s"
 	h1.href="./html/domain.html" + "?domain=" + text[index]["label"]
-	temp.appendChild(h1)
+	title.appendChild(h1)
+	temp.appendChild(title)
 	div_s.appendChild(div_p)
     temp.appendChild(div_s)
 	return temp;

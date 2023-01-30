@@ -23,6 +23,15 @@
     grid-template-columns: repeat(1, 1fr); 
 }
 
+.layout .layout-content>.articles>div>.div_s .div_p{
+
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    padding: 0rem 0rem;
+
+}
+
 @media screen and (max-width:991px) {
     .layout .layout-content {
         width: 95%;

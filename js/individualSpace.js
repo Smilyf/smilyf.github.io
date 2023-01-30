@@ -97,7 +97,6 @@ function create(text, index) {
     // createtime.appendChild(span1)
     // createtime.appendChild(span2)
     createtime.appendChild(span3)
-    authorname.href = getBasePath() + "/html/individualSpace.html"
     title.appendChild(h1)
     temp.appendChild(title)
     div_s.appendChild(div_p)
