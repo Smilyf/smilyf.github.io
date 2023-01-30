@@ -185,47 +185,47 @@ function article_display() {
             headers: {}
         }).then(resp => resp.text()).then((data) => {
 
-        return JSON.parse(data)
+            return JSON.parse(data)
 
-    })
+        })
         .then((text) => {
-                article_json = text
+            article_json = text
 
-                length = Object.keys(text).length;
+            length = Object.keys(text).length;
 
-                let paging_index = document.querySelector(".paging .paging-index")
-                paging_index.innerHTML = ""
-                page_num = (length + pages - 1) / pages
-                let art = document.querySelector(".layout-content>.articles")
-                art.innerHTML = ""
-                for (let i = 1; i <= page_num; i++) {
-                    let button = document.createElement("button")
-                    button.className = "button_off";
-                    button.innerHTML = i.toString()
-                    button.value = i.toString()
-                    button.addEventListener("click", () => {
-                        art = document.querySelector(".layout-content>.articles")
-                        art.innerHTML = ""
-                        let href = window.location.href;
-                        let index = "0"
-                        if (href.match(/\?paging=(.*)/) != null) {
-                            index = href.match(/\?paging=(.*)/)[1];
-                            if (index != i.toString()) {
-                                history.pushState(null, null, '?domain=' + domain + '?paging=' + i.toString())
-                            }
-                        } else {
-                            history.pushState(null, null, '?domain=' + domain + '?paging=' + "1")
+            let paging_index = document.querySelector(".paging .paging-index")
+            paging_index.innerHTML = ""
+            page_num = (length + pages - 1) / pages
+            let art = document.querySelector(".layout-content>.articles")
+            art.innerHTML = ""
+            for (let i = 1; i <= page_num; i++) {
+                let button = document.createElement("button")
+                button.className = "button_off";
+                button.innerHTML = i.toString()
+                button.value = i.toString()
+                button.addEventListener("click", () => {
+                    art = document.querySelector(".layout-content>.articles")
+                    art.innerHTML = ""
+                    let href = window.location.href;
+                    let index = "0"
+                    if (href.match(/\?paging=(.*)/) != null) {
+                        index = href.match(/\?paging=(.*)/)[1];
+                        if (index != i.toString()) {
+                            history.pushState(null, null, '?domain=' + domain + '?paging=' + i.toString())
                         }
-                        let start = (i - 1) * pages + 1
-                        let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
-                        for (let i = start; i < end; i++) {
-                            art.appendChild(create(text, i.toString()))
-                        }
-                    })
-                    paging_index.appendChild(button)
-                }
-                return paging_index
+                    } else {
+                        history.pushState(null, null, '?domain=' + domain + '?paging=' + "1")
+                    }
+                    let start = (i - 1) * pages + 1
+                    let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
+                    for (let i = start; i < end; i++) {
+                        art.appendChild(create(text, i.toString()))
+                    }
+                })
+                paging_index.appendChild(button)
             }
+            return paging_index
+        }
         )
         .then((paging_index) => {
             let buttons = paging_index.querySelectorAll("button")
@@ -246,43 +246,43 @@ function article_display() {
             return buttons
         }).then((buttons) => {
 
-        init_page(buttons)
-        change_page(buttons)
-        return buttons
-    }).then((buttons) => {
+            init_page(buttons)
+            change_page(buttons)
+            return buttons
+        }).then((buttons) => {
 
-        document.querySelector(".logos a").addEventListener("click", () => {
-            buttons[0].click();
+            document.querySelector(".logos a").addEventListener("click", () => {
+                buttons[0].click();
+            })
+            return buttons;
+
+        }).then((buttons) => {
+            window.addEventListener("popstate", () => {
+                let href = window.location.href;
+                let index = "0"
+                // var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
+                // var code3 = href.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
+                // buttons[num-1].click()
+                if (href.match(/\?paging=(.*)/) != null) {
+                    index = href.match(/\?paging=(.*)/)[1];//取 data=后面所有字符串
+                }
+                let num = parseInt(index)
+                if (num != 0) {
+                    buttons[num - 1].click()
+                }
+
+            });
+            return buttons;
+        }).then((buttons) => {
+            if (buttons.length == 0) {
+                let div = document.createElement("div")
+                div.innerHTML = "暂无查询结果！"
+                div.className = "shownone"
+                document.querySelector("#articles").appendChild(div)
+            }
+
+
         })
-        return buttons;
-
-    }).then((buttons) => {
-        window.addEventListener("popstate", () => {
-            let href = window.location.href;
-            let index = "0"
-            // var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
-            // var code3 = href.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
-            // buttons[num-1].click()
-            if (href.match(/\?paging=(.*)/) != null) {
-                index = href.match(/\?paging=(.*)/)[1];//取 data=后面所有字符串
-            }
-            let num = parseInt(index)
-            if (num != 0) {
-                buttons[num - 1].click()
-            }
-
-        });
-        return buttons;
-    }).then((buttons) => {
-        if (buttons.length == 0) {
-            let div = document.createElement("div")
-            div.innerHTML = "暂无查询结果！"
-            div.className = "shownone"
-            document.querySelector("#articles").appendChild(div)
-        }
-
-
-    })
 }
 
 function select(content_index) {
