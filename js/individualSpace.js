@@ -60,7 +60,7 @@ function create(text, index) {
     let div = document.createElement("div")
     div.className = "user_and_time"
     let authorname = document.createElement("a")
-    let createtime = document.createElement("div")
+
     //
     let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
     // let indexx= Object.keys(text)[index-1]
@@ -93,17 +93,18 @@ function create(text, index) {
     // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
     span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
     authorname.href = getBasePath() + "/html/individualSpace.html"
-     createtime.appendChild(span0)
+
     // createtime.appendChild(span1)
     // createtime.appendChild(span2)
-    createtime.appendChild(span3)
+
     title.appendChild(h1)
     temp.appendChild(title)
     div_s.appendChild(div_p)
     div_s.appendChild(div_buttons)
     temp.appendChild(div_s)
      div.appendChild(authorname)
-    div.appendChild(createtime)
+    div.appendChild(span0)
+    div.appendChild(span3)
     temp.appendChild(div)
     h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
     h1.target="_blank"

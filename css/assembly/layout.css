@@ -1,6 +1,3 @@
-
-
-
 .layout {
     min-height: 40rem;
     width: 100%;
@@ -47,8 +44,8 @@
     justify-content: start;
     align-items: center;
     /*min-height: 50vh;*/
-    background:rgba(255, 255, 255, 0);
-   
+    background: rgba(255, 255, 255, 0);
+
 }
 
 .layout>.layout-content>.articles {
@@ -65,13 +62,15 @@
     align-items: flex-start;
 
 }
-.layout>.layout-content>.articles .title_a{
-  
+
+.layout>.layout-content>.articles .title_a {
+
     width: 100%;
     height: 3.5rem;
 
 }
-.layout>.layout-content>.articles .title_a>a{
+
+.layout>.layout-content>.articles .title_a>a {
 
     color: rgb(0, 0, 0);
     font-size: 2rem;
@@ -79,45 +78,41 @@
     letter-spacing: 0.5rem;
 
 }
-.layout>.layout-content>.articles a:hover{
+
+.layout>.layout-content>.articles a:hover {
     color: rgb(139, 20, 219);
 }
 
 
 .user_and_time {
     display: flex;
-    height: 2rem;
+    min-height: 2.5rem;
     justify-content: space-between;
     font-size: 1.1rem;
     width: 100%;
     align-items: center;
+    flex-wrap: wrap;
 }
 
-.user_and_time > div {
-    display: flex;
-    width: 50%;
-    justify-content: end;
+.user_and_time span {
+
+    min-width: 25%;
+    margin: 0.2rem 0.2rem;
+}
+
+.user_and_time>a {
+    min-width: 25%;
+    font-size: 1.1rem;
    
-}
-.user_and_time > div span {
-   margin: 0 2rem;
-
-}
-
-.user_and_time > a {
-    font-size: 1.1rem ; 
-    display: flex;
-    justify-content: start;
     color: rgb(0, 0, 0);
-    
-
+    margin: 0.2rem 0.2rem;
 }
 
 .layout>.layout-content>.articles>div {
     width: 100%;
     min-height: 15rem;
     padding: 1rem 1rem;
-    border: 0.05rem solid #000000;
+    border: 0.08rem solid #000000;
     border-radius: 0.8rem;
     box-shadow: 0.12rem 0.1rem 0.5rem 0.1rem rgba(111, 111, 111, 0.267);
     background: rgb(255, 255, 255);
@@ -125,9 +120,10 @@
     flex-direction: column;
     justify-content: start;
     align-items: flex-start;
-   
+
 
 }
+
 /*.layout>.layout-content>.articles>div *{*/
 /*    min-width: 100%;*/
 /*}*/
@@ -139,24 +135,24 @@
     display: flex;
     align-items: flex-start;
     /* border-bottom: 0.08rem solid #000000; */
-    
+
 }
 
-.layout .layout-content>.articles>div>.div_s .div_p{
+.layout .layout-content>.articles>div>.div_s .div_p {
 
     width: 85%;
+    height: 100%;
     font-size: 1.3rem;
     line-height: 2rem;
-    height: calc(4*2rem);
-    height: 100%;
+   
     overflow: hidden;
     position: relative;
     border: 0.1rem solid #d4d4d4;
     /* border-radius: 0.8rem; */
     padding: 0rem 0.5rem;
-    box-shadow: 0.1rem 0.15rem 0.1rem 0.05rem rgba(0, 0, 0, 0.123);
-   
-  
+    box-shadow: 0.12rem 0.1rem 0.8rem 0.12rem rgba(111, 111, 111, 0.174);
+
+
 }
 
 .layout .layout-content>.articles div>.div_s>.div_p::after {
@@ -173,19 +169,20 @@
 }
 
 
-.layout .layout-content>.articles>div>.div_s>.div_buttons{
+.layout .layout-content>.articles>div>.div_s>.div_buttons {
     width: 15%;
-    height: 9rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 }
-.layout .layout-content>.articles>div>.div_s>.div_buttons div{
-  
+
+.layout .layout-content>.articles>div>.div_s>.div_buttons div {
+
     width: 80%;
-    height: 30%;
-    border-radius: 0.5rem;
+    min-height: 30%;
+    border-radius: 0.3rem;
     background: #0f0f0f;
     color: #fff;
     display: flex;
@@ -193,13 +190,16 @@
     align-items: center;
     font-size: 1.2rem;
     letter-spacing: 0.2rem;
-    
+    flex-wrap: wrap;
+    text-align: center;
+    border: 0.09rem solid #ffffff;
+
 }
 
-.layout .layout-content>.articles>div>.div_s>.div_buttons div:hover{
-  
+.layout .layout-content>.articles>div>.div_s>.div_buttons div:hover {
 
-    background:#fff;  
+
+    background: #fff;
     color: #0f0f0f;
     border: 0.09rem solid #000000;
 
