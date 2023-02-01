@@ -27,6 +27,7 @@
 .NowData{
     background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.356), rgba(67, 0, 126, 0.346));
     background-size: 100% 1rem;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
    
@@ -42,7 +43,7 @@
     transition: 1s;
     background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.291), rgba(73, 2, 135, 0.38));
     background-size: 100% 1rem;
-
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

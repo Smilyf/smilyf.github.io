@@ -16,14 +16,14 @@ code.hljs {
 }
 
 .hljs {
-  color: #c5c8c6;
+  color: #ffffff;
   background: #1d1f21
 }
 
 .hljs ::selection,
 .hljs::selection {
   background-color: #373b41;
-  color: #c5c8c6
+  color: #52a72d
 }
 
 .hljs-comment {
