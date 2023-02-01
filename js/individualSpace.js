@@ -190,8 +190,7 @@ async function article_display() {
 
     let articlejson = await fetch(url,
         {
-            method: 'POST',
-            body: "",
+            method: 'GET',
             headers: { 'Content-Type': "application/json; charset=utf-8" },
 
         })
