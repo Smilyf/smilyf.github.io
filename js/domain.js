@@ -71,7 +71,7 @@ function create(text, index) {
 	 div.appendChild(span3)
     temp.appendChild(div)
     h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
-    h1.target="_blank"
+    // h1.target="_blank"
     return temp;
 }
 

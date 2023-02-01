@@ -55,8 +55,9 @@
 
 .layout>.layout-content>.navigation-article {
     width: 100%;
-    min-height: 3.5rem;
+    height: auto;
     margin: 1rem 0;
+    padding: 0.5rem 0;
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -151,7 +152,7 @@
 }
 
 .layout>.catalogue>.image-div>.image-s>img {
-    height: 70%;
+    width: 50%;
 }
 
 .layout>.catalogue>.image-div>button {

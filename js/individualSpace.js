@@ -107,7 +107,7 @@ function create(text, index) {
     div.appendChild(span3)
     temp.appendChild(div)
     h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
-    h1.target="_blank"
+    // h1.target="_blank"
     return temp;
 }
 
@@ -145,8 +145,7 @@ function init_page(buttons) {
 
     }
 
-    const dynamic = document.querySelector("#dynamic")
-    dynamic.className = "navigation-article-show"
+
 
 }
 function announce_article() {
@@ -341,6 +340,8 @@ window.addEventListener('load', () => {
         select("manuscript")
     })
     article_display()
+    const dynamic = document.querySelector("#dynamic")
+    dynamic.className = "navigation-article-show"
 
 })
 window.addEventListener("load", () => {
