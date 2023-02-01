@@ -153,6 +153,7 @@ window.addEventListener('load', () => {
 				button.value = i.toString()
 				button.addEventListener("click", () => {
 					let art = document.querySelector(".layout-content>.articles")
+					let temp=document.createElement("div")
 					art.innerHTML = ""
 					let href = window.location.href;
 					let index = "0"
@@ -168,8 +169,11 @@ window.addEventListener('load', () => {
 					let start = (i - 1) * pages + 1
 					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
 					for (let i = start; i < end; i++) {
-						art.appendChild(create(text, i.toString()))
+						temp.appendChild(create(text, i.toString()))
 					}
+					
+					art.innerHTML=temp.innerHTML
+					
 				})
 				paging_index.appendChild(button)
 			}
