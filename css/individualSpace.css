@@ -55,7 +55,7 @@
 
 .layout>.layout-content>.navigation-article {
     width: 100%;
-    height: 3.5rem;
+    min-height: 3.5rem;
     margin: 1rem 0;
     display: flex;
     flex-direction: row;
@@ -75,7 +75,7 @@
 
 .layout>.layout-content>.navigation-article>div {
     width: 6rem;
-    height: 2.5rem;
+    min-height: 2.5rem;
     display: flex;
     color: white;
     justify-content: center;
@@ -83,6 +83,7 @@
     border-radius: 0.5rem;
     margin: 0 0.5rem;
     padding: 0 0.5rem;
+    border: 0.1rem solid #000000;
 }
 
 .navigation-article-hidden {

@@ -9,6 +9,7 @@ header {
     background: #0f0f0f;
     border-bottom: 0.15rem solid #fff;
     z-index: 9;
+    flex-wrap: wrap;
 }
 
 header .logos {
@@ -251,15 +252,15 @@ header .navigation>div>div>div:hover {
     background: rgba(148, 154, 199, 0.377);
 }
 header .search-s {
-    width: 30%;
+    min-width: 30%;
     height: 100%;
     display: flex;
     justify-content: start;
-    /* background: green; */
+   
 }
 
 header .search {
-    width: 80%;
+    min-width: 80%;
     height: 2.2rem;
     border: 0.1rem solid #fff;
     border-radius: 25px;
@@ -267,19 +268,23 @@ header .search {
     display: flex;
     justify-content: space-between;
     /* background: green; */
+  
 }
 
 header .search>.input- {
-    width: auto;
+    width: calc(100% - 4rem);
+    min-width: 20vw;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+   
 }
 header .search .search-images  {
     width: 4rem;
     display: flex;
     justify-content: space-between;
+    
 }
 header .search .image- {
 
