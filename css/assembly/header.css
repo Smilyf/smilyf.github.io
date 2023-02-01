@@ -4,7 +4,7 @@ header {
     width: 100%;
     min-height: 4rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     background: #0f0f0f;
     border-bottom: 0.15rem solid #fff;
@@ -17,7 +17,7 @@ header .logos {
     display: flex;
     justify-content: end;
     align-items: center;
-
+   
 }
 
 header>.logos>.logo-a>.logo-top {
@@ -61,7 +61,7 @@ header .logos .image {
 }
 
 header .logos .image>img {
-    height: 120%;
+    height: 110%;
 }
 
 header>.navigation-simplify {
@@ -474,6 +474,18 @@ header .user>div>div:hover {
 @media screen and (max-width:600px) {
     header .search-s .search{
         width: 100%;
+    }
+    header .logos {
+       
+        min-width: 20%;
+       
+        justify-content: flex-start;
+        
+       
+    }
+    header .search-s 
+    {
+        width: 50%;
     }
 
 }

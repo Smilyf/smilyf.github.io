@@ -8,11 +8,6 @@
 
 
 
-
-
-
-
-
 .user_and_time {
     display: flex;
     justify-content: space-between;
@@ -44,8 +39,6 @@
     margin-bottom: 1rem;
     justify-content: start;
     align-items: center;
-
-
 
 }
 
@@ -465,7 +458,7 @@
 
 
 .banner>.search {
-    width: 40%;
+    min-width: 40%;
     height: 3rem;
     border: 0.1rem solid #000000;
     border-radius: 25px;
