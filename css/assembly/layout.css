@@ -151,9 +151,14 @@
     /* border-radius: 0.8rem; */
     padding: 0rem 0.5rem;
     box-shadow: 0.12rem 0.1rem 0.8rem 0.12rem rgba(91, 90, 90, 0.174);
-
-
 }
+.layout .layout-content>.articles>div>.div_s .div_p>p{
+
+    font-size: 1.3rem;
+    line-height: 2rem;
+   
+}
+
 
 .layout .layout-content>.articles div>.div_s>.div_p::after {
     background: linear-gradient(to right, rgba(255, 255, 255, 0.466), rgba(255, 255, 255, 0.829), rgb(255, 255, 255));
