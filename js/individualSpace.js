@@ -745,3 +745,31 @@ window.addEventListener("load", () => {
         announce_article()
     })
 })
+window.addEventListener("load", () => {
+
+    init_domain()
+    
+})
+async function init_domain()
+{ 
+    let url = getBasePath()+"article/domain.json"
+	let text = await fetch(url)
+	text = await text.json()
+	length = Object.keys(text).length;
+    
+    let select=document.querySelector("#category")
+    let temp=document.createElement("select")
+    
+    for(let i=1;i<=length;i++)
+    {
+        let option= document.createElement("option")
+        option.innerHTML=text[i]["label"]
+        option.value=text[i]["label"]
+        temp.appendChild(option)
+    }
+   
+    select.innerHTML=temp.innerHTML
+
+}
+
+

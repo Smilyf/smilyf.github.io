@@ -40,33 +40,35 @@
 
 .title {
     width: 100%;
-    height: 4rem;
+    height: auto;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     margin: 0.2rem 0;
+    flex-wrap: wrap;
 
 }
 
 .title > select {
 
-    width: 25%;
+    min-width: 8rem;
     height: 3rem;
     color: #000000;
     background: white;
-    padding: 0rem 1rem;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
     border: 0.1rem solid #717171;
-    margin-right: 2%;
     font-size: 1.2rem;
+    text-align: start;
+    padding: 0 0.5rem;
 
 }
 
 .title > input[type=text] {
 
-    width: 73%;
+    width: calc(100% - 10rem);
+    min-width: 8rem;
     height: 3rem;
     color: #000000;
     background: white;
@@ -209,6 +211,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .article-submit > input[type=submit] {
@@ -244,6 +247,9 @@
     border-radius: 0.5rem;
     margin: 0 01rem;
     padding: 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
 
     /* cursor: pointer;
     cursor: not-allowed; */

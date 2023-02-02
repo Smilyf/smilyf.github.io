@@ -170,7 +170,7 @@
 
 
 .layout .layout-content>.articles>div>.div_s>.div_buttons {
-    min-width: 10%;
+    min-width: 20%;
     height: 8rem;
     display: flex;
     flex-direction: column;

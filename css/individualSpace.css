@@ -214,7 +214,7 @@
 @media screen and (max-width: 600px) {
 
 
-    .title>select {
+    /* .title>select {
 
         width: 35%;
         margin-right: 5%;
@@ -225,5 +225,5 @@
 
         width: 60%;
 
-    }
+    } */
 }
