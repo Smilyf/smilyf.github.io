@@ -43,14 +43,16 @@ code {
 
 @media screen and (max-width:991px) {
     .content-show {
-        width: 90vw;
+        width: 90%;
     }
 }
 
 @media screen and (max-width:600px) {
 
     .content-show {
-        width: 90vw;
+        width: 99%;
+       
+        border:none;
     }
 
 }
