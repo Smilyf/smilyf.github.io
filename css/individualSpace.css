@@ -152,7 +152,7 @@
 }
 
 .layout>.catalogue>.image-div>.image-s>img {
-    width: 50%;
+   height: 50%;
 }
 
 .layout>.catalogue>.image-div>button {
