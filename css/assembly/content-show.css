@@ -8,16 +8,14 @@
     width: 60%;
     display: flex;
     background: #ffffff17;
-    font-size: 1.3rem;
-    line-height: 1.8rem;
     color: #0f0f0f;
     border: 0.1rem solid rgba(105, 105, 105, 0.174);
     box-shadow: 0.12rem 0.1rem 0.8rem 0.12rem rgba(105, 105, 105, 0.174);
 
 }
-.content-show *{
+/* .content-show *{
     font-size: 1.2rem;
-}
+} */
 /* .content-show div *{
     margin-top: 1rem ;
     margin-bottom: 1rem ;

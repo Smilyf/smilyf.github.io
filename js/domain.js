@@ -124,7 +124,7 @@ window.addEventListener('load', () => {
 	let url = "../article/" + domain + "/description.json"
 
 
-
+	console.log(url)
 	fetch(url)
 		.then((data) => {
 			return data.json()

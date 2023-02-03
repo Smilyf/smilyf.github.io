@@ -44,6 +44,12 @@ function getBasePath() {
 if (sessionStorage.getItem("content") == null) {
     sessionStorage.setItem("content", "")
 }
+if (sessionStorage.getItem("title") == null) {
+    sessionStorage.setItem("title", "")
+}
+if (sessionStorage.getItem("synopsis") == null) {
+    sessionStorage.setItem("synopsis", "")
+}
 var scrolltime = null;
 var article_json;
 //每页的文章数量
@@ -161,7 +167,7 @@ function announce_article() {
     body_["synopsis"] = synopsis
     body_["category"] = category
     body_["content"] = content
-    body_["author"] = Smily
+    body_["author"] = "Smily"
     fetch(url,
         {
             method: 'POST',
@@ -184,7 +190,7 @@ async function article_display() {
     // {
     // 	domain=domain.match(/(\S*)\?/)[1]
     // }
-    let domain = "C++"
+    let domain = "1"
     let url = getBasePath() + "/article/" + domain + "/article.json"
 
     let articlejson = await fetch(url,
@@ -452,6 +458,29 @@ window.addEventListener("load", () => {
         un_full_screen_content_right.appendChild(temp1)
 
     }
+    if (sessionStorage.getItem("title") != null) {
+        document.querySelector("#title").value=sessionStorage.getItem("title")
+        
+        
+    }
+    if (sessionStorage.getItem("synopsis") != null) {
+        document.querySelector("#synopsis").value=sessionStorage.getItem("synopsis")
+        
+    }
+
+    let title=document.querySelector("#title")
+    title.addEventListener('input', combineDebounceThrottle(() => {
+
+        sessionStorage.setItem("title",title.value)
+       
+    }), 500)
+    let synopsis=document.querySelector("#synopsis")
+    synopsis.addEventListener('input', combineDebounceThrottle(() => {
+
+        sessionStorage.setItem("synopsis",synopsis.value)
+       
+    }), 500)
+
 
     full_screen_content_left.addEventListener('input', combineDebounceThrottle(() => {
 
@@ -764,7 +793,7 @@ async function init_domain()
     {
         let option= document.createElement("option")
         option.innerHTML=text[i]["label"]
-        option.value=text[i]["label"]
+        option.value=text[i]["index"]
         temp.appendChild(option)
     }
    

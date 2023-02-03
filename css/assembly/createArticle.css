@@ -1,8 +1,10 @@
 @import url("./github-markdown.css");
 @import url("./google-dark.css");
+
 .markdown-body {
     box-sizing: border-box;
 }
+
 .create {
     width: 100%;
     min-height: 60rem;
@@ -25,14 +27,14 @@
 
 }
 
-.synopsis > textarea {
+.synopsis>textarea {
     resize: none;
     border-radius: 4px;
     width: 100%;
     height: 100%;
     border: 0.1rem solid #717171;
     margin: 0.2rem 0;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     line-height: 1.3rem;
     padding: 0.5rem 0.5rem;
 
@@ -49,7 +51,7 @@
 
 }
 
-.title > select {
+.title>select {
 
     min-width: 8rem;
     height: 3rem;
@@ -65,8 +67,9 @@
 
 }
 
-.title > input[type=text] {
+.title>input[type=text] {
 
+    display: flex;
     width: calc(100% - 10rem);
     min-width: 8rem;
     height: 3rem;
@@ -77,6 +80,8 @@
     border-radius: 0.5rem;
     border: 0.1rem solid #717171;
     font-size: 1.2rem;
+    justify-content: flex-start;
+    align-items: center;
 
 }
 
@@ -95,22 +100,23 @@
 
 }
 
-.auxiliary > div {
+.auxiliary>div {
     min-width: 2.2rem;
     height: 2.2rem;
     border-radius: 0.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0rem 1rem ;
+    margin: 0rem 1rem;
 
 }
 
-.auxiliary > div:hover {
+.auxiliary>div:hover {
     /* border: 0.1rem solid #cbcbcb; */
     background: black;
 
 }
+
 .div_svg_show {
     display: flex;
     justify-content: center;
@@ -124,9 +130,10 @@
 }
 
 
-.auxiliary > div:hover svg {
+.auxiliary>div:hover svg {
     fill: white;
 }
+
 .article-content {
     width: 100%;
     height: 100%;
@@ -135,10 +142,10 @@
     flex-direction: column;
     justify-content: start;
     /* background: red; */
-    
+
 }
 
-.article-content > .content {
+.article-content>.content {
     width: 100%;
     height: calc(100% - 5rem);
     display: flex;
@@ -147,19 +154,19 @@
 
 }
 
-.article-content > .content img {
+.article-content>.content img {
 
     width: 100%;
 
 }
 
-.article-content > .content > .content-left-unfull {
+.article-content>.content>.content-left-unfull {
     width: 50%;
     height: 100%;
 
 }
 
-.article-content > .content > .content-left-unfull > textarea {
+.article-content>.content>.content-left-unfull>textarea {
     resize: none;
     border-radius: 4px;
     width: 100%;
@@ -173,12 +180,12 @@
     display: none;
 } */
 
-.article-content > .content > .content-left-full {
+.article-content>.content>.content-left-full {
     width: 100%;
     height: 100%;
 }
 
-.article-content > .content > .content-left-full > textarea {
+.article-content>.content>.content-left-full>textarea {
     resize: none;
     border-radius: 4px;
     width: 100%;
@@ -186,11 +193,11 @@
     border: 0.1rem solid #717171;
     font-size: 1.2rem;
     padding: 0.5rem 0.5rem;
-    
+
 }
 
 
-.article-content > .content > .content-right-full {
+.article-content>.content>.content-right-full {
 
     width: 50%;
     height: 100%;
@@ -198,10 +205,10 @@
     overflow-y: auto;
     overflow-x: auto;
     padding: 0.5rem 0.5rem;
-    
+
 }
 
-.article-content > .content > .content-right-unfull {
+.article-content>.content>.content-right-unfull {
     display: none;
 }
 
@@ -214,7 +221,7 @@
     flex-wrap: wrap;
 }
 
-.article-submit > input[type=submit] {
+.article-submit>input[type=submit] {
     min-width: 6rem;
     height: 2.5rem;
     display: flex;
@@ -230,13 +237,13 @@
     cursor: not-allowed; */
 }
 
-.article-submit > input[type=submit]:hover {
+.article-submit>input[type=submit]:hover {
     border: 0.1rem solid #000000;
     background: white;
     color: black;
 }
 
-.article-submit > input[type=button] {
+.article-submit>input[type=button] {
     min-width: 6rem;
     height: 2.5rem;
     display: flex;
@@ -255,7 +262,7 @@
     cursor: not-allowed; */
 }
 
-.article-submit > input[type=button]:hover {
+.article-submit>input[type=button]:hover {
     border: 0.1rem solid #000000;
     background: white;
     color: black;
