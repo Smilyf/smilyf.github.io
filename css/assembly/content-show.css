@@ -1,5 +1,6 @@
 @import url("./github-markdown.css");
-@import url("./google-dark.css");
+@import url("./google-light.css");
+
 .content-show {
     margin-top: 5rem;
     margin-bottom: 1rem;
@@ -13,6 +14,29 @@
     box-shadow: 0.12rem 0.1rem 0.8rem 0.12rem rgba(105, 105, 105, 0.174);
 
 }
+
+.inf {
+
+    position: fixed;
+    width: 12rem;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: calc( 50vh - 1.5rem );
+    left: calc( 50vw - 6rem );
+    padding: 0.5rem.1rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid rgba(86, 86, 86, 0.32);
+    backdrop-filter: blur(1rem);
+    background-color: rgba(255, 255, 255, 0.715);
+    font-size: 1.2rem;
+    z-index: 1000;
+    letter-spacing: 0.1rem;
+
+}
+
 /* .content-show *{
     font-size: 1.2rem;
 } */
@@ -24,19 +48,32 @@
 /* li {
     margin-left: 2.1rem;
 } */
-.content-show img{
+.content-show img {
     width: 90%;
-    margin :1rem 1rem;
+    margin: 1rem 1rem;
 }
 
-code {
+.copy {
+    height: 3rem;
+    width: 3rem;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+
+}
+
+/* code {
     border-radius: 0.3rem;
     border: 0.1rem solid black;
-}
+} */
 
 .markdown-body {
     box-sizing: border-box;
-    
+
 }
 
 @media screen and (max-width:991px) {
@@ -49,7 +86,7 @@ code {
 
     .content-show {
         width: 100%;
-        border:none;
+        border: none;
     }
 
 }

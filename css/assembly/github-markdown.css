@@ -926,11 +926,18 @@
 .markdown-body .highlight pre,
 .markdown-body pre {
  
+  border-radius: 1rem;
+  border: 0.1rem solid rgba(155, 154, 154, 0.418);
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
   background-color: var(--color-canvas-subtle);
   border-radius: 6px;
+  position: relative;
+}
+.markdown-body pre:hover .copy{
+ display: flex;
+ 
 }
 
 .markdown-body pre code,

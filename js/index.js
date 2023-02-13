@@ -132,7 +132,7 @@ async function init_index() {
 	init_page(buttons)
 	change_page(buttons)
 }
-window.addEventListener('load', init_index)
+window.addEventListener('load', init_index())
 
 window.addEventListener("popstate", () => {
 	let href = window.location.href;
