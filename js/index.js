@@ -20,18 +20,18 @@ function create(text, index) {
 	let h1 = document.createElement("a")
 	h1.innerHTML = marked.parse(text[index]["title"])
 	let div_p = document.createElement("div")
-	div_p.className="div_p"
-	let title=document.createElement("div")
-    title.className="title_a"
+	div_p.className = "div_p"
+	let title = document.createElement("div")
+	title.className = "title_a"
 	div_p.innerHTML = marked.parse(text[index]["content"])
 	// let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
-	let div_s= document.createElement("div")
-    div_s.className="div_s"
-	h1.href="./html/domain.html" + "?domain=" + text[index]["index"]
+	let div_s = document.createElement("div")
+	div_s.className = "div_s"
+	h1.href = "./html/domain.html" + "?domain=" + text[index]["index"]
 	title.appendChild(h1)
 	temp.appendChild(title)
 	div_s.appendChild(div_p)
-    temp.appendChild(div_s)
+	temp.appendChild(div_s)
 	return temp;
 }
 
@@ -91,7 +91,7 @@ async function init_index() {
 		button.addEventListener("click", () => {
 			let art = document.querySelector(".layout-content>.articles")
 			art.innerHTML = ""
-			let temp=document.createElement("div")
+			let temp = document.createElement("div")
 			let href = window.location.href;
 			let index = "0"
 			if (href.match(/\?paging=(.*)/) != null) {
@@ -108,7 +108,7 @@ async function init_index() {
 			for (let i = start; i < end; i++) {
 				temp.appendChild(create(text, i))
 			}
-			art.innerHTML=temp.innerHTML
+			art.innerHTML = temp.innerHTML
 		})
 		paging_index.appendChild(button)
 	}
