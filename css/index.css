@@ -30,6 +30,7 @@
 @media screen and (max-width:991px) {
     .layout .layout-content{
         width: 80%;
+        max-width: none;
     }
     .layout .layout-content>.articles {
         width: 75%;
@@ -49,6 +50,7 @@
 @media screen and (max-width:600px) {
     .layout .layout-content{
         width: 100%;
+        max-width: none;
     }
     .layout .layout-content>.articles {
         width: 90%;

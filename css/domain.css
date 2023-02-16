@@ -16,6 +16,7 @@
 
 .layout .layout-content {
     width: 60%; 
+    max-width: 50rem;
    
 }
 .layout .layout-content>.articles {
@@ -35,6 +36,7 @@
 @media screen and (max-width:991px) {
     .layout .layout-content {
         width: 90%;
+        max-width:none;
        
     }
 

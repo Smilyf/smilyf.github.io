@@ -39,6 +39,7 @@
 .layout>.layout-content {
 
     width: 60%;
+    max-width: 60rem;
     display: flex;
     flex-direction: column;
     justify-content: start;
