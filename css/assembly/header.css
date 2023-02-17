@@ -1,16 +1,19 @@
+@import url("./body.css");
+
 header {
     position: fixed;
-    top: 0;
+    top: 0.13;
     width: 100%;
     min-height: 4rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: #0f0f0f;
-    border-bottom: 0.15rem solid #fff;
-    z-index: 9;
+    background: var(--color-canvas-default);
+    border-bottom: 0.13rem solid #fff;
+    border-top: 0.13rem solid #fff;
+    z-index: 200;
     flex-wrap: wrap;
-    padding:  0.5rem 0;
+    padding: 0.5rem 0;
 }
 
 header .logos {
@@ -19,7 +22,7 @@ header .logos {
     display: flex;
     justify-content: end;
     align-items: center;
-   
+
 }
 
 header>.logos>.logo-a>.logo-top {
@@ -76,7 +79,7 @@ header>.navigation-simplify {
     align-items: center;
     justify-items: stretch;
     text-align: center;
-    border: 0.2rem solid #0f0f0f;
+    border: 0.2rem solid #000000;
 
 }
 
@@ -87,11 +90,11 @@ header>.navigation-simplify>div {
     display: none;
     min-height: 4rem;
     width: 15rem;
-    background: #030303da;
+    background: #000000da;
     border: 0.1rem solid #fff;
     border-radius: 0.5rem;
     text-align: center;
-    
+
 }
 
 header>.navigation-simplify:hover>div {
@@ -167,10 +170,10 @@ header>.navigation>div {
     flex-wrap: wrap;
     min-width: 13%;
     height: 3.2rem;
-    border: 0.2rem solid #0f0f0f;
-    z-index: 10;
+    border: 0.2rem solid #000000;
+    z-index: 300;
     text-align: center;
-    
+
 }
 
 header a {
@@ -184,16 +187,16 @@ header a {
     font-weight: 500;
 
 }
+
 header a:hover {
 
-  
     color: rgb(255, 255, 255);
-    
+
 }
 
 header .navigation>div:hover {
 
-    background: rgba(114, 120, 158, 0.5);
+    background: rgba(255, 255, 255, 0.400);
     border-radius: 0.8rem;
 }
 
@@ -250,27 +253,28 @@ header .navigation>div>div>div>div {
 
 
 header .navigation>div>div>div:hover {
-    background: rgba(148, 154, 199, 0.377);
+    background: rgba(255, 255, 255, 0.400);
 }
+
 header .search-s {
     min-width: 30%;
     height: 100%;
     display: flex;
     justify-content: start;
-    
-   
+
+
 }
 
 header .search {
-    width:calc( 20vw + 4rem);
+    width: calc(20vw + 4rem);
     height: 2.2rem;
     border: 0.1rem solid #fff;
     border-radius: 25px;
     padding: 0rem 1rem;
     display: flex;
     justify-content: space-between;
-   
-  
+
+
 }
 
 header .search>.input- {
@@ -280,28 +284,32 @@ header .search>.input- {
     display: flex;
     justify-content: center;
     align-items: center;
-   
-   
+
+
 }
-header .search .search-images  {
+
+header .search .search-images {
     width: 4rem;
     display: flex;
     justify-content: space-between;
-    
+
 }
+
 header .search .image- {
 
-   
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
-header .search .image- svg{
+
+header .search .image- svg {
 
     fill: rgb(255, 255, 255);
 
 }
-header>.search .image- svg:active{
+
+header>.search .image- svg:active {
 
     fill: rgb(255, 169, 71);
 
@@ -314,7 +322,7 @@ header .search>.input->input::placeholder {
     color: #fff;
 }
 
-header .search .search-complex  {
+header .search .search-complex {
 
     display: flex;
     justify-content: center;
@@ -322,11 +330,13 @@ header .search .search-complex  {
     fill: rgb(225, 192, 255);
 
 }
-header .search .search-complex svg{
+
+header .search .search-complex svg {
 
     fill: rgb(225, 192, 255);
 }
-header .search .search-complex svg:active{
+
+header .search .search-complex svg:active {
 
     fill: rgb(255, 169, 71);
 }
@@ -369,7 +379,7 @@ header>.user {
     justify-items: stretch;
     text-align: center;
     border: 0.2rem solid #0f0f0f;
-    
+
 }
 
 header>.user>div {
@@ -383,7 +393,7 @@ header>.user>div {
     border: 0.1rem solid #fff;
     border-radius: 0.5rem;
     text-align: center;
-    
+
 
 }
 
@@ -403,7 +413,7 @@ header>.user:hover>div {
 
 
 header>.user:hover {
-    background: rgba(114, 120, 158, 0.5);
+    background: rgba(255, 255, 255, 0.400);
     border-radius: 0.8rem;
 
 }
@@ -412,8 +422,9 @@ header>.user svg {
     fill: #fff;
     font-size: 1.7rem;
 }
-header>.user> img{
-    
+
+header>.user>img {
+
     height: 75%;
     border-radius: 2rem;
 
@@ -429,10 +440,10 @@ header .user>div>div {
     /* align-items: stretch; */
     border-radius: 0.2rem;
     width: 90%;
-   
-   
-  
-   
+
+
+
+
 }
 
 header .user>div>div>div {
@@ -444,13 +455,13 @@ header .user>div>div>div {
     align-items: stretch;
     /* border-left: 0.3rem solid #fff;  */
     margin: 0.5rem 0.5rem;
-   
-   
-   
+
+
+
 }
 
 header .user>div>div:hover {
-    background: rgba(148, 154, 199, 0.377);
+    background: rgba(255, 255, 255, 0.400);
 }
 
 @media screen and (max-width:991px) {
@@ -473,14 +484,16 @@ header .user>div>div:hover {
         display: flex;
 
     }
-    header>.user{
+
+    header>.user {
         display: none;
     }
- 
+
 
 }
 
 @media screen and (max-width:600px) {
+
     /* header .search-s .search{
         width: 100%;
     }
@@ -489,12 +502,12 @@ header .user>div>div:hover {
         width: 50%;
     } */
     header .logos {
-       
+
         min-width: 20%;
-       
+
         justify-content: flex-start;
-        
-       
+
+
     }
 
 

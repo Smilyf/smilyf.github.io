@@ -6,11 +6,13 @@
 .time{
 
     position: fixed;
-    top: 0;
-    left: calc( (-100vw + 100vw )/ 2);
-    height:100vh;
+    top:calc(-50rem + 50vh);
+    /* left: calc( (-100vw + 100vw )/ 2); */
+    left: calc((width - 100vw) / 2);
+    height:100rem;
     --width1: 100vw;
-    width:calc(var(--width1));
+    /* width:calc(var(--width1)); */
+    width:100rem;
     padding: 0;
     margin: 0;
     display: flex;
@@ -21,8 +23,9 @@
     background-color: rgba(255, 255, 255, 0.562);
     font-family: unidreamLED;
     z-index: -10;
-    font-size: 1vw;
+    font-size: 0.5rem;
     justify-items: stretch;
+   
 }
 .NowData{
     background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.356), rgba(67, 0, 126, 0.346));

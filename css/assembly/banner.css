@@ -1,3 +1,4 @@
+@import url("./body.css");
 .banner {
     width: 100%;
     padding: 5rem 0rem 0rem;
@@ -5,12 +6,12 @@
     flex-direction: column;
     align-items: center;
     min-height: 25rem;
-    background: #0f0f0fef;
+    background: black;
     display: flex;
     justify-content: space-evenly;
     color: #fff;
     position: relative;
-
+    border-bottom: 0.1rem solid rgb(177, 177, 177);
 }
 
 .banner>.description {
@@ -44,7 +45,7 @@
 .banner>.search {
     min-width: 35%;
     height: 4rem;
-    border: 0.1rem solid #fff;
+    border: 0.05rem solid #fff;
     border-radius: 50px;
     padding: 0rem 1.5rem;
     display: flex;
