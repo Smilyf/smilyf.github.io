@@ -1,11 +1,8 @@
 "use strict";
-
-// import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
-// //  and it's easy to individually load & register additional languages
-// import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
-// import { waitForDebugger } from 'inspector';
-// hljs.registerLanguage('go', go);
-// // const { configConsumerProps } = require("antd/lib/config-provider");
+import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
+//  and it's easy to individually load & register additional languages
+import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
+hljs.registerLanguage('go', go);
 function combineDebounceThrottle(func, wait) {
     var lastTime = 0
     var timeoutD
@@ -61,40 +58,66 @@ var length = 0
 function create(text, index) {
     let temp = document.createElement("div")
     let h1 = document.createElement("a")
-    let title=document.createElement("div")
-    title.className="title_a"
+    let title = document.createElement("div")
+    title.className = "title_a"
     let div = document.createElement("div")
     div.className = "user_and_time"
     let authorname = document.createElement("a")
-
     //
     let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
     // let indexx= Object.keys(text)[index-1]
     h1.innerHTML = marked.parse(text[indexx]["title"])
 
     let div_buttons = document.createElement("div")
-    div_buttons.className="div_buttons"
+    div_buttons.className = "div_buttons"
     let div_button1 = document.createElement("div")
-    div_button1.innerHTML="修改"
+    div_button1.innerHTML = "修改"
+    div_button1.addEventListener('click', () => {
+        console.log("das")
+    })
+    
+
     let div_button2 = document.createElement("div")
-    div_button2.innerHTML="删除"
+    div_button2.innerHTML = "删除"
+    div_button2.addEventListener("click", async () => {
+        let body_ = {}
+        body_["index"] = indexx
+        body_["category"] = text[indexx]["category"]
+        console.log("dsa")
+        let url = "/articleDelete"
+        let resp = await fetch(url,
+            {
+                method: 'POST',
+                body: JSON.stringify(body_),
+                headers: { 'Content-Type': "application/json; charset=utf-8" },
+
+            })
+        resp = resp.text()
+        console.log(resp)
+
+        document.querySelector("#dynamic").click()
+        article_display()
+
+    })
+
     div_buttons.appendChild(div_button1)
     div_buttons.appendChild(div_button2)
-    let div_s= document.createElement("div")
-    div_s.className="div_s"
+    let div_s = document.createElement("div")
+    div_s.className = "div_s"
     let div_p = document.createElement("div")
-    div_p.className="div_p"
+    div_p.className = "div_p"
     div_p.innerHTML = marked.parse(text[indexx]["synopsis"])
     authorname.innerHTML = "作者：" + (text[indexx]["author"])
     authorname.addEventListener("click", () => {
         sessionStorage.setItem("author_id", text[indexx]["author_id"])
+
     })
 
     let span0 = document.createElement("span")
     let span1 = document.createElement("span")
     let span2 = document.createElement("span")
     let span3 = document.createElement("span")
-     span0.innerHTML = "文章类别：" + text[indexx]["category"]
+    span0.innerHTML = "文章类别：" + text[indexx]["category"]
     // span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
     // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
     span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
@@ -108,11 +131,11 @@ function create(text, index) {
     div_s.appendChild(div_p)
     div_s.appendChild(div_buttons)
     temp.appendChild(div_s)
-     div.appendChild(authorname)
+    div.appendChild(authorname)
     div.appendChild(span0)
     div.appendChild(span3)
     temp.appendChild(div)
-    h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+    h1.href = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
     // h1.target="_blank"
     return temp;
 }
@@ -200,7 +223,7 @@ async function article_display() {
 
         })
     articlejson = await articlejson.text()
-    let text = JSON.parse(articlejson)  
+    let text = JSON.parse(articlejson)
     article_json = text
     length = Object.keys(text).length;
     let paging_index = document.querySelector(".paging .paging-index")
@@ -214,8 +237,8 @@ async function article_display() {
         button.addEventListener("click", () => {
             let art = document.querySelector(".layout-content>.articles")
             art.innerHTML = ""
-            
-            let temp=document.createElement("div")
+
+            let temp = document.createElement("div")
             let href = window.location.href;
             let index = "0"
             if (href.match(/\?paging=(.*)/) != null) {
@@ -232,8 +255,8 @@ async function article_display() {
             for (let i = start; i < end; i++) {
                 temp.appendChild(create(text, i.toString()))
             }
-            
-            art.innerHTML=temp.innerHTML
+
+            art.innerHTML = temp.innerHTML
         })
         paging_index.appendChild(button)
     }
@@ -259,6 +282,7 @@ async function article_display() {
     document.querySelector(".logos a").addEventListener("click", () => {
         buttons[0].click();
     })
+
 
     window.addEventListener("popstate", () => {
         let href = window.location.href;
@@ -369,7 +393,7 @@ window.addEventListener("load", () => {
         let full_screen_content_right = document.querySelector("#full_screen_content_right")
         let temp = document.createElement("div")
         full_screen_content_right.innerHTML = ""
-        temp.innerHTML = marked.parse(sessionStorage.getItem("content") )
+        temp.innerHTML = marked.parse(sessionStorage.getItem("content"))
         for (const element of temp.querySelectorAll("pre code")) {
             hljs.highlightElement(element);
         }
@@ -404,7 +428,7 @@ window.addEventListener("load", () => {
         let un_full_screen_content_right = document.querySelector("#un_full_screen_content_right")
         let temp = document.createElement("div")
         un_full_screen_content_right.innerHTML = ""
-        temp.innerHTML = marked.parse(sessionStorage.getItem("content") )
+        temp.innerHTML = marked.parse(sessionStorage.getItem("content"))
         for (const element of temp.querySelectorAll("pre code")) {
             hljs.highlightElement(element);
         }
@@ -459,26 +483,26 @@ window.addEventListener("load", () => {
 
     }
     if (sessionStorage.getItem("title") != null) {
-        document.querySelector("#title").value=sessionStorage.getItem("title")
-        
-        
+        document.querySelector("#title").value = sessionStorage.getItem("title")
+
+
     }
     if (sessionStorage.getItem("synopsis") != null) {
-        document.querySelector("#synopsis").value=sessionStorage.getItem("synopsis")
-        
+        document.querySelector("#synopsis").value = sessionStorage.getItem("synopsis")
+
     }
 
-    let title=document.querySelector("#title")
+    let title = document.querySelector("#title")
     title.addEventListener('input', combineDebounceThrottle(() => {
 
-        sessionStorage.setItem("title",title.value)
-       
+        sessionStorage.setItem("title", title.value)
+
     }), 500)
-    let synopsis=document.querySelector("#synopsis")
+    let synopsis = document.querySelector("#synopsis")
     synopsis.addEventListener('input', combineDebounceThrottle(() => {
 
-        sessionStorage.setItem("synopsis",synopsis.value)
-       
+        sessionStorage.setItem("synopsis", synopsis.value)
+
     }), 500)
 
 
@@ -522,14 +546,14 @@ window.addEventListener("load", () => {
     let full_screen_show = document.querySelector("#full_screen_show")
     let layout = document.querySelector("#layout")
     let un_full_screen = document.querySelector("#un_full_screen")
-    
+
     full_screen.addEventListener("click", () => {
 
         layout.className = "layout"
         full_screen_show.className = "full_screen_hidden"
         let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
-        un_full_screen_content_left.value=sessionStorage.getItem("content")
-        let un_full_screen_div_right=document.querySelector("#un_full_screen_div_right")
+        un_full_screen_content_left.value = sessionStorage.getItem("content")
+        let un_full_screen_div_right = document.querySelector("#un_full_screen_div_right")
         if (un_full_screen_div_right.className == "content-right-full") {
             let un_full_screen_content_right = document.querySelector("#un_full_screen_content_right")
             let temp = document.createElement("div")
@@ -548,10 +572,10 @@ window.addEventListener("load", () => {
         layout.className = "layout_hidden"
         full_screen_show.className = "full_screen"
         let full_screen_content_left = document.querySelector("#full_screen_content_left")
-        full_screen_content_left.value=sessionStorage.getItem("content")
-        let full_screen_div_right=document.querySelector("#full_screen_div_right")
+        full_screen_content_left.value = sessionStorage.getItem("content")
+        let full_screen_div_right = document.querySelector("#full_screen_div_right")
         if (full_screen_div_right.className == "content-right-full") {
-            let full_screen_content_right= document.querySelector("#full_screen_content_right")
+            let full_screen_content_right = document.querySelector("#full_screen_content_right")
             let temp = document.createElement("div")
             full_screen_content_right.innerHTML = ""
             temp.innerHTML = marked.parse(sessionStorage.getItem("content"))
@@ -777,27 +801,25 @@ window.addEventListener("load", () => {
 window.addEventListener("load", () => {
 
     init_domain()
-    
+
 })
-async function init_domain()
-{ 
-    let url = getBasePath()+"article/domain.json"
-	let text = await fetch(url)
-	text = await text.json()
-	length = Object.keys(text).length;
-    
-    let select=document.querySelector("#category")
-    let temp=document.createElement("select")
-    
-    for(let i=1;i<=length;i++)
-    {
-        let option= document.createElement("option")
-        option.innerHTML=text[i]["label"]
-        option.value=text[i]["index"]
+async function init_domain() {
+    let url = getBasePath() + "article/domain.json"
+    let text = await fetch(url)
+    text = await text.json()
+    length = Object.keys(text).length;
+
+    let select = document.querySelector("#category")
+    let temp = document.createElement("select")
+
+    for (let i = 1; i <= length; i++) {
+        let option = document.createElement("option")
+        option.innerHTML = text[i]["label"]
+        option.value = text[i]["index"]
         temp.appendChild(option)
     }
-   
-    select.innerHTML=temp.innerHTML
+
+    select.innerHTML = temp.innerHTML
 
 }
 

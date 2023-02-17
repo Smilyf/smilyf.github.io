@@ -28,6 +28,7 @@ function create(text, index) {
 	let div_s = document.createElement("div")
 	div_s.className = "div_s"
 	h1.href = "./html/domain.html" + "?domain=" + text[index]["index"]
+
 	title.appendChild(h1)
 	temp.appendChild(title)
 	div_s.appendChild(div_p)

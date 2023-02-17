@@ -2,43 +2,23 @@
 var http = require("http");
 var fs = require("fs");
 var buf = new Buffer.alloc(1024);
-// 导入系统模块querystring 用于将HTTP参数转换为对象格式
-const querystring = require('querystring');
-const { URLSearchParams } = require('url');
-const { constants } = require("buffer");
-const { devNull } = require("os");
 const server = http.createServer();
 
 function article_show(req, res) {
     //拼接post请求参数
     let postData = '';
-
     // post参数是通过事件的方式接受的
     // 监听参数传输事件, 当请求参数传递的时候出发data事件, params: post请求传输的数据
     req.on('data', (params) => {
-
-
         postData += params
-
     });
     // 监听参数传输完毕事件, 当参数传递完成的时候出发end事件
     req.on('end', () => {
-        // 通过querystring模块的parse方法解析 字符串参数postData 成对象格式并返回
 
-        // var searchParams = new URLSearchParams(postData);
-
-        //先通过？分解得到？后面的所需字符串，再将其通过&分解开存放在数组里
-        //   postData = postData.split("?")[1].split("&"); 
         if (postData.length > 0) {
-            postData = postData.split("&");
             let jsons = {};
-            // for (let i of postData) {
-            //     jsons[i.split("======")[0]] = i.split("======")[1];  //对数组每项用=分解开，=前为对象属性名，=后为属性值
-            // }
             // let length = Object.keys(jsons).length
-
             jsons = JSON.parse(postData)
-
             const announce = async () => {
                 let ans = await open_article_json(jsons)
                 await write_article_json(ans)
@@ -84,6 +64,7 @@ function article_show(req, res) {
                     articles_json_content["title"] = jsons["title"]
                     articles_json_content["synopsis"] = jsons["synopsis"]
                     articles_json_content["category"] = jsons["category"]
+                    articles_json_content["author"] = jsons["author"]
                     let myDate = new Date();
                     let year = myDate.getFullYear();
                     let month = myDate.getMonth() + 1;
@@ -119,7 +100,7 @@ function article_show(req, res) {
                     let url2 = "./article/" + jsons["category"] + "/json/" + indexs + ".json"
                     const create_jsons = async function (url1, articles_json) {
 
-                        new Promise(function (resolve, reject) {
+                        return new Promise(function (resolve, reject) {
 
                             fs.writeFile(url1, JSON.stringify(articles_json), function (err) {
                                 if (err) {
@@ -138,7 +119,7 @@ function article_show(req, res) {
                     }
                     const create_json_one = async function (url2, articles_json_one) {
 
-                        new Promise(function (resolve, reject) {
+                        return new Promise(function (resolve, reject) {
 
                             fs.writeFile(url2, JSON.stringify(articles_json_one), function (err) {
                                 if (err) {
@@ -195,6 +176,97 @@ function article_show(req, res) {
 
     });
 };
+function article_delete(req, res) {
+    let postData = '';
+    req.on('data', (params) => {
+        postData += params
+    });
+    req.on('end', async () => {
+        if (postData.length > 0) {
+            let jsons = {};
+            jsons = JSON.parse(postData)
+            let index=jsons["index"]
+            let url = "./article/" + jsons["category"] + "/article.json"
+            let url1= "./article/" + jsons["category"] + "/md/" + index + ".md"
+            let url2 = "./article/" + jsons["category"] + "/json/" + index + ".json"
+            const open_article_json = async function (url) {
+                return new Promise(function (resolve, reject) {
+                    fs.readFile(url, function (err, data) {
+                        if (!err) {
+                            let ans = data.toString()
+                            if (ans == "") {
+                                ans = "{}"
+                            }
+                            resolve(ans);
+                        } else {
+                            reject(err);
+                        }
+                    });
+                });
+            }
+            const write_article_json = async function (url, articles_json) {
+
+                return new Promise(function (resolve, reject) {
+
+                    fs.writeFile(url, JSON.stringify(articles_json), function (err) {
+                        if (err) {
+                            console.error(err);
+                            reject(err);
+                        }
+                        else {
+                            resolve("");
+                        }
+                    });
+                })
+            }
+            const delete_article_md =async function(url)
+            {
+                return new Promise(function (resolve, reject) {
+                    fs.unlink(url, function (err) {
+                        if (err) {
+                            console.error(err);
+                            reject(err);
+                        }
+                        else {
+                            resolve("delete succeed!");
+                        }
+    
+                    });
+    
+                });
+    
+            }
+            const delete_article_json_one =async function(url)
+            {
+                return new Promise(function (resolve, reject) {
+                    fs.unlink(url, function (err) {
+                        if (err) {
+                            console.error(err);
+                            reject(err);
+                        }
+                        else {
+                            resolve("delete succeed!");
+                        }
+    
+                    });
+                });
+            }
+            let article_json = await open_article_json(url)
+            delete article_json[index]
+            write_article_json(url,article_json)
+            delete_article_md(url1)
+            delete_article_json_one(url2)
+            
+            // res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+
+            //  res.end(data);
+            
+        
+        }
+        
+    }
+    )
+}
 
 server.on('request', (req, res) => {
 
@@ -243,7 +315,7 @@ server.on('request', (req, res) => {
                     }
                     else {
 
-                         res.writeHead(200, { "Content-Type": "application/javascript;charset=UTF-8" });
+                        res.writeHead(200, { "Content-Type": "application/javascript;charset=UTF-8" });
 
                         res.end(data);
 
@@ -252,29 +324,40 @@ server.on('request', (req, res) => {
                 });
             }
             else {
-                if (url_t == "/article") {
 
-                    article_show(req, res)
+                switch (url_t) {
+                    case "/article":
+                        article_show(req, res)
+                        break;
+                    case "/articleUpdate":
+                        article_update(req, res)
+                        break;
+                    case "/articleDelete":
+                        article_delete(req, res)
+                        break;
+                    default:
+                        fs.readFile("." + url_t, function (err, data) {
+
+                            if (err) {
+                                console.log(err);
+
+                                res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
+                            }
+                            else {
+
+                                // res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+
+                                res.end(data);
+
+                            }
+
+                        });
+
+                        break;
+
+
                 }
-                else {
-                    fs.readFile("." + url_t, function (err, data) {
 
-
-                        if (err) {
-                            console.log(err);
-
-                            res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
-                        }
-                        else {
-
-                            // res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-
-                            res.end(data);
-
-                        }
-
-                    });
-                }
 
             }
 

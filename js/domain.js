@@ -45,14 +45,19 @@ function create(text, index) {
     div_p.innerHTML = marked.parse(text[indexx]["synopsis"])
     authorname.innerHTML = "作者：" + (text[indexx]["author"])
     authorname.addEventListener("click", () => {
-        sessionStorage.setItem("author_id", text[indexx]["author_id"])
-    })
 
+        sessionStorage.setItem("author_id", text[indexx]["author_id"])
+		
+    })
+	
     let span0 = document.createElement("span")
     let span1 = document.createElement("span")
     let span2 = document.createElement("span")
     let span3 = document.createElement("span")
      span0.innerHTML = "文章类别：" + text[indexx]["category"]
+	 span0.addEventListener("click",()=>{
+		alert("das")
+	 })
     // span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
     // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
     span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
@@ -124,7 +129,6 @@ window.addEventListener('load', () => {
 	let url = "../article/" + domain + "/description.json"
 
 
-	console.log(url)
 	fetch(url)
 		.then((data) => {
 			return data.json()
