@@ -6,7 +6,7 @@ hljs.registerLanguage('go', go);
 
 function getBasePath() {
     var obj = window.location;
-    var contextPath = obj.pathname.split("/")[1];
+    var contextPath = obj.pathname.split("/")[0];
     var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
     return basePath;
 }

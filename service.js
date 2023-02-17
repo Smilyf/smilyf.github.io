@@ -53,7 +53,7 @@ function article_show(req, res) {
             const write_article_json = async function (e) {
                 var tempSnowflake = new Snowflake(1n, 1n, 0n);
                 let tempId = tempSnowflake.nextId();
-
+                
                 const create_article_json = async function (e, tempId, jsons) {
 
                     let articles_json = {}
@@ -99,6 +99,7 @@ function article_show(req, res) {
                     let url1 = "./article/" + jsons["category"] + "/article.json"
                     let url2 = "./article/" + jsons["category"] + "/json/" + indexs + ".json"
                     const create_jsons = async function (url1, articles_json) {
+
 
                         return new Promise(function (resolve, reject) {
 
@@ -185,9 +186,9 @@ function article_delete(req, res) {
         if (postData.length > 0) {
             let jsons = {};
             jsons = JSON.parse(postData)
-            let index=jsons["index"]
+            let index = jsons["index"]
             let url = "./article/" + jsons["category"] + "/article.json"
-            let url1= "./article/" + jsons["category"] + "/md/" + index + ".md"
+            let url1 = "./article/" + jsons["category"] + "/md/" + index + ".md"
             let url2 = "./article/" + jsons["category"] + "/json/" + index + ".json"
             const open_article_json = async function (url) {
                 return new Promise(function (resolve, reject) {
@@ -219,8 +220,7 @@ function article_delete(req, res) {
                     });
                 })
             }
-            const delete_article_md =async function(url)
-            {
+            const delete_article_md = async function (url) {
                 return new Promise(function (resolve, reject) {
                     fs.unlink(url, function (err) {
                         if (err) {
@@ -230,40 +230,41 @@ function article_delete(req, res) {
                         else {
                             resolve("delete succeed!");
                         }
-    
-                    });
-    
-                });
-    
-            }
-            const delete_article_json_one =async function(url)
-            {
-                return new Promise(function (resolve, reject) {
-                    fs.unlink(url, function (err) {
-                        if (err) {
-                            console.error(err);
-                            reject(err);
-                        }
-                        else {
-                            resolve("delete succeed!");
-                        }
-    
-                    });
-                });
-            }
-            let article_json = await open_article_json(url)
-            delete article_json[index]
-            write_article_json(url,article_json)
-            delete_article_md(url1)
-            delete_article_json_one(url2)
-            
-            // res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
 
-            //  res.end(data);
-            
-        
+                    });
+
+                });
+
+            }
+            const delete_article_json_one = async function (url) {
+                return new Promise(function (resolve, reject) {
+                    fs.unlink(url, function (err) {
+                        if (err) {
+                            console.error(err);
+                            reject(err);
+                        }
+                        else {
+                            resolve("delete succeed!");
+                        }
+
+                    });
+                });
+            }
+
+            let article_json = await open_article_json(url)
+            article_json = JSON.parse(article_json)
+            delete article_json[index]
+            await write_article_json(url, article_json)
+            await delete_article_md(url1)
+            await delete_article_json_one(url2)
+
+            res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+
+             res.end("DAS");
+
+
         }
-        
+
     }
     )
 }

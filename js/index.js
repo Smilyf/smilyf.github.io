@@ -2,10 +2,10 @@
 import Time from "./time.js";
 //获取网页根目录
 function getBasePath() {
-	var obj = window.location;
-	var contextPath = obj.pathname.split("/")[1];
-	var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
-	return basePath;
+    var obj = window.location;
+    var contextPath = obj.pathname.split("/")[0];
+    var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
+    return basePath;
 }
 var article_json;
 //每页的文章数量
@@ -92,7 +92,7 @@ async function init_index() {
 		button.addEventListener("click", () => {
 			let art = document.querySelector(".layout-content>.articles")
 			art.innerHTML = ""
-			let temp = document.createElement("div")
+			// let temp = document.createElement("div")
 			let href = window.location.href;
 			let index = "0"
 			if (href.match(/\?paging=(.*)/) != null) {
@@ -107,9 +107,9 @@ async function init_index() {
 			let start = (i - 1) * pages + 1
 			let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
 			for (let i = start; i < end; i++) {
-				temp.appendChild(create(text, i))
+				art.appendChild(create(text, i))
 			}
-			art.innerHTML = temp.innerHTML
+			// art.innerHTML = temp.innerHTML
 		})
 		paging_index.appendChild(button)
 	}

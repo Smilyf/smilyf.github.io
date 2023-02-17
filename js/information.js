@@ -1,8 +1,8 @@
 function getBasePath() {
-	var obj = window.location;
-	var contextPath = obj.pathname.split("/")[1];
-	var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
-	return basePath;
+    var obj = window.location;
+    var contextPath = obj.pathname.split("/")[0];
+    var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
+    return basePath;
 }
 window.addEventListener("load",()=>{
 

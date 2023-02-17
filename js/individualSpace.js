@@ -55,7 +55,9 @@ var pages = 3
 var page_num = 1
 //文章数
 var length = 0
-function create(text, index) {
+function create(text, init_domain_json,index) {
+
+
     let temp = document.createElement("div")
     let h1 = document.createElement("a")
     let title = document.createElement("div")
@@ -72,18 +74,15 @@ function create(text, index) {
     div_buttons.className = "div_buttons"
     let div_button1 = document.createElement("div")
     div_button1.innerHTML = "修改"
-    div_button1.addEventListener('click', () => {
-        console.log("das")
+    div_button1.addEventListener("click",()=>{
+       
     })
-    
-
     let div_button2 = document.createElement("div")
     div_button2.innerHTML = "删除"
     div_button2.addEventListener("click", async () => {
         let body_ = {}
         body_["index"] = indexx
         body_["category"] = text[indexx]["category"]
-        console.log("dsa")
         let url = "/articleDelete"
         let resp = await fetch(url,
             {
@@ -93,11 +92,8 @@ function create(text, index) {
 
             })
         resp = resp.text()
-        console.log(resp)
-
         document.querySelector("#dynamic").click()
         article_display()
-
     })
 
     div_buttons.appendChild(div_button1)
@@ -117,7 +113,7 @@ function create(text, index) {
     let span1 = document.createElement("span")
     let span2 = document.createElement("span")
     let span3 = document.createElement("span")
-    span0.innerHTML = "文章类别：" + text[indexx]["category"]
+    span0.innerHTML = "文章类别：" +  init_domain_json[text[indexx]["category"]]["label"]
     // span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
     // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
     span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
@@ -177,7 +173,8 @@ function init_page(buttons) {
 
 
 }
-function announce_article() {
+async function announce_article() {
+    
     let url = "/article"
     let title = document.querySelector("#title").value
     let synopsis = document.querySelector("#synopsis").value
@@ -201,13 +198,13 @@ function announce_article() {
 
             document.querySelector("#dynamic").click()
             article_display()
+           
 
         })
 
 }
 async function article_display() {
-
-    let href = window.location.href
+    let init_domain_json= await init_domain()
     // let domain = href.match(/\?domain=(.*)/)[1];
     // if(domain.match(/(\S*)\?/)!=null)
     // {
@@ -238,7 +235,7 @@ async function article_display() {
             let art = document.querySelector(".layout-content>.articles")
             art.innerHTML = ""
 
-            let temp = document.createElement("div")
+            // let temp = document.createElement("div")
             let href = window.location.href;
             let index = "0"
             if (href.match(/\?paging=(.*)/) != null) {
@@ -253,10 +250,10 @@ async function article_display() {
             let start = (i - 1) * pages + 1
             let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
             for (let i = start; i < end; i++) {
-                temp.appendChild(create(text, i.toString()))
+                art.appendChild(create(text, init_domain_json,i.toString()))
             }
 
-            art.innerHTML = temp.innerHTML
+            // art.innerHTML = temp.innerHTML
         })
         paging_index.appendChild(button)
     }
@@ -798,11 +795,7 @@ window.addEventListener("load", () => {
         announce_article()
     })
 })
-window.addEventListener("load", () => {
 
-    init_domain()
-
-})
 async function init_domain() {
     let url = getBasePath() + "article/domain.json"
     let text = await fetch(url)
@@ -810,16 +803,16 @@ async function init_domain() {
     length = Object.keys(text).length;
 
     let select = document.querySelector("#category")
-    let temp = document.createElement("select")
 
     for (let i = 1; i <= length; i++) {
         let option = document.createElement("option")
         option.innerHTML = text[i]["label"]
         option.value = text[i]["index"]
-        temp.appendChild(option)
+        select.appendChild(option)
     }
 
-    select.innerHTML = temp.innerHTML
+    return text
+  
 
 }
 

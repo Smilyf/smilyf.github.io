@@ -10,74 +10,73 @@ var length = 0
 //获取网页根目录
 function getBasePath() {
     var obj = window.location;
-    var contextPath = obj.pathname.split("/")[1];
+    var contextPath = obj.pathname.split("/")[0];
     var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
     return basePath;
 }
 
+function create(text, init_domain_json, index) {
+	let temp = document.createElement("div")
+	let h1 = document.createElement("a")
+	let title = document.createElement("div")
+	title.className = "title_a"
+	let div = document.createElement("div")
+	div.className = "user_and_time"
+	let authorname = document.createElement("a")
+	let createtime = document.createElement("div")
+	//
+	let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
+	// let indexx= Object.keys(text)[index-1]
+	h1.innerHTML = marked.parse(text[indexx]["title"])
 
-function create(text, index) {
-    let temp = document.createElement("div")
-    let h1 = document.createElement("a")
-    let title=document.createElement("div")
-    title.className="title_a"
-    let div = document.createElement("div")
-    div.className = "user_and_time"
-    let authorname = document.createElement("a")
-    let createtime = document.createElement("div")
-    //
-    let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
-    // let indexx= Object.keys(text)[index-1]
-    h1.innerHTML = marked.parse(text[indexx]["title"])
+	// let div_buttons = document.createElement("div")
+	// div_buttons.className="div_buttons"
+	// let div_button1 = document.createElement("div")
+	// div_button1.innerHTML="修改"
+	// let div_button2 = document.createElement("div")
+	// div_button2.innerHTML="删除"
+	// div_buttons.appendChild(div_button1)
+	// div_buttons.appendChild(div_button2)
+	let div_s = document.createElement("div")
+	div_s.className = "div_s"
+	let div_p = document.createElement("div")
+	div_p.className = "div_p"
+	div_p.innerHTML = marked.parse(text[indexx]["synopsis"])
+	authorname.innerHTML = "作者：" + (text[indexx]["author"])
+	authorname.addEventListener("click", () => {
 
-    // let div_buttons = document.createElement("div")
-    // div_buttons.className="div_buttons"
-    // let div_button1 = document.createElement("div")
-    // div_button1.innerHTML="修改"
-    // let div_button2 = document.createElement("div")
-    // div_button2.innerHTML="删除"
-    // div_buttons.appendChild(div_button1)
-    // div_buttons.appendChild(div_button2)
-    let div_s= document.createElement("div")
-    div_s.className="div_s"
-    let div_p = document.createElement("div")
-    div_p.className="div_p"
-    div_p.innerHTML = marked.parse(text[indexx]["synopsis"])
-    authorname.innerHTML = "作者：" + (text[indexx]["author"])
-    authorname.addEventListener("click", () => {
+		sessionStorage.setItem("author_id", text[indexx]["author_id"])
 
-        sessionStorage.setItem("author_id", text[indexx]["author_id"])
-		
-    })
-	
-    let span0 = document.createElement("span")
-    let span1 = document.createElement("span")
-    let span2 = document.createElement("span")
-    let span3 = document.createElement("span")
-     span0.innerHTML = "文章类别：" + text[indexx]["category"]
-	 span0.addEventListener("click",()=>{
+	})
+
+	let span0 = document.createElement("span")
+	let span1 = document.createElement("span")
+	let span2 = document.createElement("span")
+	let span3 = document.createElement("span")
+	span0.innerHTML = "文章类别：" + init_domain_json[text[indexx]["category"]]["label"]
+	span0.addEventListener("click", () => {
 		alert("das")
-	 })
-    // span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
-    // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
-    span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
-    authorname.href = getBasePath() + "/individualSpace.html"
-     
-    // createtime.appendChild(span1)
-    // createtime.appendChild(span2)
+	})
+	// span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
+	// span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
+	span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
+	authorname.href = getBasePath() + "/html/individualSpace.html"
 
-    title.appendChild(h1)
-    temp.appendChild(title)
-    div_s.appendChild(div_p)
-    // div_s.appendChild(div_buttons)
-    temp.appendChild(div_s)
-     div.appendChild(authorname)
-	 div.appendChild(span0)
-	 div.appendChild(span3)
-    temp.appendChild(div)
-    h1.href="../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
-    // h1.target="_blank"
-    return temp;
+	// createtime.appendChild(span1)
+	// createtime.appendChild(span2)
+
+	title.appendChild(h1)
+	temp.appendChild(title)
+	div_s.appendChild(div_p)
+	// div_s.appendChild(div_buttons)
+	temp.appendChild(div_s)
+	div.appendChild(authorname)
+	div.appendChild(span0)
+	div.appendChild(span3)
+	temp.appendChild(div)
+	h1.href = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+	// h1.target="_blank"
+	return temp;
 }
 
 function change_page(buttons) {
@@ -116,13 +115,12 @@ function init_page(buttons) {
 	}
 
 }
-window.addEventListener('load', () => {
-
+window.addEventListener('load', async () => {
+	let init_domain_json = await init_domain()
 	let href = window.location.href
 	let domain = href.match(/\?domain=(.*)/)[1];
-	if(domain.match(/(\S*)\?/)!=null)
-	{
-		domain=domain.match(/(\S*)\?/)[1]
+	if (domain.match(/(\S*)\?/) != null) {
+		domain = domain.match(/(\S*)\?/)[1]
 	}
 	let h1 = document.querySelector(".description>h1")
 	let h3 = document.querySelector(".description>h3")
@@ -153,11 +151,11 @@ window.addEventListener('load', () => {
 			for (let i = 1; i <= page_num; i++) {
 				let button = document.createElement("button")
 				button.className = "button_off";
-				button.innerHTML =i.toString()
+				button.innerHTML = i.toString()
 				button.value = i.toString()
 				button.addEventListener("click", () => {
 					let art = document.querySelector(".layout-content>.articles")
-					let temp=document.createElement("div")
+					// let temp=document.createElement("div")
 					art.innerHTML = ""
 					let href = window.location.href;
 					let index = "0"
@@ -173,11 +171,11 @@ window.addEventListener('load', () => {
 					let start = (i - 1) * pages + 1
 					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
 					for (let i = start; i < end; i++) {
-						temp.appendChild(create(text, i.toString()))
+						art.appendChild(create(text, init_domain_json, i.toString()))
 					}
-					
-					art.innerHTML=temp.innerHTML
-					
+
+					// art.innerHTML=temp.innerHTML
+
 				})
 				paging_index.appendChild(button)
 			}
@@ -243,3 +241,13 @@ window.addEventListener('load', () => {
 // 	}
 
 // })
+async function init_domain() {
+	let url = getBasePath() + "/article/domain.json"
+	let text = await fetch(url)
+	text = await text.json()
+
+	return text
+
+
+}
+
