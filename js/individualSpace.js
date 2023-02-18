@@ -175,14 +175,13 @@ function init_page(buttons) {
 }
 async function announce_article() {
     
-    let url = "/article"
+    let url = "/articleAannounce"
     let title = document.querySelector("#title").value
     let synopsis = document.querySelector("#synopsis").value
     let category = document.querySelector("#category").value
     let content = sessionStorage.getItem("content")
 
     let body_ = {}
-    body_["flag"] = "announce"
     body_["title"] = title
     body_["synopsis"] = synopsis
     body_["category"] = category
@@ -210,18 +209,24 @@ async function article_display() {
     // {
     // 	domain=domain.match(/(\S*)\?/)[1]
     // }
-    let domain = "1"
-    let url = getBasePath() + "/article/" + domain + "/article.json"
-
-    let articlejson = await fetch(url,
-        {
-            method: 'GET',
-            headers: { 'Content-Type': "application/json; charset=utf-8" },
-
-        })
-    articlejson = await articlejson.text()
-    let text = JSON.parse(articlejson)
+    let text={}
+    for(let domain of Object.keys(init_domain_json))
+    {
+        let url = getBasePath() + "/article/" + domain + "/article.json"
+        let articlejson = await fetch(url,
+            {
+                method: 'GET',
+                headers: { 'Content-Type': "application/json; charset=utf-8" },
+    
+            })
+        articlejson = await articlejson.text()
+        articlejson=JSON.parse(articlejson)
+        text=Object.assign(text,articlejson)
+    }
+   
     article_json = text
+
+
     length = Object.keys(text).length;
     let paging_index = document.querySelector(".paging .paging-index")
     paging_index.innerHTML = ""
@@ -241,11 +246,11 @@ async function article_display() {
             if (href.match(/\?paging=(.*)/) != null) {
                 index = href.match(/\?paging=(.*)/)[1];
                 if (index != i.toString()) {
-                    history.pushState(null, null, '?domain=' + domain + '?paging=' + i.toString())
+                    history.pushState(null, null, '?paging=' + i.toString())
                 }
             }
             else {
-                history.pushState(null, null, '?domain=' + domain + '?paging=' + "1")
+                history.pushState(null, null,  '?paging=' + "1")
             }
             let start = (i - 1) * pages + 1
             let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)

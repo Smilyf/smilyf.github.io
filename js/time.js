@@ -51,9 +51,6 @@ function time() {
 
     function transformBox() {
 
-
-
-
         let nowDate = new Date()
         let sencond = nowDate.getSeconds()
         let minute = nowDate.getMinutes()
@@ -113,7 +110,7 @@ function time() {
     setInterval(() => {
         transformBox()
 
-    }, 500);
+    }, 1000);
 }
 
 

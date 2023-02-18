@@ -43,7 +43,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: 0.5s;
+    transition: 2s;
     background-image: -webkit-linear-gradient(bottom, rgba(121, 8, 220, 0.291), rgba(73, 2, 135, 0.38));
     background-size: 100% 1rem;
     background-clip: text;
@@ -57,7 +57,7 @@
     display: flex;
     align-items: center;
     border-radius: 50%;
-    transition: 0.5s;
+    transition: 2s;
 }
 .dayBox{
     height: 40%;
@@ -66,7 +66,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    transition: 0.5s;
+    transition: 2s;
 }
 .hourBox{
     height: 55%;
@@ -74,7 +74,7 @@
     position: absolute;
     display: flex;
     align-items: center;
-    transition: 0.5s;
+    transition: 2s;
     border-radius: 50%;
 }
 .minuteBox{
@@ -84,7 +84,7 @@
     display: flex;
     align-items: center;
     border-radius: 50%;
-    transition: 0.5s;
+    transition: 2s;
 }
 .secondBox{
     height: 85%;
@@ -94,5 +94,4 @@
     position: absolute;
     border-radius: 50%;
     transition: 0.5s;
-   
 }
