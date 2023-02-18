@@ -204,11 +204,6 @@ async function announce_article() {
 }
 async function article_display() {
     let init_domain_json= await init_domain()
-    // let domain = href.match(/\?domain=(.*)/)[1];
-    // if(domain.match(/(\S*)\?/)!=null)
-    // {
-    // 	domain=domain.match(/(\S*)\?/)[1]
-    // }
     let text={}
     for(let domain of Object.keys(init_domain_json))
     {
@@ -223,10 +218,7 @@ async function article_display() {
         articlejson=JSON.parse(articlejson)
         text=Object.assign(text,articlejson)
     }
-   
     article_json = text
-
-
     length = Object.keys(text).length;
     let paging_index = document.querySelector(".paging .paging-index")
     paging_index.innerHTML = ""
@@ -285,7 +277,6 @@ async function article_display() {
         buttons[0].click();
     })
 
-
     window.addEventListener("popstate", () => {
         let href = window.location.href;
         let index = "0"
@@ -299,7 +290,6 @@ async function article_display() {
         if (num != 0) {
             buttons[num - 1].click()
         }
-
     });
 
 }
