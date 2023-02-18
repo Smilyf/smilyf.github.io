@@ -44,9 +44,7 @@ function create(text, init_domain_json, index) {
 	div_p.innerHTML = marked.parse(text[indexx]["synopsis"])
 	authorname.innerHTML = "作者：" + (text[indexx]["author"])
 	authorname.addEventListener("click", () => {
-
 		sessionStorage.setItem("author_id", text[indexx]["author_id"])
-
 	})
 
 	let span0 = document.createElement("span")
@@ -55,7 +53,7 @@ function create(text, init_domain_json, index) {
 	let span3 = document.createElement("span")
 	span0.innerHTML = "文章类别：" + init_domain_json[text[indexx]["category"]]["label"]
 	span0.addEventListener("click", () => {
-		alert("das")
+		
 	})
 	// span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
 	// span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]

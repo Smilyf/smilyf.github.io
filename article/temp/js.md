@@ -13,7 +13,6 @@ Javascript 中最常见的迭代器是 Array 迭代器，它只是按顺序返�
 function makeRangeIterator(start = 0, end = Infinity, step = 1) {
     let nextIndex = start;
     let iterationCount = 0;
-
     const rangeIterator = {
         next: function () {
             let result;
@@ -28,15 +27,12 @@ function makeRangeIterator(start = 0, end = Infinity, step = 1) {
     };
     return rangeIterator;
 }
-
 let it = makeRangeIterator(1, 10, 2);
-
 let result = it.next();
 while (!result.done) {
     console.log(result.value); // 1 3 5 7 9
     result = it.next();
 }
-
 console.log("Iterated over sequence of size: ", result.value); // 5
 ```
 
@@ -60,7 +56,6 @@ a.next() // {value: 5, done: false}
 a.next() // {value: 7, done: false}
 a.next() // {value: 9, done: false}
 a.next() // {value: undefined, done: true}
-
 ```
 ## yield
 [rv] = yield [expression];
@@ -86,7 +81,6 @@ throw 用于从生成器中抛出异常。这让生成器完全停止执行，�
 ## 1. 回调函数
 从早期的Javascript代码来看，在ES6诞生之前，基本上所有的异步处理都是基于回调函数函数实现的，你们可能会见过下面这种代码：
 ```
-
 ajax('aaa', () => {
     // callback 函数体
     ajax('bbb', () => {
@@ -194,12 +188,10 @@ function* foo(x) {
   var z = yield (y / 3);
   return (x + y + z);
 }
-
 var a = foo(5);
 a.next() // Object{value:6, done:false}
 a.next() // Object{value:NaN, done:false}
 a.next() // Object{value:NaN, done:true}
-
 var b = foo(5);
 b.next() // { value:6, done:false }
 b.next(12) // { value:8, done:false }
@@ -222,7 +214,6 @@ yield 有位置记忆功能,return 没有
 Async/await其实就是上面Generator的语法糖，async函数其实就相当于funciton *的作用，而await就相当与yield的作用。而在async/await机制中，自动包含了我们上述封装出来的spawn自动执行函数。
 所以上面的回调函数又可以写的更加简洁了：
 ```
-
 async function fetch() {
   	await ajax('aaa')
     await ajax('bbb')
@@ -236,12 +227,10 @@ const promise2 = 42;
 const promise3 = new Promise((resolve, reject) => {
   setTimeout(resolve, 100, 'foo');
 });
-
 Promise.all([promise1, promise2, promise3]).then((values) => {
   console.log(values);
 });
 // Expected output: Array [3, 42, "foo"]
-
 ```
 
 
@@ -261,7 +250,6 @@ async function fn() {
 fn().then(res => {
   console.log(res) // 'async'
 })
-
 ```
 await表达式
 await 右侧的表达式一般为 promise 对象, 但也可以是其它的值

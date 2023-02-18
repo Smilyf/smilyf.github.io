@@ -4,379 +4,362 @@ var fs = require("fs");
 var buf = new Buffer.alloc(1024);
 const server = http.createServer();
 
-function article_announce(req, res) {
-    //拼接post请求参数
-    let postData = '';
-    // post参数是通过事件的方式接受的
-    // 监听参数传输事件, 当请求参数传递的时候出发data事件, params: post请求传输的数据
-    req.on('data', (params) => {
-        postData += params
-    });
-    // 监听参数传输完毕事件, 当参数传递完成的时候出发end事件
-    req.on('end', async () => {
+async function article_announce(jsons, res) {
 
-        if (postData.length > 0) {
-            let jsons = {};
-            // let length = Object.keys(jsons).length
-            jsons = JSON.parse(postData)
-            var tempSnowflake = new Snowflake(1n, 1n, 0n);
-            let tempId = tempSnowflake.nextId();
+    var tempSnowflake = new Snowflake(1n, 1n, 0n);
+    let tempId = tempSnowflake.nextId();
+    let url = "./article/" + jsons["category_announce"] + "/article.json"
+    let url_md = "./article/" + jsons["category_announce"] + "/md/" + tempId + ".md"
+    let url2_json_one = "./article/" + jsons["category_announce"] + "/json/" + tempId + ".json"
+    const open_article_json = async function (url) {
 
-            let url = "./article/" + jsons["category"] + "/article.json"
-            let url_md = "./article/" + jsons["category"] + "/md/" + tempId + ".md"
-            let url2_json_one = "./article/" + jsons["category"] + "/json/" + tempId + ".json"
-            const open_article_json = async function (url) {
-
-                return new Promise(function (resolve, reject) {
-                    fs.readFile(url, function (err, data) {
-                        if (!err) {
-                            let ans = data.toString()
-                            if (ans == "") {
-                                ans = "{}"
-                            }
-                            resolve(ans);
-                        } else {
-                            reject(err);
-                        }
-                    });
-                });
-            }
-            const create_article_json = async function (tempId, articles_json, jsons) {
-                articles_json = JSON.parse(articles_json)
-                let articles_json_content = {}
-                articles_json_content["title"] = jsons["title"]
-                articles_json_content["synopsis"] = jsons["synopsis"]
-                articles_json_content["category"] = jsons["category"]
-                articles_json_content["author"] = jsons["author"]
-                let myDate = new Date();
-                let year = myDate.getFullYear();
-                let month = myDate.getMonth() + 1;
-                let date = myDate.getDate();
-                let hours = myDate.getHours();
-                let minutes = myDate.getMinutes();
-                let seconds = myDate.getSeconds();
-
-                //月份的显示为两位数字如09月
-                if (month < 10) {
-                    month = "0" + month;
+        return new Promise(function (resolve, reject) {
+            fs.readFile(url, function (err, data) {
+                if (!err) {
+                    let ans = data.toString()
+                    if (ans == "") {
+                        ans = "{}"
+                    }
+                    resolve(ans);
+                } else {
+                    reject(err);
                 }
-                if (date < 10) {
-                    date = "0" + date;
-                }
-                if (hours < 10) {
-                    hours = "0" + hours;
-                }
-                if (minutes < 10) {
-                    minutes = "0" + minutes;
-                }
-                if (seconds < 10) {
-                    seconds = "0" + seconds;
-                }
-                //时间拼接
-                var dateTime = year + "-" + month + "-" + date + "  " + hours + ":" + minutes + ":" + seconds;
-                articles_json_content["createtime"] = dateTime
-                articles_json[tempId] = articles_json_content
-                return articles_json
-            }
-            const write_article_json = async function (url, articles_json) {
-
-                return new Promise(function (resolve, reject) {
-
-                    fs.writeFile(url, JSON.stringify(articles_json), function (err) {
-                        if (err) {
-                            console.error(err);
-                            reject(err);
-                        }
-                        else {
-                            resolve("");
-                        }
-
-
-                    });
-                })
-
-
-            }
-
-            const write_article_json_one = async function (url, articles_json_one) {
-
-                return new Promise(function (resolve, reject) {
-
-                    fs.writeFile(url, JSON.stringify(articles_json_one), function (err) {
-                        if (err) {
-                            console.error(err);
-                            reject(err);
-                        }
-                        else {
-                            resolve("");
-                        }
-
-
-                    });
-                })
-
-            }
-            const write_article_md = async function (url, md_content) {
-                return new Promise(function (resolve, reject) {
-
-
-                    fs.writeFile(url, JSON.stringify(md_content), function (err) {
-                        if (err) {
-                            console.error(err);
-                            reject(err);
-                        }
-                        else {
-                            resolve("");
-                        }
-
-                    });
-
-                });
-
-            }
-            let article_json = await open_article_json(url)
-            article_json = await create_article_json(tempId, article_json, jsons)
-            await write_article_json(url, article_json)
-            await write_article_json_one(url2_json_one, article_json[tempId])
-            await write_article_md(url_md, jsons["content"])
-            res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-            res.end("Announce successful");
-        }
-    });
-};
-
-function article_update(req, res) {
-
-
-      //拼接post请求参数
-      let postData = '';
-      // post参数是通过事件的方式接受的
-      // 监听参数传输事件, 当请求参数传递的时候出发data事件, params: post请求传输的数据
-      req.on('data', (params) => {
-          postData += params
-      });
-      // 监听参数传输完毕事件, 当参数传递完成的时候出发end事件
-      req.on('end', async () => {
-  
-          if (postData.length > 0) {
-              let jsons = {};
-              // let length = Object.keys(jsons).length
-              jsons = JSON.parse(postData)
-
-
-              let tempId =jsons["index"]
-  
-              let url = "./article/" + jsons["category"] + "/article.json"
-              let url_md = "./article/" + jsons["category"] + "/md/" + tempId + ".md"
-              let url2_json_one = "./article/" + jsons["category"] + "/json/" + tempId + ".json"
-              const open_article_json = async function (url) {
-  
-                  return new Promise(function (resolve, reject) {
-                      fs.readFile(url, function (err, data) {
-                          if (!err) {
-                              let ans = data.toString()
-                              if (ans == "") {
-                                  ans = "{}"
-                              }
-                              resolve(ans);
-                          } else {
-                              reject(err);
-                          }
-                      });
-                  });
-              }
-              const create_article_json = async function (tempId, articles_json, jsons) {
-                  articles_json = JSON.parse(articles_json)
-                  articles_json[tempId]["title"] = jsons["title"]
-                  articles_json[tempId]["synopsis"] = jsons["synopsis"]
-                  articles_json[tempId]["category"] = jsons["category"]
-                  articles_json[tempId]["author"] = jsons["author"]
-                  let myDate = new Date();
-                  let year = myDate.getFullYear();
-                  let month = myDate.getMonth() + 1;
-                  let date = myDate.getDate();
-                  let hours = myDate.getHours();
-                  let minutes = myDate.getMinutes();
-                  let seconds = myDate.getSeconds();
-  
-                  //月份的显示为两位数字如09月
-                  if (month < 10) {
-                      month = "0" + month;
-                  }
-                  if (date < 10) {
-                      date = "0" + date;
-                  }
-                  if (hours < 10) {
-                      hours = "0" + hours;
-                  }
-                  if (minutes < 10) {
-                      minutes = "0" + minutes;
-                  }
-                  if (seconds < 10) {
-                      seconds = "0" + seconds;
-                  }
-                  //时间拼接
-                  var dateTime = year + "-" + month + "-" + date + "  " + hours + ":" + minutes + ":" + seconds;
-                  articles_json_content["updatetime"] = dateTime
-                  articles_json[tempId] = articles_json_content
-                  return articles_json
-              }
-              const write_article_json = async function (url, articles_json) {
-  
-                  return new Promise(function (resolve, reject) {
-  
-                      fs.writeFile(url, JSON.stringify(articles_json), function (err) {
-                          if (err) {
-                              console.error(err);
-                              reject(err);
-                          }
-                          else {
-                              resolve("");
-                          }
-  
-  
-                      });
-                  })
-  
-  
-              }
-  
-              const write_article_json_one = async function (url, articles_json_one) {
-  
-                  return new Promise(function (resolve, reject) {
-  
-                      fs.writeFile(url, JSON.stringify(articles_json_one), function (err) {
-                          if (err) {
-                              console.error(err);
-                              reject(err);
-                          }
-                          else {
-                              resolve("");
-                          }
-  
-  
-                      });
-                  })
-  
-              }
-              const write_article_md = async function (url, md_content) {
-                  return new Promise(function (resolve, reject) {
-  
-  
-                      fs.writeFile(url, JSON.stringify(md_content), function (err) {
-                          if (err) {
-                              console.error(err);
-                              reject(err);
-                          }
-                          else {
-                              resolve("");
-                          }
-  
-                      });
-  
-                  });
-  
-              }
-              let article_json = await open_article_json(url)
-              article_json = await create_article_json(tempId, article_json, jsons)
-              await write_article_json(url, article_json)
-              await write_article_json_one(url2_json_one, article_json[tempId])
-              await write_article_md(url_md, jsons["content"])
-              res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-              res.end("Announce successful");
-          }
-      });
-
-
-
-}
-function article_delete(req, res) {
-    let postData = '';
-    req.on('data', (params) => {
-        postData += params
-    });
-    req.on('end', async () => {
-        if (postData.length > 0) {
-            let jsons = {};
-            jsons = JSON.parse(postData)
-            let index = jsons["index"]
-            let url = "./article/" + jsons["category"] + "/article.json"
-            let url1 = "./article/" + jsons["category"] + "/md/" + index + ".md"
-            let url2 = "./article/" + jsons["category"] + "/json/" + index + ".json"
-            const open_article_json = async function (url) {
-                return new Promise(function (resolve, reject) {
-                    fs.readFile(url, function (err, data) {
-                        if (!err) {
-                            let ans = data.toString()
-                            if (ans == "") {
-                                ans = "{}"
-                            }
-                            resolve(ans);
-                        } else {
-                            reject(err);
-                        }
-                    });
-                });
-            }
-            const write_article_json = async function (url, articles_json) {
-
-                return new Promise(function (resolve, reject) {
-
-                    fs.writeFile(url, JSON.stringify(articles_json), function (err) {
-                        if (err) {
-                            console.error(err);
-                            reject(err);
-                        }
-                        else {
-                            resolve("");
-                        }
-                    });
-                })
-            }
-            const delete_article_md = async function (url) {
-                return new Promise(function (resolve, reject) {
-                    fs.unlink(url, function (err) {
-                        if (err) {
-                            console.error(err);
-                            reject(err);
-                        }
-                        else {
-                            resolve("delete succeed!");
-                        }
-
-                    });
-
-                });
-
-            }
-            const delete_article_json_one = async function (url) {
-                return new Promise(function (resolve, reject) {
-                    fs.unlink(url, function (err) {
-                        if (err) {
-                            console.error(err);
-                            reject(err);
-                        }
-                        else {
-                            resolve("delete succeed!");
-                        }
-
-                    });
-                });
-            }
-            let article_json = await open_article_json(url)
-            article_json = JSON.parse(article_json)
-            delete article_json[index]
-            await write_article_json(url, article_json)
-            await delete_article_md(url1)
-            await delete_article_json_one(url2)
-            res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-            res.end("Delect successful");
-        }
+            });
+        });
     }
-    )
+    const create_article_json = async function (tempId, articles_json, jsons) {
+        articles_json = JSON.parse(articles_json)
+        let articles_json_content = {}
+        articles_json_content["title"] = jsons["title"]
+        articles_json_content["synopsis"] = jsons["synopsis"]
+        articles_json_content["category"] = jsons["category_announce"]
+        articles_json_content["author"] = jsons["author"]
+        let myDate = new Date();
+        let year = myDate.getFullYear();
+        let month = myDate.getMonth() + 1;
+        let date = myDate.getDate();
+        let hours = myDate.getHours();
+        let minutes = myDate.getMinutes();
+        let seconds = myDate.getSeconds();
+
+        //月份的显示为两位数字如09月
+        if (month < 10) {
+            month = "0" + month;
+        }
+        if (date < 10) {
+            date = "0" + date;
+        }
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        //时间拼接
+        var dateTime = year + "-" + month + "-" + date + "  " + hours + ":" + minutes + ":" + seconds;
+        articles_json_content["createtime"] = dateTime
+        articles_json[tempId] = articles_json_content
+        return articles_json
+    }
+    const write_article_json = async function (url, articles_json) {
+
+        return new Promise(function (resolve, reject) {
+
+            fs.writeFile(url, JSON.stringify(articles_json), function (err) {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                }
+                else {
+                    resolve("");
+                }
+
+
+            });
+        })
+
+
+    }
+
+    const write_article_json_one = async function (url, articles_json_one) {
+
+        return new Promise(function (resolve, reject) {
+
+            fs.writeFile(url, JSON.stringify(articles_json_one), function (err) {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                }
+                else {
+                    resolve("");
+                }
+
+
+            });
+        })
+
+    }
+    const write_article_md = async function (url, md_content) {
+        return new Promise(function (resolve, reject) {
+
+
+            fs.writeFile(url, md_content.toString(), function (err) {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                }
+                else {
+                    resolve("");
+                }
+
+            });
+
+        });
+
+    }
+
+    let article_json = await open_article_json(url)
+    article_json = await create_article_json(tempId, article_json, jsons)
+    await write_article_json(url, article_json)
+    await write_article_json_one(url2_json_one, article_json[tempId])
+    await write_article_md(url_md, jsons["content"])
+    res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+    res.end("Announce successful");
 }
+
+
+
+// function article_update(req, res) {
+
+
+//       //拼接post请求参数
+//       let postData = '';
+//       // post参数是通过事件的方式接受的
+//       // 监听参数传输事件, 当请求参数传递的时候出发data事件, params: post请求传输的数据
+//       req.on('data', (params) => {
+//           postData += params
+//       });
+//       // 监听参数传输完毕事件, 当参数传递完成的时候出发end事件
+//       req.on('end', async () => {
+
+//           if (postData.length > 0) {
+//               let jsons = {};
+//               // let length = Object.keys(jsons).length
+//               jsons = JSON.parse(postData)
+//               let tempId =jsons["index"]
+//               let url = "./article/" + jsons["category"] + "/article.json"
+//               let url_md = "./article/" + jsons["category"] + "/md/" + tempId + ".md"
+//               let url2_json_one = "./article/" + jsons["category"] + "/json/" + tempId + ".json"
+//               const open_article_json = async function (url) {
+
+//                   return new Promise(function (resolve, reject) {
+//                       fs.readFile(url, function (err, data) {
+//                           if (!err) {
+//                               let ans = data.toString()
+//                               if (ans == "") {
+//                                   ans = "{}"
+//                               }
+//                               resolve(ans);
+//                           } else {
+//                               reject(err);
+//                           }
+//                       });
+//                   });
+//               }
+//               const create_article_json = async function (tempId, articles_json, jsons) {
+//                   articles_json = JSON.parse(articles_json)
+
+//                   articles_json[tempId]["title"] = jsons["title"]
+//                   articles_json[tempId]["synopsis"] = jsons["synopsis"]
+//                   articles_json[tempId]["category"] = jsons["category"]
+//                   articles_json[tempId]["author"] = jsons["author"]
+//                   let myDate = new Date();
+//                   let year = myDate.getFullYear();
+//                   let month = myDate.getMonth() + 1;
+//                   let date = myDate.getDate();
+//                   let hours = myDate.getHours();
+//                   let minutes = myDate.getMinutes();
+//                   let seconds = myDate.getSeconds();
+
+//                   //月份的显示为两位数字如09月
+//                   if (month < 10) {
+//                       month = "0" + month;
+//                   }
+//                   if (date < 10) {
+//                       date = "0" + date;
+//                   }
+//                   if (hours < 10) {
+//                       hours = "0" + hours;
+//                   }
+//                   if (minutes < 10) {
+//                       minutes = "0" + minutes;
+//                   }
+//                   if (seconds < 10) {
+//                       seconds = "0" + seconds;
+//                   }
+//                   //时间拼接
+//                   var dateTime = year + "-" + month + "-" + date + "  " + hours + ":" + minutes + ":" + seconds;
+//                   articles_json["updatetime"] = dateTime
+//                   return articles_json
+//               }
+//               const write_article_json = async function (url, articles_json) {
+
+//                   return new Promise(function (resolve, reject) {
+
+//                       fs.writeFile(url, JSON.stringify(articles_json), function (err) {
+//                           if (err) {
+//                               console.error(err);
+//                               reject(err);
+//                           }
+//                           else {
+//                               resolve("");
+//                           }
+
+
+//                       });
+//                   })
+
+
+//               }
+
+//               const write_article_json_one = async function (url, articles_json_one) {
+
+//                   return new Promise(function (resolve, reject) {
+
+//                       fs.writeFile(url, JSON.stringify(articles_json_one), function (err) {
+//                           if (err) {
+//                               console.error(err);
+//                               reject(err);
+//                           }
+//                           else {
+//                               resolve("");
+//                           }
+
+
+//                       });
+//                   })
+
+//               }
+//               const write_article_md = async function (url, md_content) {
+//                   return new Promise(function (resolve, reject) {
+//                       fs.writeFile(url, md_content.toString(), function (err) {
+//                           if (err) {
+//                               console.error(err);
+//                               reject(err);
+//                           }
+//                           else {
+//                               resolve("");
+//                           }
+
+//                       });
+
+//                   });
+
+//               }
+//               let article_json = await open_article_json(url)
+//               article_json = await create_article_json(tempId, article_json, jsons)
+//               await write_article_json(url, article_json)
+//               await write_article_json_one(url2_json_one, article_json[tempId])
+//               await write_article_md(url_md, jsons["content"])
+//               res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+//               res.end("Update successful");
+//           }
+//       });
+
+
+
+// }
+
+
+async function article_update(jsons, res) {
+    await article_announce(jsons, res)
+    await article_delete(jsons, res)
+}
+
+async function article_delete(jsons, res) {
+
+    let index = jsons["index"]
+    let url = "./article/" + jsons["category_delete"] + "/article.json"
+    let url1 = "./article/" + jsons["category_delete"] + "/md/" + index + ".md"
+    let url2 = "./article/" + jsons["category_delete"] + "/json/" + index + ".json"
+    const open_article_json = async function (url) {
+        return new Promise(function (resolve, reject) {
+            fs.readFile(url, function (err, data) {
+                if (!err) {
+                    let ans = data.toString()
+                    if (ans == "") {
+                        ans = "{}"
+                    }
+                    resolve(ans);
+                } else {
+                    reject(err);
+                }
+            });
+        });
+    }
+    const write_article_json = async function (url, articles_json) {
+
+        return new Promise(function (resolve, reject) {
+
+            fs.writeFile(url, JSON.stringify(articles_json), function (err) {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                }
+                else {
+                    resolve("");
+                }
+            });
+        })
+    }
+    const delete_article_md = async function (url) {
+        return new Promise(function (resolve, reject) {
+            fs.unlink(url, function (err) {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                }
+                else {
+                    resolve("delete succeed!");
+                }
+
+            });
+
+        });
+
+    }
+    const delete_article_json_one = async function (url) {
+        return new Promise(function (resolve, reject) {
+            fs.unlink(url, function (err) {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                }
+                else {
+                    resolve("delete succeed!");
+                }
+
+            });
+        });
+    }
+    let article_json = await open_article_json(url)
+    article_json = JSON.parse(article_json)
+    delete article_json[index]
+    await write_article_json(url, article_json)
+    await delete_article_md(url1)
+    await delete_article_json_one(url2)
+    res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+    res.end("Delect successful");
+}
+
+
+
 
 server.on('request', (req, res) => {
+
 
     let url_t = "";
     if (req.url.match(/^.*?(?=\?)/) != null) {
@@ -433,16 +416,62 @@ server.on('request', (req, res) => {
             }
             else {
 
+
                 switch (url_t) {
+
                     case "/articleAannounce":
-                        article_announce(req, res)
-                        break;
+                        {
+                            let postData = '';
+                            let jsons = {};
+                            req.on('data', (params) => {
+                                postData += params
+                            });
+
+                            req.on('end', () => {
+                                if (postData.length > 0) {
+                                    jsons = JSON.parse(postData)
+                                    article_announce(jsons, res)
+                                }
+                            })
+                            break;
+                        }
+
                     case "/articleUpdate":
-                        article_update(req, res)
-                        break;
+                        {
+                            let postData = '';
+                            let jsons = {};
+                            req.on('data', (params) => {
+                                postData += params
+                            });
+
+                            req.on('end', () => {
+                                if (postData.length > 0) {
+                                    jsons = JSON.parse(postData)
+                                    article_update(jsons, res)
+                                }
+                            })
+                            break;
+                        }
+
+
                     case "/articleDelete":
-                        article_delete(req, res)
-                        break;
+                        {
+                            let postData = '';
+                            let jsons = {};
+                            req.on('data', (params) => {
+                                postData += params
+                            });
+
+                            req.on('end', () => {
+                                if (postData.length > 0) {
+                                    jsons = JSON.parse(postData)
+                                    article_delete(jsons, res)
+                                }
+                            })
+                            break;
+                        }
+
+
                     default:
                         fs.readFile("." + url_t, function (err, data) {
 
