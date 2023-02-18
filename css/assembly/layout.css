@@ -132,9 +132,11 @@
 
 .layout .layout-content>.articles>div>.div_s {
     width: 100%;
+  
     min-height: 8rem;
     display: flex;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
     flex-wrap: wrap;
     /* border-bottom: 0.08rem solid #000000; */
 
@@ -142,7 +144,8 @@
 
 .layout .layout-content>.articles>div>.div_s .div_p {
 
-    width: 80%;
+    width:80%;
+    min-width: 6rem;
     height: 8rem;
     font-size: 1.3rem;
     line-height: 2rem;
@@ -176,7 +179,9 @@
 
 
 .layout .layout-content>.articles>div>.div_s>.div_buttons {
-    min-width: 20%;
+
+    width: 20%;
+    min-width: 6rem;
     height: 8rem;
     display: flex;
     flex-direction: column;
@@ -184,7 +189,7 @@
     align-items: center;
 }
 
-.layout .layout-content>.articles>div>.div_s>.div_buttons div {
+.layout .layout-content>.articles>div>.div_s>.div_buttons input {
 
     width: 80%;
     min-height: 30%;
@@ -202,7 +207,7 @@
 
 }
 
-.layout .layout-content>.articles>div>.div_s>.div_buttons div:hover {
+.layout .layout-content>.articles>div>.div_s>.div_buttons input:hover {
 
 
     background: #fff;
@@ -216,3 +221,10 @@
 .layout .layout-content>.articles>div:hover {
     box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem rgba(69, 69, 69, 0.329);
 }
+@media screen and (max-width:600px) {
+    .layout .layout-content>.articles>div>.div_s .div_p {
+        width: calc(100% - 6rem);
+    }
+
+}
+

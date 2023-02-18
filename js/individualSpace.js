@@ -71,8 +71,9 @@ function create(text, init_domain_json, index) {
 
     let div_buttons = document.createElement("div")
     div_buttons.className = "div_buttons"
-    let div_button1 = document.createElement("div")
-    div_button1.innerHTML = "更新"
+    let div_button1 = document.createElement("input")
+    div_button1.value= "更新"
+    div_button1.cursor="pointer";
     div_button1.addEventListener("click", async () => {
 
         document.querySelector("#title").value = text[indexx]["title"]
@@ -88,10 +89,18 @@ function create(text, init_domain_json, index) {
         document.querySelector("#announce").value="更新"
         sessionStorage.setItem("article_index",indexx)
         sessionStorage.setItem("category_delete",text[indexx]["category"])
+        let Cancel=document.createElement("input")
+        Cancel.value="取消更新"
+        Cancel.type="button"
+        Cancel.addEventListener("click",()=>{
+            document.querySelector("#announce").value="发布"
+        })
+        document.querySelector("#article-submit").appendChild(Cancel)
+        
 
     })
-    let div_button2 = document.createElement("div")
-    div_button2.innerHTML = "删除"
+    let div_button2 = document.createElement("input")
+    div_button2.value = "删除"
     div_button2.addEventListener("click", async () => {
         delete_article(indexx, text)
     })
