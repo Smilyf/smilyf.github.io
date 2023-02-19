@@ -77,25 +77,30 @@ function create(text, init_domain_json, index) {
 	return temp;
 }
 
-function change_page(buttons) {
-
-	document.querySelector(".previous-page").addEventListener("click", () => {
-		let href = window.location.href;
-		let index = href.match(/\?paging=(.*)/)[1]
-		index = parseInt(index)
-		if (index - 1 >= 1) {
-			buttons[index - 2].click();
-		}
-	})
-	document.querySelector(".next-page").addEventListener("click", () => {
-		// let index = sessionStorage.getItem("paging")
-		let href = window.location.href;
-		let index = href.match(/\?paging=(.*)/)[1]
-		index = parseInt(index)
-		if (index + 1 <= page_num) {
-			buttons[index].click()
-		}
-	})
+function change_page() {
+    
+    let previous_page= document.querySelector(".previous-page")
+    let next_page= document.querySelector(".next-page")
+    previous_page.addEventListener("click", () => {
+        let buttons = document.querySelectorAll("#paging .paging-index button")
+        let href = window.location.href;
+        let index = href.match(/\?paging=(.*)/)[1]
+        index = parseInt(index)
+        if (index - 1 >= 1) {
+            buttons[index - 2].click();
+        }
+    })
+    
+    next_page.addEventListener("click", () => {
+        let buttons = document.querySelectorAll("#paging .paging-index button")
+        console.log(buttons)
+        let href = window.location.href;
+        let index = href.match(/\?paging=(.*)/)[1]
+        index = parseInt(index)
+        if (index + 1 <= page_num) {
+            buttons[index].click()
+        }
+    })
 }
 function init_page(buttons) {
 	let href = window.location.href;
@@ -201,7 +206,7 @@ window.addEventListener('load', async () => {
 		}).then((buttons) => {
 
 			init_page(buttons)
-			change_page(buttons)
+			
 			return buttons
 		}).then((buttons) => {
 
@@ -227,6 +232,7 @@ window.addEventListener('load', async () => {
 
 			});
 		})
+		change_page()
 }
 
 )

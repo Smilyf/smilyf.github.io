@@ -44,9 +44,23 @@ if (sessionStorage.getItem("content") == null) {
 if (sessionStorage.getItem("title") == null) {
     sessionStorage.setItem("title", "")
 }
+if (sessionStorage.getItem("category") == null) {
+    sessionStorage.setItem("category", "1")
+}
 if (sessionStorage.getItem("synopsis") == null) {
     sessionStorage.setItem("synopsis", "")
 }
+if (sessionStorage.getItem("synopsis") == null) {
+    sessionStorage.setItem("synopsis", "")
+}
+if (sessionStorage.getItem("navigation_article") == null) {
+    sessionStorage.setItem("navigation_article", "dynamic")
+}
+if (sessionStorage.getItem("article_index") == null) {
+    sessionStorage.setItem("article_index","")
+}
+
+
 var scrolltime = null;
 var article_json;
 //每页的文章数量
@@ -55,7 +69,7 @@ var pages = 3
 var page_num = 1
 //文章数
 var length = 0
-function create(text, init_domain_json, index) {
+function create(article_json, init_domain_json, index) {
 
     let temp = document.createElement("div")
     let h1 = document.createElement("a")
@@ -65,50 +79,56 @@ function create(text, init_domain_json, index) {
     div.className = "user_and_time"
     let authorname = document.createElement("a")
     //
-    let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
-    // let indexx= Object.keys(text)[index-1]
-    h1.innerHTML = marked.parse(text[indexx]["title"])
+    let indexx = Object.keys(article_json).sort(function (a, b) { return b - a })[index - 1]
+    // let indexx= Object.keys(article_json)[index-1]
+    h1.innerHTML = marked.parse(article_json[indexx]["title"])
 
     let div_buttons = document.createElement("div")
     div_buttons.className = "div_buttons"
     let div_button1 = document.createElement("input")
-    div_button1.value= "更新"
-    div_button1.type="button";
+    div_button1.value = "更新"
+    div_button1.type = "button";
     div_button1.addEventListener("click", async () => {
 
-        document.querySelector("#title").value = text[indexx]["title"]
-        document.querySelector("#synopsis").value = text[indexx]["synopsis"]
-        document.querySelector("#category").value = text[indexx]["category"]
+        document.querySelector("#title").value = article_json[indexx]["title"]
+        document.querySelector("#synopsis").value = article_json[indexx]["synopsis"]
+        document.querySelector("#category").value = article_json[indexx]["category"]
 
-        let url = "../article/" + text[indexx]["category"] + "/md/" + indexx + ".md"
-        let content=await fetch(url)
-        content =await content.text()
-        sessionStorage.setItem("content",content)
-        document.querySelector("#un_full_screen_content_left").value=content
+        let url = "../article/" + article_json[indexx]["category"] + "/md/" + indexx + ".md"
+        let content = await fetch(url)
+        content = await content.text()
+        sessionStorage.setItem("content", content)
+        document.querySelector("#un_full_screen_content_left").value = content
         document.querySelector("#create-articles").click()
-        document.querySelector("#announce").value="更新"
-        sessionStorage.setItem("article_index",indexx)
-        sessionStorage.setItem("category_delete",text[indexx]["category"])
-        let Cancel=document.createElement("input")
+        document.querySelector("#announce").value = "更新"
+        sessionStorage.setItem("article_index", indexx)
+        sessionStorage.setItem("category_delete", article_json[indexx]["category"])
+        let Cancel
+        if (document.querySelector("#cancelupdate") != null) {
+            Cancel = document.querySelector("#cancelupdate")
+        }
+        else {
+            Cancel = document.createElement("input")
+        }
 
-        Cancel.value="取消更新"
-        Cancel.type="button"
-        Cancel.id="cancelupdate"
-        Cancel.addEventListener("click",()=>{
-            document.querySelector("#announce").value="发布"
+
+        Cancel.value = "取消更新"
+        Cancel.type = "button"
+        Cancel.id = "cancelupdate"
+        Cancel.addEventListener("click", () => {
+            document.querySelector("#announce").value = "发布"
             Cancel.remove()
         })
         document.querySelector("#article-submit").appendChild(Cancel)
-        
+
 
     })
     let div_button2 = document.createElement("input")
-    div_button2.type="button";
+    div_button2.type = "button";
     div_button2.value = "删除"
     div_button2.addEventListener("click", async () => {
-
-        
-        delete_article(indexx, text)
+        delete_article(indexx, article_json)
+        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
     })
     div_buttons.appendChild(div_button1)
     div_buttons.appendChild(div_button2)
@@ -116,10 +136,10 @@ function create(text, init_domain_json, index) {
     div_s.className = "div_s"
     let div_p = document.createElement("div")
     div_p.className = "div_p"
-    div_p.innerHTML = marked.parse(text[indexx]["synopsis"])
-    authorname.innerHTML = "作者：" + (text[indexx]["author"])
+    div_p.innerHTML = marked.parse(article_json[indexx]["synopsis"])
+    authorname.innerHTML = "作者：" + (article_json[indexx]["author"])
     authorname.addEventListener("click", () => {
-        sessionStorage.setItem("author_id", text[indexx]["author_id"])
+        sessionStorage.setItem("author_id", article_json[indexx]["author_id"])
 
     })
 
@@ -127,10 +147,10 @@ function create(text, init_domain_json, index) {
     let span1 = document.createElement("span")
     let span2 = document.createElement("span")
     let span3 = document.createElement("span")
-    span0.innerHTML = "文章类别：" + init_domain_json[text[indexx]["category"]]["label"]
-    // span1.innerHTML = "评论数：" + text[indexx]["comment_amount"]
-    // span2.innerHTML = "点赞数：" + text[indexx]["favorite_amount"]
-    span3.innerHTML = "发布时间：" + (text[indexx]["createtime"])
+    span0.innerHTML = "文章类别：" + init_domain_json[article_json[indexx]["category"]]["label"]
+    // span1.innerHTML = "评论数：" + article_json[indexx]["comment_amount"]
+    // span2.innerHTML = "点赞数：" + article_json[indexx]["favorite_amount"]
+    span3.innerHTML = "发布时间：" + (article_json[indexx]["createtime"])
     authorname.href = getBasePath() + "/html/individualSpace.html"
 
     // createtime.appendChild(span1)
@@ -145,14 +165,17 @@ function create(text, init_domain_json, index) {
     div.appendChild(span0)
     div.appendChild(span3)
     temp.appendChild(div)
-    h1.href = "../html/content.html?domain=" + text[indexx]["category"] + "?index=" + indexx;
+    h1.href = "../html/content.html?domain=" + article_json[indexx]["category"] + "?index=" + indexx;
     // h1.target="_blank"
     return temp;
 }
 
-function change_page(buttons) {
+function change_page() {
 
-    document.querySelector(".previous-page").addEventListener("click", () => {
+    let previous_page = document.querySelector(".previous-page")
+    let next_page = document.querySelector(".next-page")
+    previous_page.addEventListener("click", () => {
+        let buttons = document.querySelectorAll("#paging .paging-index button")
         let href = window.location.href;
         let index = href.match(/\?paging=(.*)/)[1]
         index = parseInt(index)
@@ -160,8 +183,10 @@ function change_page(buttons) {
             buttons[index - 2].click();
         }
     })
-    document.querySelector(".next-page").addEventListener("click", () => {
-        // let index = sessionStorage.getItem("paging")
+
+    next_page.addEventListener("click", () => {
+        let buttons = document.querySelectorAll("#paging .paging-index button")
+
         let href = window.location.href;
         let index = href.match(/\?paging=(.*)/)[1]
         index = parseInt(index)
@@ -170,35 +195,39 @@ function change_page(buttons) {
         }
     })
 }
-function init_page(buttons) {
+function init_page() {
     let href = window.location.href;
-    for (let j of buttons) {
-        if (href.match(/\?paging=(.*)/) === null) {
-            j.click()
-            break;
-        }
-        else if (j.value === href.match(/\?paging=(.*)/)[1]) {
-            j.click();
-            break;
-        }
-
+    let buttons = document.querySelectorAll("#paging .paging-index button")
+    if (buttons.length != 0) {
+        
+        buttons[0].click()
     }
+    // for (let j of buttons) {
+    //     if (href.match(/\?paging=(.*)/) === null) {
+    //         j.click()
+    //         break;
+    //     }
+    //     else if (j.value === href.match(/\?paging=(.*)/)[1]) {
+    //         j.click();
+    //         break;
+    //     }
 
-
+    // }
 
 }
 async function announce_article() {
 
     let url = "/articleAannounce"
-    let title = document.querySelector("#title").value
-    let synopsis = document.querySelector("#synopsis").value
-    let category = document.querySelector("#category").value
+    let title = sessionStorage.getItem("title")
+    let synopsis = sessionStorage.getItem("synopsis")
+    let category = sessionStorage.getItem("category")
     let content = sessionStorage.getItem("content")
     let body_ = {}
     body_["title"] = title
     body_["synopsis"] = synopsis
-    body_["category_announce"] = category
+    body_["category"] = category
     body_["content"] = content
+    body_["state"] = "announce"
     body_["author"] = "Smily"
     let resp = await fetch(url,
         {
@@ -206,11 +235,50 @@ async function announce_article() {
             body: JSON.stringify(body_),
             headers: { 'Content-Type': "application/json; charset=utf-8" },
         })
-    resp =await resp.text()
+    resp = await resp.text()
     console.log(resp)
-    article_display()
+
 
 }
+
+async function drafts_article() {
+
+
+    let url = ""
+    if(sessionStorage.getItem("article_index")=="")
+    {
+        url = "/articleAannounce"
+    }
+    else
+    {
+        url = "/articleUpdate"
+    }
+    index=sessionStorage.getItem("article_index")
+    let title = sessionStorage.getItem("title")
+    let synopsis = sessionStorage.getItem("synopsis")
+    let category = sessionStorage.getItem("category")
+    let content = sessionStorage.getItem("content")
+    let body_ = {}
+    body_["index"] = index
+    body_["title"] = title
+    body_["synopsis"] = synopsis
+    body_["category"] = category
+    body_["content"] = content
+    body_["state"] = "drafts"
+    body_["author"] = "Smily"
+    let resp = await fetch(url,
+        {
+            method: 'POST',
+            body: JSON.stringify(body_),
+            headers: { 'Content-Type': "application/json; charset=utf-8" },
+        })
+    resp = await resp.text()
+    console.log(resp)
+
+
+
+}
+
 async function delete_article(index, text) {
 
     let url = "/articleDelete"
@@ -223,11 +291,11 @@ async function delete_article(index, text) {
             body: JSON.stringify(body_),
             headers: { 'Content-Type': "application/json; charset=utf-8" },
         })
-    resp = resp.text()
+    resp = await resp.text()
     console.log(resp)
-    article_display()
+
 }
-async function update_article(index,category_delete) {
+async function update_article(index, category_delete) {
 
     let url = "/articleUpdate"
     let title = document.querySelector("#title").value
@@ -239,7 +307,7 @@ async function update_article(index,category_delete) {
     body_["index"] = index
     body_["title"] = title
     body_["synopsis"] = synopsis
-    body_["category_announce"] = category
+    body_["category"] = category
     body_["category_delete"] = category_delete
     body_["content"] = content
     body_["author"] = "Smily"
@@ -250,10 +318,11 @@ async function update_article(index,category_delete) {
             headers: { 'Content-Type': "application/json; charset=utf-8" },
         })
     resp = await resp.text()
+    sessionStorage.setItem("article_index","")
     console.log(resp)
-    article_display()
+
 }
-async function article_display() {
+async function article_display(state) {
     let init_domain_json = await init_domain()
     let text = {}
     for (let domain of Object.keys(init_domain_json)) {
@@ -268,11 +337,42 @@ async function article_display() {
         articlejson = JSON.parse(articlejson)
         text = Object.assign(text, articlejson)
     }
-    article_json = text
-    length = Object.keys(text).length;
+    let article_json = {}
+    if (state == "announce") {
+        let keys = Object.keys(text)
+        for (let key of keys) {
+            if (text[key]["state"] == state) {
+                article_json[key] = text[key]
+            }
+        }
+    }
+    if (state == "drafts") {
+        let keys = Object.keys(text)
+        for (let key of keys) {
+            if (text[key]["state"] == state) {
+                article_json[key] = text[key]
+            }
+        }
+    }
+    if (state == "") {
+        article_json = text
+    }
+    let art = document.querySelector(".layout-content>#articles")
+    art.innerHTML = ""
+    length = Object.keys(article_json).length;
+
     let paging_index = document.querySelector("#paging .paging-index")
     paging_index.innerHTML = ""
+    // for (let x of document.querySelectorAll("#paging .paging-index button"))
+    //  {
+    //     x.remove()
+    // }
     page_num = (length + pages - 1) / pages
+    page_num = parseInt(page_num)
+    if (page_num == 0) {
+        art.innerHTML = "暂无数据！"
+
+    }
     for (let i = 1; i <= page_num; i++) {
         let button = document.createElement("button")
         button.className = "button_off";
@@ -296,8 +396,9 @@ async function article_display() {
             let start = (i - 1) * pages + 1
             let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
             for (let i = start; i < end; i++) {
-                art.appendChild(create(text, init_domain_json, i.toString()))
+                art.appendChild(create(article_json, init_domain_json, i.toString()))
             }
+
 
             // art.innerHTML = temp.innerHTML
         })
@@ -311,23 +412,19 @@ async function article_display() {
             for (let j of buttons) {
                 if (j.value === href.match(/\?paging=(.*)/)[1]) {
                     j.className = "button_on"
+
                 }
                 else {
                     j.className = "button_off"
+
                 }
             }
         })
     }
-
-    init_page(buttons)
-    change_page(buttons)
-
-    document.querySelector("#dynamic").click()
+    init_page()
     document.querySelector(".logos a").addEventListener("click", () => {
         buttons[0].click();
     })
-
-
 
 }
 window.addEventListener("popstate", () => {
@@ -354,7 +451,6 @@ function select(content_index) {
 
     if (content_index == "dynamic") {
         dynamic.className = "navigation-article-show"
-
     }
     else {
 
@@ -373,9 +469,6 @@ function select(content_index) {
     if (content_index == "dynamic" || content_index == "manuscript") {
         content.className = "articles"
         paging.className = "paging"
-
-
-
     }
     else {
         content.className = "articles-hidden"
@@ -390,7 +483,7 @@ function select(content_index) {
     if (content_index == "create-articles") {
         create.className = "create"
         create_articles.className = "navigation-article-show"
-        
+
 
     }
     else {
@@ -405,8 +498,10 @@ window.addEventListener('load', () => {
 
 
     document.querySelector("#dynamic").addEventListener("click", () => {
-
+        // history.pushState(null, null, '?paging=' + "1")
+        article_display("announce")
         select("dynamic")
+        sessionStorage.setItem("navigation_article", "dynamic")
     })
 
     document.querySelector("#create-articles").addEventListener("click", () => {
@@ -415,9 +510,12 @@ window.addEventListener('load', () => {
 
     })
     document.querySelector("#manuscript").addEventListener("click", () => {
+        // history.pushState(null, null, '?paging=' + "1")
+        article_display("drafts")
         select("manuscript")
+        sessionStorage.setItem("navigation_article", "manuscript")
     })
-    article_display()
+
     const dynamic = document.querySelector("#dynamic")
     dynamic.className = "navigation-article-show"
 
@@ -507,7 +605,7 @@ window.addEventListener("load", () => {
         text = sessionStorage.getItem("content")
         un_full_screen_content_left.value = text
         full_screen_content_left.value = text
-        
+
 
         temp.innerHTML = marked.parse(text)
 
@@ -535,18 +633,22 @@ window.addEventListener("load", () => {
 
     }
 
+    let category = document.querySelector("#category")
+    category.addEventListener('click', (e) => {
+        sessionStorage.setItem("category", e.target.value)
+
+    })
     let title = document.querySelector("#title")
-    title.addEventListener('input', combineDebounceThrottle(() => {
+    title.addEventListener('input', () => {
 
         sessionStorage.setItem("title", title.value)
 
-    }), 500)
+    })
     let synopsis = document.querySelector("#synopsis")
-    synopsis.addEventListener('input', combineDebounceThrottle(() => {
-
+    synopsis.addEventListener('input', () => {
         sessionStorage.setItem("synopsis", synopsis.value)
 
-    }), 500)
+    })
 
 
     full_screen_content_left.addEventListener('input', combineDebounceThrottle(() => {
@@ -836,22 +938,33 @@ window.addEventListener("load", () => {
 
 window.addEventListener("load", () => {
 
-    
+
     let announce = document.querySelector("#announce")
     announce.addEventListener("click", () => {
-        if(announce.value=="发布")
-        {
+        if (announce.value == "发布") {
             announce_article()
-        } 
-        if(announce.value=="更新")
-        {
+            document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
+
+        }
+        if (announce.value == "更新") {
             update_article(sessionStorage.getItem("article_index"), sessionStorage.getItem("category_delete"))
-            document.querySelector("#announce").value="发布"
+            document.querySelector("#announce").value = "发布"
             document.querySelector("#cancelupdate").remove()
-            
-        } 
-       
+            document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
+
+        }
+
     })
+    let drafts = document.querySelector("#drafts")
+    drafts.addEventListener("click", () => {
+
+        drafts_article()
+        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
+
+    })
+    let dynamic = document.querySelector("#dynamic")
+    dynamic.click()
+    change_page()
 
 })
 
@@ -862,7 +975,7 @@ async function init_domain() {
     length = Object.keys(text).length;
 
     let select = document.querySelector("#category")
-    select.innerHTML=""
+    select.innerHTML = ""
     for (let i = 1; i <= length; i++) {
         let option = document.createElement("option")
         option.innerHTML = text[i]["label"]

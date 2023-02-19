@@ -8,10 +8,27 @@ async function article_announce(jsons, res) {
 
     var tempSnowflake = new Snowflake(1n, 1n, 0n);
     let tempId = tempSnowflake.nextId();
-    let url = "./article/" + jsons["category_announce"] + "/article.json"
-    let url_md = "./article/" + jsons["category_announce"] + "/md/" + tempId + ".md"
-    let url2_json_one = "./article/" + jsons["category_announce"] + "/json/" + tempId + ".json"
+    let url = "./article/" + jsons["category"] + "/article.json"
+    let url_json_one_old = "./article/" + jsons["category_delete"] + "/json/" + jsons["index"] + ".json"
+    let url_md = "./article/" + jsons["category"] + "/md/" + tempId + ".md"
+    let url2_json_one = "./article/" + jsons["category"] + "/json/" + tempId + ".json"
     const open_article_json = async function (url) {
+
+        return new Promise(function (resolve, reject) {
+            fs.readFile(url, function (err, data) {
+                if (!err) {
+                    let ans = data.toString()
+                    if (ans == "") {
+                        ans = "{}"
+                    }
+                    resolve(ans);
+                } else {
+                    reject(err);
+                }
+            });
+        });
+    }
+    const open_json_one_old = async function (url) {
 
         return new Promise(function (resolve, reject) {
             fs.readFile(url, function (err, data) {
@@ -29,11 +46,7 @@ async function article_announce(jsons, res) {
     }
     const create_article_json = async function (tempId, articles_json, jsons) {
         articles_json = JSON.parse(articles_json)
-        let articles_json_content = {}
-        articles_json_content["title"] = jsons["title"]
-        articles_json_content["synopsis"] = jsons["synopsis"]
-        articles_json_content["category"] = jsons["category_announce"]
-        articles_json_content["author"] = jsons["author"]
+        let articles_json_content = jsons
         let myDate = new Date();
         let year = myDate.getFullYear();
         let month = myDate.getMonth() + 1;
@@ -60,7 +73,17 @@ async function article_announce(jsons, res) {
         }
         //时间拼接
         var dateTime = year + "-" + month + "-" + date + "  " + hours + ":" + minutes + ":" + seconds;
-        articles_json_content["createtime"] = dateTime
+        if (articles_json_content["index"] != null) {
+            let json_one_old = await open_json_one_old(url_json_one_old)
+
+            json_one_old = JSON.parse(json_one_old)
+            articles_json_content["createtime"] = json_one_old["createtime"]
+            articles_json_content["updatetime"] = dateTime
+        }
+        else {
+            articles_json_content["createtime"] = dateTime
+        }
+
         articles_json[tempId] = articles_json_content
         return articles_json
     }
@@ -121,13 +144,19 @@ async function article_announce(jsons, res) {
 
     }
 
-    let article_json = await open_article_json(url)
-    article_json = await create_article_json(tempId, article_json, jsons)
-    await write_article_json(url, article_json)
-    await write_article_json_one(url2_json_one, article_json[tempId])
-    await write_article_md(url_md, jsons["content"])
-    res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-    res.end("Announce successful");
+
+    try {
+        let article_json = await open_article_json(url)
+        article_json = await create_article_json(tempId, article_json, jsons)
+        await write_article_json(url, article_json)
+        await write_article_json_one(url2_json_one, article_json[tempId])
+        await write_article_md(url_md, jsons["content"])
+        res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+        res.end("Announce successful");
+    } catch (error) {
+        res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
+        res.end("Announce errno");
+    }
 }
 
 
@@ -346,20 +375,23 @@ async function article_delete(jsons, res) {
         });
     }
     let article_json = await open_article_json(url)
-    article_json = JSON.parse(article_json)
-    delete article_json[index]
-    await write_article_json(url, article_json)
-    await delete_article_md(url1)
-    await delete_article_json_one(url2)
-    res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-    res.end("Delect successful");
+    try {
+        article_json = JSON.parse(article_json)
+        delete article_json[index]
+        await write_article_json(url, article_json)
+        await delete_article_md(url1)
+        await delete_article_json_one(url2)
+        res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
+        res.end("Delect successful");
+    } catch (error) {
+        res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
+        res.end("Delect error");
+    }
 }
 
 
 
-
 server.on('request', (req, res) => {
-
 
     let url_t = "";
     if (req.url.match(/^.*?(?=\?)/) != null) {
@@ -370,135 +402,103 @@ server.on('request', (req, res) => {
         url_t = req.url
     }
 
+    switch (url_t) {
+        case "/favicon.ico":
+            break;
+        case "/articleAannounce":
+            {
+                let postData = '';
+                let jsons = {};
+                req.on('data', (params) => {
+                    postData += params
+                });
 
-    if (url_t != "/favicon.ico") {
+                req.on('end', () => {
+                    if (postData.length > 0) {
+                        jsons = JSON.parse(postData)
+                        article_announce(jsons, res)
+                    }
+                })
+                break;
+            }
+
+        case "/articleUpdate":
+            {
+                let postData = '';
+                let jsons = {};
+                req.on('data', (params) => {
+                    postData += params
+                });
+
+                req.on('end', () => {
+                    if (postData.length > 0) {
+                        jsons = JSON.parse(postData)
+                        article_update(jsons, res)
+                    }
+                })
+                break;
+            }
 
 
-        if (url_t == "/") {
+        case "/articleDelete":
+            {
+                let postData = '';
+                let jsons = {};
+                req.on('data', (params) => {
+                    postData += params
+                });
 
-            fs.readFile("./index.html", function (err, data) {
-                if (err) {
-                    console.log(err);
-
-                    res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
-                }
-
-                else {
-
-                    // res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-
-                    res.end(data);
-
-                }
-
-            });
-        }
-        else {
-            if (url_t.replace(/.+\./, "") === "js") {
-
-                fs.readFile("." + url_t, function (err, data) {
-
-
+                req.on('end', () => {
+                    if (postData.length > 0) {
+                        jsons = JSON.parse(postData)
+                        article_delete(jsons, res)
+                    }
+                })
+                break;
+            }
+        case "/":
+            {
+                fs.readFile("./index.html", function (err, data) {
                     if (err) {
                         console.log(err);
 
-                        res.writeHead(404, { "Content-Type": "application/javascript;charset=UTF-8" });
+                        res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
                     }
+
                     else {
 
-                        res.writeHead(200, { "Content-Type": "application/javascript;charset=UTF-8" });
+                        // res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
 
                         res.end(data);
 
                     }
 
                 });
+                break;
             }
-            else {
 
 
-                switch (url_t) {
+        default:
+            fs.readFile("." + url_t, function (err, data) {
 
-                    case "/articleAannounce":
-                        {
-                            let postData = '';
-                            let jsons = {};
-                            req.on('data', (params) => {
-                                postData += params
-                            });
+                if (err) {
+                    console.log(err);
 
-                            req.on('end', () => {
-                                if (postData.length > 0) {
-                                    jsons = JSON.parse(postData)
-                                    article_announce(jsons, res)
-                                }
-                            })
-                            break;
-                        }
+                    res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
+                }
+                else {
 
-                    case "/articleUpdate":
-                        {
-                            let postData = '';
-                            let jsons = {};
-                            req.on('data', (params) => {
-                                postData += params
-                            });
+                    res.writeHead(200, { "Content-Type": convert_Content_Type(url_t) });
 
-                            req.on('end', () => {
-                                if (postData.length > 0) {
-                                    jsons = JSON.parse(postData)
-                                    article_update(jsons, res)
-                                }
-                            })
-                            break;
-                        }
-
-
-                    case "/articleDelete":
-                        {
-                            let postData = '';
-                            let jsons = {};
-                            req.on('data', (params) => {
-                                postData += params
-                            });
-
-                            req.on('end', () => {
-                                if (postData.length > 0) {
-                                    jsons = JSON.parse(postData)
-                                    article_delete(jsons, res)
-                                }
-                            })
-                            break;
-                        }
-
-
-                    default:
-                        fs.readFile("." + url_t, function (err, data) {
-
-                            if (err) {
-                                console.log(err);
-
-                                res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
-                            }
-                            else {
-
-                                // res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-
-                                res.end(data);
-
-                            }
-
-                        });
-
-                        break;
-
+                    res.end(data);
 
                 }
 
+            });
 
-            }
+            break;
 
-        }
+
     }
 
 
@@ -511,7 +511,19 @@ server.listen(8888, "127.0.0.1");
 console.log('Server running at http://127.0.0.1:8888/')
 
 
+function convert_Content_Type(url_t) {
+    let Type = url_t.replace(/.+\./, "")
+    switch (Type) {
+        case "js":
+            return "application/javascript;charset=UTF-8"
+        // case "css":
+        //     return "text/html;charset=UTF-8"
+        default:
+            return ""
+    }
 
+
+}
 
 
 var Snowflake = (function () {
