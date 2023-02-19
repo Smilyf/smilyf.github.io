@@ -73,7 +73,7 @@ function create(text, init_domain_json, index) {
     div_buttons.className = "div_buttons"
     let div_button1 = document.createElement("input")
     div_button1.value= "更新"
-    div_button1.cursor="pointer";
+    div_button1.type="button";
     div_button1.addEventListener("click", async () => {
 
         document.querySelector("#title").value = text[indexx]["title"]
@@ -90,18 +90,24 @@ function create(text, init_domain_json, index) {
         sessionStorage.setItem("article_index",indexx)
         sessionStorage.setItem("category_delete",text[indexx]["category"])
         let Cancel=document.createElement("input")
+
         Cancel.value="取消更新"
         Cancel.type="button"
+        Cancel.id="cancelupdate"
         Cancel.addEventListener("click",()=>{
             document.querySelector("#announce").value="发布"
+            Cancel.remove()
         })
         document.querySelector("#article-submit").appendChild(Cancel)
         
 
     })
     let div_button2 = document.createElement("input")
+    div_button2.type="button";
     div_button2.value = "删除"
     div_button2.addEventListener("click", async () => {
+
+        
         delete_article(indexx, text)
     })
     div_buttons.appendChild(div_button1)
@@ -841,6 +847,8 @@ window.addEventListener("load", () => {
         {
             update_article(sessionStorage.getItem("article_index"), sessionStorage.getItem("category_delete"))
             document.querySelector("#announce").value="发布"
+            document.querySelector("#cancelupdate").remove()
+            
         } 
        
     })
