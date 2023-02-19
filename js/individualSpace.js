@@ -57,7 +57,10 @@ if (sessionStorage.getItem("navigation_article") == null) {
     sessionStorage.setItem("navigation_article", "dynamic")
 }
 if (sessionStorage.getItem("article_index") == null) {
-    sessionStorage.setItem("article_index","")
+    sessionStorage.setItem("article_index", "")
+}
+if (sessionStorage.getItem("category_delete") == null) {
+    sessionStorage.setItem("category_delete", "")
 }
 
 
@@ -80,6 +83,8 @@ function create(article_json, init_domain_json, index) {
     let authorname = document.createElement("a")
     //
     let indexx = Object.keys(article_json).sort(function (a, b) { return b - a })[index - 1]
+    
+   
     // let indexx= Object.keys(article_json)[index-1]
     h1.innerHTML = marked.parse(article_json[indexx]["title"])
 
@@ -87,48 +92,45 @@ function create(article_json, init_domain_json, index) {
     div_buttons.className = "div_buttons"
     let div_button1 = document.createElement("input")
     div_button1.value = "更新"
+    
     div_button1.type = "button";
     div_button1.addEventListener("click", async () => {
-
+        sessionStorage.setItem("category_delete", article_json[indexx]["category"])
+        sessionStorage.setItem("article_index", indexx)
         document.querySelector("#title").value = article_json[indexx]["title"]
         document.querySelector("#synopsis").value = article_json[indexx]["synopsis"]
         document.querySelector("#category").value = article_json[indexx]["category"]
-
         let url = "../article/" + article_json[indexx]["category"] + "/md/" + indexx + ".md"
         let content = await fetch(url)
         content = await content.text()
         sessionStorage.setItem("content", content)
         document.querySelector("#un_full_screen_content_left").value = content
         document.querySelector("#create-articles").click()
-        document.querySelector("#announce").value = "更新"
-        sessionStorage.setItem("article_index", indexx)
-        sessionStorage.setItem("category_delete", article_json[indexx]["category"])
-        let Cancel
-        if (document.querySelector("#cancelupdate") != null) {
-            Cancel = document.querySelector("#cancelupdate")
+        if( sessionStorage.getItem("navigation_article")=="dynamic")
+        {
+            document.querySelector("#drafts").className=""
+            document.querySelector("#announce").className="displaynone"
+            document.querySelector("#updatearticle").className=""
+            document.querySelector("#cancelupdate").className=""
         }
-        else {
-            Cancel = document.createElement("input")
+        if( sessionStorage.getItem("navigation_article")=="manuscript")
+        {
+            document.querySelector("#drafts").className="displaynone"
+            document.querySelector("#announce").className=""
+            document.querySelector("#updatearticle").className=""
+            document.querySelector("#cancelupdate").className=""
         }
-
-
-        Cancel.value = "取消更新"
-        Cancel.type = "button"
-        Cancel.id = "cancelupdate"
-        Cancel.addEventListener("click", () => {
-            document.querySelector("#announce").value = "发布"
-            Cancel.remove()
-        })
-        document.querySelector("#article-submit").appendChild(Cancel)
-
-
+     
     })
     let div_button2 = document.createElement("input")
     div_button2.type = "button";
     div_button2.value = "删除"
     div_button2.addEventListener("click", async () => {
-        delete_article(indexx, article_json)
+        sessionStorage.setItem("article_index", indexx)
+        sessionStorage.setItem("category_delete", article_json[indexx]["category"])
+        delete_article( )
         document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
+
     })
     div_buttons.appendChild(div_button1)
     div_buttons.appendChild(div_button2)
@@ -199,7 +201,7 @@ function init_page() {
     let href = window.location.href;
     let buttons = document.querySelectorAll("#paging .paging-index button")
     if (buttons.length != 0) {
-        
+
         buttons[0].click()
     }
     // for (let j of buttons) {
@@ -217,16 +219,29 @@ function init_page() {
 }
 async function announce_article() {
 
-    let url = "/articleAannounce"
+    let url = ""
+    let index=sessionStorage.getItem("article_index")
+
+    if ( index== "") {
+        url = "/articleAannounce"
+       
+    }
+    else {
+        url = "/articleUpdate"
+       
+    }
     let title = sessionStorage.getItem("title")
     let synopsis = sessionStorage.getItem("synopsis")
     let category = sessionStorage.getItem("category")
     let content = sessionStorage.getItem("content")
+    
     let body_ = {}
+    body_["index"] = index
     body_["title"] = title
     body_["synopsis"] = synopsis
     body_["category"] = category
     body_["content"] = content
+    body_["category_delete"] = sessionStorage.getItem("category_delete")
     body_["state"] = "announce"
     body_["author"] = "Smily"
     let resp = await fetch(url,
@@ -236,6 +251,7 @@ async function announce_article() {
             headers: { 'Content-Type': "application/json; charset=utf-8" },
         })
     resp = await resp.text()
+    sessionStorage.setItem("article_index", "")
     console.log(resp)
 
 
@@ -243,17 +259,16 @@ async function announce_article() {
 
 async function drafts_article() {
 
-
     let url = ""
-    if(sessionStorage.getItem("article_index")=="")
-    {
+    let index =sessionStorage.getItem("article_index")
+   
+    if (index == "") {
         url = "/articleAannounce"
     }
-    else
-    {
+    else {
         url = "/articleUpdate"
     }
-    index=sessionStorage.getItem("article_index")
+   
     let title = sessionStorage.getItem("title")
     let synopsis = sessionStorage.getItem("synopsis")
     let category = sessionStorage.getItem("category")
@@ -263,6 +278,7 @@ async function drafts_article() {
     body_["title"] = title
     body_["synopsis"] = synopsis
     body_["category"] = category
+    body_["category_delete"] = sessionStorage.getItem("category_delete")
     body_["content"] = content
     body_["state"] = "drafts"
     body_["author"] = "Smily"
@@ -273,18 +289,19 @@ async function drafts_article() {
             headers: { 'Content-Type': "application/json; charset=utf-8" },
         })
     resp = await resp.text()
+    sessionStorage.setItem("article_index", "")
     console.log(resp)
 
 
 
 }
 
-async function delete_article(index, text) {
+async function delete_article() {
 
     let url = "/articleDelete"
     let body_ = {}
-    body_["index"] = index
-    body_["category_delete"] = text[index]["category"]
+    body_["index"] = sessionStorage.getItem("article_index")
+    body_["category_delete"] =  sessionStorage.getItem("category_delete")
     let resp = await fetch(url,
         {
             method: 'POST',
@@ -292,24 +309,36 @@ async function delete_article(index, text) {
             headers: { 'Content-Type': "application/json; charset=utf-8" },
         })
     resp = await resp.text()
+    sessionStorage.setItem("article_index", "")
     console.log(resp)
 
 }
-async function update_article(index, category_delete) {
+async function update_article() {
 
     let url = "/articleUpdate"
-    let title = document.querySelector("#title").value
-    let synopsis = document.querySelector("#synopsis").value
-    let category = document.querySelector("#category").value
+    let title = sessionStorage.getItem("title")
+    let synopsis = sessionStorage.getItem("synopsis")
+    let category = sessionStorage.getItem("category")
     let content = sessionStorage.getItem("content")
-    let body_ = {}
+    let state="announce"
+   
+    if(sessionStorage.getItem("navigation_article")=="manuscript")
+    {
+        state="drafts"
+    }
+    if(sessionStorage.getItem("navigation_article")=="dynamic")
+    {
+        state="announce"
+    }
 
-    body_["index"] = index
+    let body_ = {}
+    body_["index"] = sessionStorage.getItem("article_index")
     body_["title"] = title
     body_["synopsis"] = synopsis
     body_["category"] = category
-    body_["category_delete"] = category_delete
+    body_["category_delete"] = sessionStorage.getItem("category_delete")
     body_["content"] = content
+    body_["state"] = state
     body_["author"] = "Smily"
     let resp = await fetch(url,
         {
@@ -318,7 +347,7 @@ async function update_article(index, category_delete) {
             headers: { 'Content-Type': "application/json; charset=utf-8" },
         })
     resp = await resp.text()
-    sessionStorage.setItem("article_index","")
+    sessionStorage.setItem("article_index", "")
     console.log(resp)
 
 }
@@ -499,18 +528,27 @@ window.addEventListener('load', () => {
 
     document.querySelector("#dynamic").addEventListener("click", () => {
         // history.pushState(null, null, '?paging=' + "1")
+        document.querySelector("#drafts").className=""
+        document.querySelector("#announce").className=""
+        document.querySelector("#updatearticle").className="displaynone"
+        document.querySelector("#cancelupdate").className="displaynone"
         article_display("announce")
         select("dynamic")
         sessionStorage.setItem("navigation_article", "dynamic")
     })
 
     document.querySelector("#create-articles").addEventListener("click", () => {
+        
         select("create-articles")
 
 
     })
     document.querySelector("#manuscript").addEventListener("click", () => {
         // history.pushState(null, null, '?paging=' + "1")
+        document.querySelector("#drafts").className=""
+        document.querySelector("#announce").className=""
+        document.querySelector("#updatearticle").className="displaynone"
+        document.querySelector("#cancelupdate").className="displaynone"
         article_display("drafts")
         select("manuscript")
         sessionStorage.setItem("navigation_article", "manuscript")
@@ -939,33 +977,29 @@ window.addEventListener("load", () => {
 window.addEventListener("load", () => {
 
 
-    let announce = document.querySelector("#announce")
-    announce.addEventListener("click", () => {
-        if (announce.value == "发布") {
-            announce_article()
-            document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
+    document.querySelector("#updatearticle").addEventListener("click", () => {
+        update_article()
+        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
+    })
+    document.querySelector("#announce").addEventListener("click", () => {
 
-        }
-        if (announce.value == "更新") {
-            update_article(sessionStorage.getItem("article_index"), sessionStorage.getItem("category_delete"))
-            document.querySelector("#announce").value = "发布"
-            document.querySelector("#cancelupdate").remove()
-            document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
-
-        }
+        announce_article()
+        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
 
     })
-    let drafts = document.querySelector("#drafts")
-    drafts.addEventListener("click", () => {
+    document.querySelector("#drafts").addEventListener("click", () => {
 
         drafts_article()
         document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
+    })
 
+    document.querySelector("#cancelupdate").addEventListener("click", () => {
+
+        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
     })
     let dynamic = document.querySelector("#dynamic")
     dynamic.click()
     change_page()
-
 })
 
 async function init_domain() {

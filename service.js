@@ -9,7 +9,7 @@ async function article_announce(jsons, res) {
     var tempSnowflake = new Snowflake(1n, 1n, 0n);
     let tempId = tempSnowflake.nextId();
     let url = "./article/" + jsons["category"] + "/article.json"
-    let url_json_one_old = "./article/" + jsons["category_delete"] + "/json/" + jsons["index"] + ".json"
+    
     let url_md = "./article/" + jsons["category"] + "/md/" + tempId + ".md"
     let url2_json_one = "./article/" + jsons["category"] + "/json/" + tempId + ".json"
     const open_article_json = async function (url) {
@@ -46,7 +46,13 @@ async function article_announce(jsons, res) {
     }
     const create_article_json = async function (tempId, articles_json, jsons) {
         articles_json = JSON.parse(articles_json)
-        let articles_json_content = jsons
+
+        let articles_json_content={}
+        articles_json_content["title"]=jsons["title"]
+        articles_json_content["synopsis"]=jsons["synopsis"]
+        articles_json_content["category"]=jsons["category"]
+        articles_json_content["state"]=jsons["state"]
+        articles_json_content["author"]=jsons["author"]
         let myDate = new Date();
         let year = myDate.getFullYear();
         let month = myDate.getMonth() + 1;
@@ -73,10 +79,12 @@ async function article_announce(jsons, res) {
         }
         //时间拼接
         var dateTime = year + "-" + month + "-" + date + "  " + hours + ":" + minutes + ":" + seconds;
-        if (articles_json_content["index"] != null) {
+        if (jsons["index"] != "") {
+            let url_json_one_old = "./article/" + jsons["category_delete"] + "/json/" + jsons["index"] + ".json"
             let json_one_old = await open_json_one_old(url_json_one_old)
 
             json_one_old = JSON.parse(json_one_old)
+            
             articles_json_content["createtime"] = json_one_old["createtime"]
             articles_json_content["updatetime"] = dateTime
         }
@@ -127,8 +135,6 @@ async function article_announce(jsons, res) {
     }
     const write_article_md = async function (url, md_content) {
         return new Promise(function (resolve, reject) {
-
-
             fs.writeFile(url, md_content.toString(), function (err) {
                 if (err) {
                     console.error(err);
@@ -137,13 +143,9 @@ async function article_announce(jsons, res) {
                 else {
                     resolve("");
                 }
-
             });
-
         });
-
     }
-
 
     try {
         let article_json = await open_article_json(url)
@@ -154,6 +156,7 @@ async function article_announce(jsons, res) {
         res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
         res.end("Announce successful");
     } catch (error) {
+        console.log(error)
         res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
         res.end("Announce errno");
     }

@@ -127,3 +127,6 @@ a {
     text-decoration: none;
     color: black;
 }
+.displaynone {
+    display: none !important;
+}
