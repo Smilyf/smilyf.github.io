@@ -63,7 +63,6 @@ if (sessionStorage.getItem("category_delete") == null) {
     sessionStorage.setItem("category_delete", "")
 }
 
-
 var scrolltime = null;
 var article_json;
 //每页的文章数量
@@ -171,7 +170,6 @@ function create(article_json, init_domain_json, index) {
     // h1.target="_blank"
     return temp;
 }
-
 function change_page() {
 
     let previous_page = document.querySelector(".previous-page")
@@ -198,7 +196,7 @@ function change_page() {
     })
 }
 function init_page() {
-    let href = window.location.href;
+    
     let buttons = document.querySelectorAll("#paging .paging-index button")
     if (buttons.length != 0) {
 
@@ -256,7 +254,6 @@ async function announce_article() {
 
 
 }
-
 async function drafts_article() {
 
     let url = ""
@@ -295,7 +292,6 @@ async function drafts_article() {
 
 
 }
-
 async function delete_article() {
 
     let url = "/articleDelete"
@@ -454,23 +450,8 @@ async function article_display(state) {
     document.querySelector(".logos a").addEventListener("click", () => {
         buttons[0].click();
     })
-
 }
-window.addEventListener("popstate", () => {
-    let href = window.location.href;
-    let index = "0"
-    // var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
-    // var code3 = href.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
-    // buttons[num-1].click()
-    if (href.match(/\?paging=(.*)/) != null) {
-        index = href.match(/\?paging=(.*)/)[1];//取 data=后面所有字符串
-    }
-    let num = parseInt(index)
-    if (num != 0) {
-        buttons[num - 1].click()
-    }
-});
-function select(content_index) {
+async function select(content_index) {
     const content = document.querySelector("#articles")
     const create = document.querySelector("#create")
     const paging = document.querySelector("#paging")
@@ -521,8 +502,37 @@ function select(content_index) {
     }
 
 }
+async function init_domain() {
+    let url = getBasePath() + "article/domain.json"
+    let text = await fetch(url)
+    text = await text.json()
+    length = Object.keys(text).length;
 
+    let select = document.querySelector("#category")
+    select.innerHTML = ""
+    for (let i = 1; i <= length; i++) {
+        let option = document.createElement("option")
+        option.innerHTML = text[i]["label"]
+        option.value = text[i]["index"]
+        select.appendChild(option)
+    }
+    return text
 
+}
+window.addEventListener("popstate", () => {
+    let href = window.location.href;
+    let index = "0"
+    // var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
+    // var code3 = href.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
+    // buttons[num-1].click()
+    if (href.match(/\?paging=(.*)/) != null) {
+        index = href.match(/\?paging=(.*)/)[1];//取 data=后面所有字符串
+    }
+    let num = parseInt(index)
+    if (num != 0) {
+        buttons[num - 1].click()
+    }
+});
 window.addEventListener('load', () => {
 
 
@@ -621,11 +631,6 @@ window.addEventListener("load", () => {
     })
 
 })
-
-
-
-
-
 window.addEventListener("load", () => {
 
     let text;
@@ -719,10 +724,6 @@ window.addEventListener("load", () => {
         }
     }, 500))
 })
-
-
-
-//预览功能的关闭与打开，大窗口和小窗口
 window.addEventListener("load", () => {
 
     let full_screen = document.querySelector("#full_screen")
@@ -770,10 +771,6 @@ window.addEventListener("load", () => {
     })
 
 })
-
-
-
-
 window.addEventListener("load", () => {
 
 
@@ -841,7 +838,6 @@ window.addEventListener("load", () => {
     })
 
 })
-
 window.addEventListener("load", () => {
 
 
@@ -907,7 +903,6 @@ window.addEventListener("load", () => {
     })
 
 })
-
 window.addEventListener("load", () => {
 
     let flag = 1
@@ -973,7 +968,6 @@ window.addEventListener("load", () => {
 
 
 })
-
 window.addEventListener("load", () => {
 
 
@@ -1002,24 +996,5 @@ window.addEventListener("load", () => {
     change_page()
 })
 
-async function init_domain() {
-    let url = getBasePath() + "article/domain.json"
-    let text = await fetch(url)
-    text = await text.json()
-    length = Object.keys(text).length;
-
-    let select = document.querySelector("#category")
-    select.innerHTML = ""
-    for (let i = 1; i <= length; i++) {
-        let option = document.createElement("option")
-        option.innerHTML = text[i]["label"]
-        option.value = text[i]["index"]
-        select.appendChild(option)
-    }
-
-    return text
-
-
-}
 
 

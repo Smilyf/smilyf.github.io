@@ -76,35 +76,34 @@ function create(text, init_domain_json, index) {
 	// h1.target="_blank"
 	return temp;
 }
-
 function change_page() {
     
-    let previous_page= document.querySelector(".previous-page")
-    let next_page= document.querySelector(".next-page")
-    previous_page.addEventListener("click", () => {
-        let buttons = document.querySelectorAll("#paging .paging-index button")
-        let href = window.location.href;
-        let index = href.match(/\?paging=(.*)/)[1]
-        index = parseInt(index)
-        if (index - 1 >= 1) {
-            buttons[index - 2].click();
-        }
-    })
-    
-    next_page.addEventListener("click", () => {
-        let buttons = document.querySelectorAll("#paging .paging-index button")
-        console.log(buttons)
-        let href = window.location.href;
-        let index = href.match(/\?paging=(.*)/)[1]
-        index = parseInt(index)
-        if (index + 1 <= page_num) {
-            buttons[index].click()
-        }
-    })
+	let previous_page= document.querySelector(".previous-page")
+	let next_page= document.querySelector(".next-page")
+	previous_page.addEventListener("click", () => {
+		let buttons = document.querySelectorAll("#paging .paging-index button")
+		let href = window.location.href;
+		let index = href.match(/\?paging=(.*)/)[1]
+		index = parseInt(index)
+		if (index - 1 >= 1) {
+			buttons[index - 2].click();
+		}
+	})
+	
+	next_page.addEventListener("click", () => {
+		let buttons = document.querySelectorAll("#paging .paging-index button")
+		console.log(buttons)
+		let href = window.location.href;
+		let index = href.match(/\?paging=(.*)/)[1]
+		index = parseInt(index)
+		if (index + 1 <= page_num) {
+			buttons[index].click()
+		}
+	})
 }
-function init_page(buttons) {
+function init_page() {
 	let href = window.location.href;
-
+	let buttons = document.querySelectorAll("#paging .paging-index button")
 	for (let j of buttons) {
 		if (href.match(/\?paging=(.*)/) === null) {
 			j.click()
@@ -114,144 +113,120 @@ function init_page(buttons) {
 			j.click();
 			break;
 		}
-
 	}
-
 }
-window.addEventListener('load', async () => {
-	let init_domain_json = await init_domain()
-	let href = window.location.href
-	let domain = href.match(/\?domain=(.*)/)[1];
-	if (domain.match(/(\S*)\?/) != null) {
-		domain = domain.match(/(\S*)\?/)[1]
-	}
-	let h1 = document.querySelector(".description>h1")
-	let h3 = document.querySelector(".description>h3")
-	let url = "../article/" + domain + "/description.json"
+async function article_display(state) {
+    let init_domain_json = await init_domain()
+    let text = {}
+    for (let domain of Object.keys(init_domain_json)) {
+        let url = getBasePath() + "/article/" + domain + "/article.json"
+        let articlejson = await fetch(url,
+            {
+                method: 'GET',
+                headers: { 'Content-Type': "application/json; charset=utf-8" },
+
+            })
+        articlejson = await articlejson.text()
+        articlejson = JSON.parse(articlejson)
+        text = Object.assign(text, articlejson)
+    }
+    let article_json = {}
+    if (state == "announce") {
+        let keys = Object.keys(text)
+        for (let key of keys) {
+            if (text[key]["state"] == state) {
+                article_json[key] = text[key]
+            }
+        }
+    }
+    if (state == "drafts") {
+        let keys = Object.keys(text)
+        for (let key of keys) {
+            if (text[key]["state"] == state) {
+                article_json[key] = text[key]
+            }
+        }
+    }
+    if (state == "") {
+        article_json = text
+    }
+    let art = document.querySelector(".layout-content>#articles")
+    art.innerHTML = ""
+    length = Object.keys(article_json).length;
+
+    let paging_index = document.querySelector("#paging .paging-index")
+    paging_index.innerHTML = ""
+    // for (let x of document.querySelectorAll("#paging .paging-index button"))
+    //  {
+    //     x.remove()
+    // }
+    page_num = (length + pages - 1) / pages
+    page_num = parseInt(page_num)
+    if (page_num == 0) {
+        art.innerHTML = "暂无数据！"
+
+    }
+    for (let i = 1; i <= page_num; i++) {
+        let button = document.createElement("button")
+        button.className = "button_off";
+        button.innerHTML = i.toString()
+        button.value = i.toString()
+        button.addEventListener("click", () => {
+            let art = document.querySelector(".layout-content>#articles")
+            art.innerHTML = ""
+            // let temp = document.createElement("div")
+            let href = window.location.href;
+            let index = "0"
+            if (href.match(/\?paging=(.*)/) != null) {
+                index = href.match(/\?paging=(.*)/)[1];
+                if (index != i.toString()) {
+                    history.pushState(null, null, '?paging=' + i.toString())
+                }
+            }
+            else {
+                history.pushState(null, null, '?paging=' + "1")
+            }
+            let start = (i - 1) * pages + 1
+            let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
+            for (let i = start; i < end; i++) {
+                art.appendChild(create(article_json, init_domain_json, i.toString()))
+            }
 
 
-	fetch(url)
-		.then((data) => {
-			return data.json()
-		})
-		.then((text) => {
-			var art = document.querySelector(".layout-content>.articles")
-			h1.innerHTML = marked.parse(text["1"]["title"])
-			h3.innerHTML = marked.parse(text["1"]["content"])
-		})
+            // art.innerHTML = temp.innerHTML
+        })
+        paging_index.appendChild(button)
+    }
 
-	let ur2 = "../article/" + domain + "/article.json"
+    let buttons = paging_index.querySelectorAll("button")
+    for (let button of buttons) {
+        button.addEventListener("click", () => {
+            let href = window.location.href;
+            for (let j of buttons) {
+                if (j.value === href.match(/\?paging=(.*)/)[1]) {
+                    j.className = "button_on"
 
-	fetch(ur2)
-		.then((data) => {
-			return data.json()
-		})
-		.then((text) => {
-			article_json = text
-			length = Object.keys(text).length;
-			let paging_index = document.querySelector(".paging .paging-index")
-			page_num = (length + pages - 1) / pages
-			for (let i = 1; i <= page_num; i++) {
-				let button = document.createElement("button")
-				button.className = "button_off";
-				button.innerHTML = i.toString()
-				button.value = i.toString()
-				button.addEventListener("click", () => {
-					let art = document.querySelector(".layout-content>.articles")
-					// let temp=document.createElement("div")
-					art.innerHTML = ""
-					let href = window.location.href;
-					let index = "0"
-					if (href.match(/\?paging=(.*)/) != null) {
-						index = href.match(/\?paging=(.*)/)[1];
-						if (index != i.toString()) {
-							history.pushState(null, null, '?domain=' + domain + '?paging=' + i.toString())
-						}
-					}
-					else {
-						history.pushState(null, null, '?domain=' + domain + '?paging=' + "1")
-					}
-					let start = (i - 1) * pages + 1
-					let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
-					for (let i = start; i < end; i++) {
-						art.appendChild(create(text, init_domain_json, i.toString()))
-					}
+                }
+                else {
+                    j.className = "button_off"
 
-					// art.innerHTML=temp.innerHTML
-
-				})
-				paging_index.appendChild(button)
-			}
-			return paging_index
-		}
-		)
-		.then((paging_index) => {
-			let buttons = paging_index.querySelectorAll("button")
-			for (let button of buttons) {
-				button.addEventListener("click", () => {
-					let href = window.location.href;
-					for (let j of buttons) {
-						if (j.value === href.match(/\?paging=(.*)/)[1]) {
-							j.className = "button_on"
-						}
-						else {
-							j.className = "button_off"
-						}
-
-					}
-
-				})
-			}
-			return buttons
-		}).then((buttons) => {
-
-			init_page(buttons)
-			
-			return buttons
-		}).then((buttons) => {
-
-			document.querySelector(".logos a").addEventListener("click", () => {
-				buttons[0].click();
-			})
-			return buttons;
-
-		}).then((buttons) => {
-			window.addEventListener("popstate", () => {
-				let href = window.location.href;
-				let index = "0"
-				// var code1 = href.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
-				// var code3 = href.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
-				// buttons[num-1].click()
-				if (href.match(/\?paging=(.*)/) != null) {
-					index = href.match(/\?paging=(.*)/)[1];//取 data=后面所有字符串
-				}
-				let num = parseInt(index)
-				if (num != 0) {
-					buttons[num - 1].click()
-				}
-
-			});
-		})
-		change_page()
+                }
+            }
+        })
+    }
+    init_page()
+    document.querySelector(".logos a").addEventListener("click", () => {
+        buttons[0].click();
+    })
 }
 
-)
-// window.addEventListener("load",()=>{
-// 	// sessionStorage.setItem("identity","s")
-// 	if (sessionStorage.getItem("identity").length>2)
-// 	{
-// 		document.querySelector("#identity-user").className="user"
-// 		document.querySelector("#identity-visitor").className="user-hidden"
-// 	}
-
-// })
 async function init_domain() {
 	let url = getBasePath() + "/article/domain.json"
 	let text = await fetch(url)
 	text = await text.json()
-
 	return text
-
-
 }
-
+window.addEventListener("load",()=>{
+	article_display("announce")
+	change_page()
+})
