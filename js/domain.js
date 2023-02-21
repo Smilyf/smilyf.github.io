@@ -1,5 +1,4 @@
 "use strict";
-
 var article_json;
 //每页的文章数量
 var pages = 2
@@ -14,7 +13,6 @@ function getBasePath() {
     var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
     return basePath;
 }
-
 function create(text, init_domain_json, index) {
 	let temp = document.createElement("div")
 	let h1 = document.createElement("a")
@@ -116,20 +114,14 @@ function init_page() {
 	}
 }
 async function article_display(state) {
-    let init_domain_json = await init_domain()
-    let text = {}
-    for (let domain of Object.keys(init_domain_json)) {
-        let url = getBasePath() + "/article/" + domain + "/article.json"
-        let articlejson = await fetch(url,
-            {
-                method: 'GET',
-                headers: { 'Content-Type': "application/json; charset=utf-8" },
-
-            })
-        articlejson = await articlejson.text()
-        articlejson = JSON.parse(articlejson)
-        text = Object.assign(text, articlejson)
+    let href = window.location.href
+    let domain = href.match(/\?domain=(.*)/)[1];
+    if (domain.match(/(\S*)\?/) != null) {
+        domain = domain.match(/(\S*)\?/)[1]
     }
+    init_domain_description(domain)
+    let init_domain_json = await init_domain()
+    let text =await open_domain(domain)
     let article_json = {}
     if (state == "announce") {
         let keys = Object.keys(text)
@@ -153,18 +145,12 @@ async function article_display(state) {
     let art = document.querySelector(".layout-content>#articles")
     art.innerHTML = ""
     length = Object.keys(article_json).length;
-
     let paging_index = document.querySelector("#paging .paging-index")
     paging_index.innerHTML = ""
-    // for (let x of document.querySelectorAll("#paging .paging-index button"))
-    //  {
-    //     x.remove()
-    // }
     page_num = (length + pages - 1) / pages
     page_num = parseInt(page_num)
     if (page_num == 0) {
         art.innerHTML = "暂无数据！"
-
     }
     for (let i = 1; i <= page_num; i++) {
         let button = document.createElement("button")
@@ -174,30 +160,25 @@ async function article_display(state) {
         button.addEventListener("click", () => {
             let art = document.querySelector(".layout-content>#articles")
             art.innerHTML = ""
-            // let temp = document.createElement("div")
             let href = window.location.href;
             let index = "0"
             if (href.match(/\?paging=(.*)/) != null) {
                 index = href.match(/\?paging=(.*)/)[1];
                 if (index != i.toString()) {
-                    history.pushState(null, null, '?paging=' + i.toString())
+                    history.pushState(null, null, '?domain=' + domain + '?paging=' + i.toString())
                 }
             }
             else {
-                history.pushState(null, null, '?paging=' + "1")
+                history.pushState(null, null, '?domain=' + domain + '?paging=' + "1")
             }
             let start = (i - 1) * pages + 1
             let end = start + ((length - start + 1) < pages ? (length - start + 1) : pages)
             for (let i = start; i < end; i++) {
                 art.appendChild(create(article_json, init_domain_json, i.toString()))
             }
-
-
-            // art.innerHTML = temp.innerHTML
         })
         paging_index.appendChild(button)
     }
-
     let buttons = paging_index.querySelectorAll("button")
     for (let button of buttons) {
         button.addEventListener("click", () => {
@@ -219,13 +200,31 @@ async function article_display(state) {
         buttons[0].click();
     })
 }
-
 async function init_domain() {
-	let url = getBasePath() + "/article/domain.json"
+    let url = getBasePath() + "article/domain.json"
+    let text = await fetch(url)
+    text = await text.json()
+    return text
+}
+
+async function open_domain(domain) {
+
+    let url = "../article/" + domain + "/"  + "article.json"
 	let text = await fetch(url)
 	text = await text.json()
 	return text
 }
+async function init_domain_description(domain)
+{
+    let url = "../article/" + domain + "/description.json"
+    let data =await fetch(url)
+	let json=await data.json()
+	let h1 = document.querySelector(".description>h1")
+	let h3 = document.querySelector(".description>h3")
+	h1.innerHTML = marked.parse(json["1"]["title"])
+	h3.innerHTML = marked.parse(json["1"]["content"])
+}
+//init_page
 window.addEventListener("load",()=>{
 	article_display("announce")
 	change_page()

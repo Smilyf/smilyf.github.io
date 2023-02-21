@@ -35,11 +35,12 @@ function create(text, index) {
 	temp.appendChild(div_s)
 	return temp;
 }
-
-function change_page(buttons) {
-
-	document.querySelector(".previous-page").addEventListener("click", () => {
-
+function change_page() {
+    
+	let previous_page= document.querySelector(".previous-page")
+	let next_page= document.querySelector(".next-page")
+	previous_page.addEventListener("click", () => {
+		let buttons = document.querySelectorAll("#paging .paging-index button")
 		let href = window.location.href;
 		let index = href.match(/\?paging=(.*)/)[1]
 		index = parseInt(index)
@@ -47,7 +48,10 @@ function change_page(buttons) {
 			buttons[index - 2].click();
 		}
 	})
-	document.querySelector(".next-page").addEventListener("click", () => {
+	
+	next_page.addEventListener("click", () => {
+		let buttons = document.querySelectorAll("#paging .paging-index button")
+		
 		let href = window.location.href;
 		let index = href.match(/\?paging=(.*)/)[1]
 		index = parseInt(index)
@@ -56,13 +60,9 @@ function change_page(buttons) {
 		}
 	})
 }
-function init_page(buttons) {
-
-	document.querySelector(".logos a").addEventListener("click", () => {
-		buttons[0].click();
-	})
+function init_page() {
 	let href = window.location.href;
-
+	let buttons = document.querySelectorAll("#paging .paging-index button")
 	for (let j of buttons) {
 		if (href.match(/\?paging=(.*)/) === null) {
 			j.click()
@@ -72,10 +72,8 @@ function init_page(buttons) {
 			j.click();
 			break;
 		}
-
 	}
 }
-
 async function init_index() {
 
 	let url = "article/domain.json"
@@ -130,11 +128,11 @@ async function init_index() {
 
 		})
 	}
-	init_page(buttons)
-	change_page(buttons)
+	init_page()
+	
 }
 window.addEventListener('load', init_index())
-
+window.addEventListener("load",change_page())
 window.addEventListener("popstate", () => {
 	let href = window.location.href;
 	let index = "0"
@@ -147,7 +145,6 @@ window.addEventListener("popstate", () => {
 	}
 
 });
-
 //indivdualSpace
 window.addEventListener("load", () => {
 
@@ -168,7 +165,6 @@ window.addEventListener("load", () => {
 	}
 
 })
-
 window.addEventListener("load", () => {
 
 	Time.time()

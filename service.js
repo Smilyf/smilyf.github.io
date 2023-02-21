@@ -162,8 +162,6 @@ async function article_announce(jsons, res) {
     }
 }
 
-
-
 // function article_update(req, res) {
 
 
@@ -393,6 +391,20 @@ async function article_delete(jsons, res) {
 }
 
 
+function convert_Content_Type(url_t) {
+    let Type = url_t.replace(/.+\./, "")
+    switch (Type) {
+        case "js":
+            return "application/javascript;charset=UTF-8"
+        // case "css":
+        //     return "text/html;charset=UTF-8"
+        default:
+            return ""
+    }
+
+
+}
+
 
 server.on('request', (req, res) => {
 
@@ -512,21 +524,6 @@ server.on('request', (req, res) => {
 server.listen(8888, "127.0.0.1");
 
 console.log('Server running at http://127.0.0.1:8888/')
-
-
-function convert_Content_Type(url_t) {
-    let Type = url_t.replace(/.+\./, "")
-    switch (Type) {
-        case "js":
-            return "application/javascript;charset=UTF-8"
-        // case "css":
-        //     return "text/html;charset=UTF-8"
-        default:
-            return ""
-    }
-
-
-}
 
 
 var Snowflake = (function () {

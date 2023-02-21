@@ -62,7 +62,27 @@ if (sessionStorage.getItem("article_index") == null) {
 if (sessionStorage.getItem("category_delete") == null) {
     sessionStorage.setItem("category_delete", "")
 }
-
+function setNativeValue(element, value) {
+    const valueSetter = Object.getOwnPropertyDescriptor(element.__proto__, 'value').set;
+    console.log(Object.getOwnPropertyDescriptor(element.__proto__, 'value'))
+    const prototype = Object.getPrototypeOf(element);
+    const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value').set;
+    if (valueSetter && valueSetter !== prototypeValueSetter) {
+        prototypeValueSetter.call(element, value);
+    } else {
+        valueSetter.call(element, value)
+    }
+}
+function addAuxiliary(element, value, focus_start, focus_end) {
+    let startPos = element.selectionStart;
+    let endPos = element.selectionEnd;
+    let beforeValue = element.value.substring(0, startPos);
+    let afterValue = element.value.substring(endPos, element.value.length);
+    element.value = beforeValue + value + afterValue
+    element.selectionStart = startPos + focus_start; // 设置光标开始的位置
+    element.selectionEnd = startPos + focus_end; // 设置光标开始的位置
+    element.focus();
+}
 var scrolltime = null;
 var article_json;
 //每页的文章数量
@@ -82,8 +102,8 @@ function create(article_json, init_domain_json, index) {
     let authorname = document.createElement("a")
     //
     let indexx = Object.keys(article_json).sort(function (a, b) { return b - a })[index - 1]
-    
-   
+
+
     // let indexx= Object.keys(article_json)[index-1]
     h1.innerHTML = marked.parse(article_json[indexx]["title"])
 
@@ -91,7 +111,7 @@ function create(article_json, init_domain_json, index) {
     div_buttons.className = "div_buttons"
     let div_button1 = document.createElement("input")
     div_button1.value = "更新"
-    
+
     div_button1.type = "button";
     div_button1.addEventListener("click", async () => {
         sessionStorage.setItem("category_delete", article_json[indexx]["category"])
@@ -105,21 +125,19 @@ function create(article_json, init_domain_json, index) {
         sessionStorage.setItem("content", content)
         document.querySelector("#un_full_screen_content_left").value = content
         document.querySelector("#create-articles").click()
-        if( sessionStorage.getItem("navigation_article")=="dynamic")
-        {
-            document.querySelector("#drafts").className=""
-            document.querySelector("#announce").className="displaynone"
-            document.querySelector("#updatearticle").className=""
-            document.querySelector("#cancelupdate").className=""
+        if (sessionStorage.getItem("navigation_article") == "dynamic") {
+            document.querySelector("#drafts").className = ""
+            document.querySelector("#announce").className = "displaynone"
+            document.querySelector("#updatearticle").className = ""
+            document.querySelector("#cancelupdate").className = ""
         }
-        if( sessionStorage.getItem("navigation_article")=="manuscript")
-        {
-            document.querySelector("#drafts").className="displaynone"
-            document.querySelector("#announce").className=""
-            document.querySelector("#updatearticle").className=""
-            document.querySelector("#cancelupdate").className=""
+        if (sessionStorage.getItem("navigation_article") == "manuscript") {
+            document.querySelector("#drafts").className = "displaynone"
+            document.querySelector("#announce").className = ""
+            document.querySelector("#updatearticle").className = ""
+            document.querySelector("#cancelupdate").className = ""
         }
-     
+
     })
     let div_button2 = document.createElement("input")
     div_button2.type = "button";
@@ -127,7 +145,7 @@ function create(article_json, init_domain_json, index) {
     div_button2.addEventListener("click", async () => {
         sessionStorage.setItem("article_index", indexx)
         sessionStorage.setItem("category_delete", article_json[indexx]["category"])
-        delete_article( )
+        delete_article()
         document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
 
     })
@@ -196,7 +214,7 @@ function change_page() {
     })
 }
 function init_page() {
-    
+
     let buttons = document.querySelectorAll("#paging .paging-index button")
     if (buttons.length != 0) {
 
@@ -218,21 +236,21 @@ function init_page() {
 async function announce_article() {
 
     let url = ""
-    let index=sessionStorage.getItem("article_index")
+    let index = sessionStorage.getItem("article_index")
 
-    if ( index== "") {
+    if (index == "") {
         url = "/articleAannounce"
-       
+
     }
     else {
         url = "/articleUpdate"
-       
+
     }
     let title = sessionStorage.getItem("title")
     let synopsis = sessionStorage.getItem("synopsis")
     let category = sessionStorage.getItem("category")
     let content = sessionStorage.getItem("content")
-    
+
     let body_ = {}
     body_["index"] = index
     body_["title"] = title
@@ -257,15 +275,15 @@ async function announce_article() {
 async function drafts_article() {
 
     let url = ""
-    let index =sessionStorage.getItem("article_index")
-   
+    let index = sessionStorage.getItem("article_index")
+
     if (index == "") {
         url = "/articleAannounce"
     }
     else {
         url = "/articleUpdate"
     }
-   
+
     let title = sessionStorage.getItem("title")
     let synopsis = sessionStorage.getItem("synopsis")
     let category = sessionStorage.getItem("category")
@@ -297,7 +315,7 @@ async function delete_article() {
     let url = "/articleDelete"
     let body_ = {}
     body_["index"] = sessionStorage.getItem("article_index")
-    body_["category_delete"] =  sessionStorage.getItem("category_delete")
+    body_["category_delete"] = sessionStorage.getItem("category_delete")
     let resp = await fetch(url,
         {
             method: 'POST',
@@ -316,15 +334,13 @@ async function update_article() {
     let synopsis = sessionStorage.getItem("synopsis")
     let category = sessionStorage.getItem("category")
     let content = sessionStorage.getItem("content")
-    let state="announce"
-   
-    if(sessionStorage.getItem("navigation_article")=="manuscript")
-    {
-        state="drafts"
+    let state = "announce"
+
+    if (sessionStorage.getItem("navigation_article") == "manuscript") {
+        state = "drafts"
     }
-    if(sessionStorage.getItem("navigation_article")=="dynamic")
-    {
-        state="announce"
+    if (sessionStorage.getItem("navigation_article") == "dynamic") {
+        state = "announce"
     }
 
     let body_ = {}
@@ -447,9 +463,7 @@ async function article_display(state) {
         })
     }
     init_page()
-    document.querySelector(".logos a").addEventListener("click", () => {
-        buttons[0].click();
-    })
+
 }
 async function select(content_index) {
     const content = document.querySelector("#articles")
@@ -519,6 +533,16 @@ async function init_domain() {
     return text
 
 }
+window.addEventListener("load", () => {
+    document.querySelector(".logos a").addEventListener("click", () => {
+
+        let buttons = paging_index.querySelectorAll("button")
+        if (buttons.length > 0) {
+            buttons[0].click()
+        }
+
+    })
+})
 window.addEventListener("popstate", () => {
     let href = window.location.href;
     let index = "0"
@@ -538,27 +562,27 @@ window.addEventListener('load', () => {
 
     document.querySelector("#dynamic").addEventListener("click", () => {
         // history.pushState(null, null, '?paging=' + "1")
-        document.querySelector("#drafts").className=""
-        document.querySelector("#announce").className=""
-        document.querySelector("#updatearticle").className="displaynone"
-        document.querySelector("#cancelupdate").className="displaynone"
+        document.querySelector("#drafts").className = ""
+        document.querySelector("#announce").className = ""
+        document.querySelector("#updatearticle").className = "displaynone"
+        document.querySelector("#cancelupdate").className = "displaynone"
         article_display("announce")
         select("dynamic")
         sessionStorage.setItem("navigation_article", "dynamic")
     })
 
     document.querySelector("#create-articles").addEventListener("click", () => {
-        
+
         select("create-articles")
 
 
     })
     document.querySelector("#manuscript").addEventListener("click", () => {
         // history.pushState(null, null, '?paging=' + "1")
-        document.querySelector("#drafts").className=""
-        document.querySelector("#announce").className=""
-        document.querySelector("#updatearticle").className="displaynone"
-        document.querySelector("#cancelupdate").className="displaynone"
+        document.querySelector("#drafts").className = ""
+        document.querySelector("#announce").className = ""
+        document.querySelector("#updatearticle").className = "displaynone"
+        document.querySelector("#cancelupdate").className = "displaynone"
         article_display("drafts")
         select("manuscript")
         sessionStorage.setItem("navigation_article", "manuscript")
@@ -722,6 +746,7 @@ window.addEventListener("load", () => {
             }
             un_full_screen_content_right.appendChild(temp)
         }
+        console.log(sessionStorage.getItem("content"))
     }, 500))
 })
 window.addEventListener("load", () => {
@@ -771,138 +796,107 @@ window.addEventListener("load", () => {
     })
 
 })
+//min辅助
 window.addEventListener("load", () => {
 
-
-
     let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
-
     document.querySelector("#un_full_bold").addEventListener("click", () => {
-
-        un_full_screen_content_left.value += "****";
-        un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -= 2;
-
+        addAuxiliary(un_full_screen_content_left, "****", 2, 2)
     })
     document.querySelector("#un_full_italic").addEventListener("click", () => {
-        un_full_screen_content_left.value += "**";
-        un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -= 1;
-
+        addAuxiliary(un_full_screen_content_left, "**", 1, 1)
     })
 
     document.querySelector("#un_full_color").addEventListener("change", (event) => {
 
-        un_full_screen_content_left.value += "<span style=\"color:" + event.target.value + "\"></span>";
-        un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -= 7;
+
+        addAuxiliary(un_full_screen_content_left, "<span style=\"color:" + event.target.value + "\"></span>", 0, 0)
 
     })
     document.querySelector("#un_full_strikethrough").addEventListener("click", () => {
 
 
-        un_full_screen_content_left.value += "~~~~";
-        un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -= 2;
+        addAuxiliary(un_full_screen_content_left, "~~~~", 2, 2)
     })
 
     document.querySelector("#un_full_unordered_list").addEventListener("click", () => {
 
-        un_full_screen_content_left.value += "* \n* \n* \n";
-        un_full_screen_content_left.focus();
+
+        addAuxiliary(un_full_screen_content_left, "* \n* \n* \n", 2, 2)
     })
     document.querySelector("#un_full_ordered_list").addEventListener("click", () => {
 
-        un_full_screen_content_left.value += "1. \n2. \n3. \n";
-        un_full_screen_content_left.focus();
+        addAuxiliary(un_full_screen_content_left, "1. \n2. \n3. \n", 3, 3)
+
     })
     document.querySelector("#un_full_unordered_code").addEventListener("click", () => {
 
-        un_full_screen_content_left.value += "```\n\n```\n";
-        un_full_screen_content_left.focus();
-        un_full_screen_content_left.selectionEnd -= 5;
+        addAuxiliary(un_full_screen_content_left, "```\n\n```\n", 4, 4)
+
     })
     document.querySelector("#un_full_unordered_link").addEventListener("click", () => {
 
+        addAuxiliary(un_full_screen_content_left, "[](https:// \"Title\")", 1, 1)
 
-        un_full_screen_content_left.value += "[](https:// \"Title\")";
-        un_full_screen_content_left.focus();
-        // un_full_screen_content_left.selectionEnd -=5;
     })
     document.querySelector("#un_full_unordered_link_photo").addEventListener("click", () => {
 
+        addAuxiliary(un_full_screen_content_left, "![](https:// )", 2, 2)
 
-        un_full_screen_content_left.value += "![](https:// )";
-        un_full_screen_content_left.focus();
-        // un_full_screen_content_left.selectionEnd -=5;
     })
 
 })
+//max辅助
 window.addEventListener("load", () => {
 
-
     let full_screen_content_left = document.querySelector("#full_screen_content_left")
-
     document.querySelector("#full_bold").addEventListener("click", () => {
-        full_screen_content_left.value += "****";
-        full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -= 2;
-
+        addAuxiliary(full_screen_content_left, "****", 2, 2)
     })
     document.querySelector("#full_italic").addEventListener("click", () => {
-        full_screen_content_left.value += "**";
-        full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -= 1;
-
+        addAuxiliary(full_screen_content_left, "**", 1, 1)
     })
 
     document.querySelector("#full_color").addEventListener("change", (event) => {
 
-        full_screen_content_left.value += "<span style=\"color:" + event.target.value + "\"></span>";
-        full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -= 7;
+
+        addAuxiliary(full_screen_content_left, "<span style=\"color:" + event.target.value + "\"></span>", 0, 0)
 
     })
     document.querySelector("#full_strikethrough").addEventListener("click", () => {
 
 
-        full_screen_content_left.value += "~~~~";
-        full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -= 2;
+        addAuxiliary(full_screen_content_left, "~~~~", 2, 2)
     })
 
     document.querySelector("#full_unordered_list").addEventListener("click", () => {
 
-        full_screen_content_left.value += "* \n* \n* \n";
-        full_screen_content_left.focus();
+
+        addAuxiliary(full_screen_content_left, "* \n* \n* \n", 2, 2)
     })
     document.querySelector("#full_ordered_list").addEventListener("click", () => {
 
-        full_screen_content_left.value += "1. \n2. \n3. \n";
-        full_screen_content_left.focus();
+        addAuxiliary(full_screen_content_left, "1. \n2. \n3. \n", 3, 3)
+
     })
     document.querySelector("#full_unordered_code").addEventListener("click", () => {
 
-        full_screen_content_left.value += "```\n\n```\n";
-        full_screen_content_left.focus();
-        full_screen_content_left.selectionEnd -= 5;
+        addAuxiliary(full_screen_content_left, "```\n\n```\n", 4, 4)
+
     })
     document.querySelector("#full_unordered_link").addEventListener("click", () => {
 
+        addAuxiliary(full_screen_content_left, "[](https:// \"Title\")", 1, 1)
 
-        full_screen_content_left.value += "[](https:// \"Title\")";
-        full_screen_content_left.focus();
-        // full_screen_content_left.selectionEnd -=5;
     })
     document.querySelector("#full_unordered_link_photo").addEventListener("click", () => {
 
+        addAuxiliary(full_screen_content_left, "![](https:// )", 2, 2)
 
-        full_screen_content_left.value += "![](https:// )";
-        full_screen_content_left.focus();
-        // full_screen_content_left.selectionEnd -=5;
     })
 
 })
+
 window.addEventListener("load", () => {
 
     let flag = 1
@@ -989,12 +983,10 @@ window.addEventListener("load", () => {
 
     document.querySelector("#cancelupdate").addEventListener("click", () => {
 
+        sessionStorage.setItem("article_index", "")
         document.querySelector("#" + sessionStorage.getItem("navigation_article")).click()
     })
     let dynamic = document.querySelector("#dynamic")
     dynamic.click()
     change_page()
 })
-
-
-
