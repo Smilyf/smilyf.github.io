@@ -64,7 +64,7 @@ if (sessionStorage.getItem("category_delete") == null) {
 }
 function setNativeValue(element, value) {
     const valueSetter = Object.getOwnPropertyDescriptor(element.__proto__, 'value').set;
-    console.log(Object.getOwnPropertyDescriptor(element.__proto__, 'value'))
+   
     const prototype = Object.getPrototypeOf(element);
     const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value').set;
     if (valueSetter && valueSetter !== prototypeValueSetter) {
@@ -746,7 +746,7 @@ window.addEventListener("load", () => {
             }
             un_full_screen_content_right.appendChild(temp)
         }
-        console.log(sessionStorage.getItem("content"))
+       
     }, 500))
 })
 window.addEventListener("load", () => {

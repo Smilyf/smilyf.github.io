@@ -66,7 +66,7 @@ function create(text, init_domain_json, index) {
 	div_s.appendChild(div_p)
 	// div_s.appendChild(div_buttons)
 	temp.appendChild(div_s)
-	div.appendChild(authorname)
+	// div.appendChild(authorname)
 	div.appendChild(span0)
 	div.appendChild(span3)
 	temp.appendChild(div)
