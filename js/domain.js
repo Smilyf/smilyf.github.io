@@ -206,7 +206,6 @@ async function init_domain() {
     text = await text.json()
     return text
 }
-
 async function open_domain(domain) {
 
     let url = "../article/" + domain + "/"  + "article.json"

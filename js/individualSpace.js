@@ -508,7 +508,6 @@ async function select(content_index) {
         create.className = "create"
         create_articles.className = "navigation-article-show"
 
-
     }
     else {
         create.className = "create-hidden"

@@ -437,4 +437,4 @@ var Snowflake = (function () {
             this.sequence;
     };
     return Snowflake;
-});
+}());
