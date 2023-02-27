@@ -351,7 +351,6 @@ server.on('request', (req, res) => {
                 });
                 break;
             }
-
         default:
             fs.readFile("." + url_t, function (err, data) {
                 if (err) {
@@ -367,9 +366,6 @@ server.on('request', (req, res) => {
             });
             break;
     }
-
-
-
 
 });
 

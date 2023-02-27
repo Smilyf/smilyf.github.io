@@ -1,8 +1,8 @@
-@font-face {
+/* @font-face {
     font-family: unidreamLED;
-    src: url('../../font/UnidreamLED.ttf')
-    /* src: url("./UnidreamLED.ttf"); */
-}
+    src: url('../../font/UnidreamLED.ttf') 
+    
+} */
 .time{
 
     position: fixed;
@@ -21,7 +21,7 @@
     color: #b0b0b04d;
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.562);
-    font-family: unidreamLED;
+   
     z-index: -10;
     font-size:1rem;
     justify-items: stretch;

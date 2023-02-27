@@ -4,7 +4,7 @@ header {
     position: fixed;
     top: 0.13;
     width: 100%;
-    min-height: 4rem;
+    min-height: 3.8rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -72,7 +72,7 @@ header .logos .image>img {
 header>.navigation-simplify {
     display: none;
     position: relative;
-    height: 3.2rem;
+    height: 3rem;
     width: 10%;
     flex-direction: column;
     justify-content: center;
@@ -88,7 +88,7 @@ header>.navigation-simplify>div {
     left: 0rem;
     top: 3rem;
     display: none;
-    min-height: 4rem;
+    min-height: 3.6rem;
     width: 15rem;
     background: #000000da;
     border: 0.1rem solid #fff;
@@ -127,7 +127,7 @@ header>.navigation-simplify svg {
 header .navigation-simplify>div>div {
     margin: 0.6rem 0rem;
     width: 13rem;
-    height: 4rem;
+    height: 3.8rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
