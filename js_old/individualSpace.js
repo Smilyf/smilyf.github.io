@@ -716,7 +716,9 @@ window.addEventListener("load", () => {
 
     })
 
-
+    let full_screen_div_right = document.querySelector("#full_screen_div_right")
+   
+    let un_full_screen_div_right = document.querySelector("#un_full_screen_div_right")
     full_screen_content_left.addEventListener('input', combineDebounceThrottle(() => {
 
         text = full_screen_content_left.value;

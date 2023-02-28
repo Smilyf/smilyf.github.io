@@ -3,7 +3,6 @@ declare var marked: { parse:Function
 } 
 
 
-
 //获取网页根目录
 function getBasePath() {
     var obj = window.location;

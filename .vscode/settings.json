@@ -65,7 +65,8 @@
         "chrono": "cpp",
         "condition_variable": "cpp",
         "list": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "ranges": "cpp"
     },
     "livePreview.defaultPreviewPath": "/html/1.html"
 }

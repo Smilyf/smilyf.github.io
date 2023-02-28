@@ -1,14 +1,16 @@
 "use strict";
-import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
-//  and it's easy to individually load & register additional languages
-import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
-hljs.registerLanguage('go', go);
-function combineDebounceThrottle(func, wait) {
-    var lastTime = 0
-    var timeoutD
-    var timeoutT
+// import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/highlight.min.js';
+// //  and it's easy to individually load & register additional languages
+// import go from 'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/es/languages/go.min.js';
+// hljs.registerLanguage('go', go);
 
-    var later = function (...args) {
+declare var hljs: any
+function combineDebounceThrottle(func: Function, wait: number) {
+    var lastTime = 0
+    var timeoutD: number
+    var timeoutT: number
+
+    var later = function (...args: any) {
         clearTimeout(timeoutD)
         clearTimeout(timeoutT)
         timeoutD = null
@@ -17,7 +19,7 @@ function combineDebounceThrottle(func, wait) {
         func.apply(null, args)
     }
 
-    return function (...args) {
+    return function (...args: any) {
         var now = Date.now()
         var coolingDown = now - lastTime < wait
 
@@ -50,9 +52,7 @@ if (sessionStorage.getItem("category") == null) {
 if (sessionStorage.getItem("synopsis") == null) {
     sessionStorage.setItem("synopsis", "")
 }
-if (sessionStorage.getItem("synopsis") == null) {
-    sessionStorage.setItem("synopsis", "")
-}
+
 if (sessionStorage.getItem("navigation_article") == null) {
     sessionStorage.setItem("navigation_article", "dynamic")
 }
@@ -91,7 +91,7 @@ var pages = 3
 var page_num = 1
 //文章数
 var length = 0
-function create(article_json: JSON, init_domain_json: JSON, index: string) {
+function create(article_json: any, init_domain_json: any, index: string) {
 
     let temp = document.createElement("div")
     let h1 = document.createElement("a")
@@ -101,8 +101,7 @@ function create(article_json: JSON, init_domain_json: JSON, index: string) {
     div.className = "user_and_time"
     let authorname = document.createElement("a")
     //
-
-    let indexx = Object.keys(article_json).sort(function (a, b) { return b - a })[index - 1]
+    let indexx = Object.keys(article_json).sort(function (a: string, b: string): number { return parseInt(b) - parseInt(a) })[parseInt(index) - 1]
 
     //  let indexx= Object.keys(article_json)[index-1]
     h1.innerHTML = marked.parse(article_json[indexx]["title"])
@@ -115,10 +114,16 @@ function create(article_json: JSON, init_domain_json: JSON, index: string) {
     div_button1.type = "button";
     div_button1.addEventListener("click", async () => {
         sessionStorage.setItem("category_delete", article_json[indexx]["category"])
+        sessionStorage.setItem("category", article_json[indexx]["category"])
         sessionStorage.setItem("article_index", indexx);
+        sessionStorage.setItem("title", article_json[indexx]["title"]);
+        sessionStorage.setItem("synopsis",article_json[indexx]["synopsis"]);
+
         (document.querySelector("#title") as HTMLInputElement).value = article_json[indexx]["title"]
-            (document.querySelector("#synopsis") as HTMLTextAreaElement).value = article_json[indexx]["synopsis"]
-                (document.querySelector("#category") as HTMLSpanElement).value = article_json[indexx]["category"]
+        let synopsis: HTMLTextAreaElement = document.querySelector("#synopsis")
+        synopsis.value = article_json[indexx]["synopsis"]
+        let category: HTMLSelectElement = document.querySelector("#category")
+        category.value = article_json[indexx]["category"]
         let url = "../article/" + article_json[indexx]["category"] + "/md/" + indexx + ".md"
         let content = await fetch(url)
 
@@ -252,7 +257,7 @@ async function announce_article() {
     let category = sessionStorage.getItem("category")
     let content = sessionStorage.getItem("content")
 
-    let body_ = {}
+    let body_: any = {}
     body_["index"] = index
     body_["title"] = title
     body_["synopsis"] = synopsis
@@ -290,7 +295,7 @@ async function drafts_article() {
     let synopsis = sessionStorage.getItem("synopsis")
     let category = sessionStorage.getItem("category")
     let content = sessionStorage.getItem("content")
-    let body_ = {}
+    let body_: any = {}
     body_["index"] = index
     body_["title"] = title
     body_["synopsis"] = synopsis
@@ -316,7 +321,7 @@ async function drafts_article() {
 async function delete_article() {
 
     let url = "/articleDelete"
-    let body_ = {}
+    let body_: any = {}
     body_["index"] = sessionStorage.getItem("article_index")
     body_["category_delete"] = sessionStorage.getItem("category_delete")
     let resp = await fetch(url,
@@ -346,7 +351,7 @@ async function update_article() {
         state = "announce"
     }
 
-    let body_ = {}
+    let body_: any = {}
     body_["index"] = sessionStorage.getItem("article_index")
     body_["title"] = title
     body_["synopsis"] = synopsis
@@ -368,7 +373,7 @@ async function update_article() {
 }
 async function article_display(state: string) {
     let init_domain_json = await init_domain()
-    let text = {}
+    let text: any = {}
     for (let domain of Object.keys(init_domain_json)) {
         let url = getBasePath() + "/article/" + domain + "/article.json"
         let articlejson = await fetch(url,
@@ -377,18 +382,22 @@ async function article_display(state: string) {
                 headers: { 'Content-Type': "application/json; charset=utf-8" },
 
             })
-        let articlejson_ = await articlejson.text()
-        articlejson_ = JSON.parse(articlejson_)
+        let articlejson_ = await articlejson.json()
+
+
         text = Object.assign(text, articlejson_)
     }
-    let article_json: JSON
+    let article_json: any = {};
     if (state == "announce") {
         let keys = Object.keys(text)
         for (let key of keys) {
             if (text[key]["state"] == state) {
+
                 article_json[key] = text[key]
+
             }
         }
+
     }
     if (state == "drafts") {
         let keys = Object.keys(text)
@@ -468,7 +477,7 @@ async function article_display(state: string) {
     init_page()
 
 }
-async function select(content_index) {
+async function select(content_index: string) {
     const content = document.querySelector("#articles")
     const create = document.querySelector("#create")
     const paging = document.querySelector("#paging")
@@ -520,8 +529,9 @@ async function select(content_index) {
 }
 async function init_domain() {
     let url = getBasePath() + "article/domain.json"
-    let text = await fetch(url)
-    text = await text.json()
+    let text_ = await fetch(url)
+
+    let text = await text_.json()
     length = Object.keys(text).length;
 
     let select = (document.querySelector("#category") as HTMLSpanElement)
@@ -538,7 +548,7 @@ async function init_domain() {
 window.addEventListener("load", () => {
     document.querySelector(".logos a").addEventListener("click", () => {
 
-        let buttons = paging_index.querySelectorAll("button")
+        let buttons = document.querySelectorAll<HTMLButtonElement>("#paging .paging-index>button")
         if (buttons.length > 0) {
             buttons[0].click()
         }
@@ -556,41 +566,40 @@ window.addEventListener("popstate", () => {
     }
     let num = parseInt(index)
     if (num != 0) {
+        let buttons = document.querySelectorAll<HTMLButtonElement>("#paging .paging-index>button")
         buttons[num - 1].click()
     }
 });
 window.addEventListener('load', () => {
 
-
-    document.querySelector("#dynamic").addEventListener("click", () => {
+    (document.querySelector("#create-articles") as HTMLDivElement).addEventListener("click", () => {
+        select("create-articles")
+    })
+    document.querySelector("#manuscript").addEventListener("click", () => {
         // history.pushState(null, null, '?paging=' + "1")
-        (document.querySelector("#drafts") as HTMLInputElement).className = ""
-            (document.querySelector("#announce") as HTMLInputElement).className = ""
-                (document.querySelector("#updatearticle") as HTMLInputElement).className = "displaynone"
-                    (document.querySelector("#cancelupdate") as HTMLInputElement).className = "displaynone"
+        (document.querySelector("#drafts") as HTMLInputElement).className = "";
+        (document.querySelector("#announce") as HTMLInputElement).className = "";
+        (document.querySelector("#updatearticle") as HTMLInputElement).className = "displaynone";
+        (document.querySelector("#cancelupdate") as HTMLInputElement).className = "displaynone"
+        article_display("drafts")
+        select("manuscript")
+        sessionStorage.setItem("navigation_article", "manuscript")
+    })
+    let dynamic: HTMLDivElement = document.querySelector("#dynamic")
+
+    dynamic.addEventListener("click", () => {
+
+        // history.pushState(null, null, '?paging=' + "1");
+        (document.querySelector("#drafts") as HTMLInputElement).className = "";
+        (document.querySelector("#announce") as HTMLInputElement).className = "";
+        (document.querySelector("#updatearticle") as HTMLInputElement).className = "displaynone";
+        (document.querySelector("#cancelupdate") as HTMLInputElement).className = "displaynone"
         article_display("announce")
         select("dynamic")
         sessionStorage.setItem("navigation_article", "dynamic")
     })
 
-        (document.querySelector("#create-articles") as HTMLDivElement).addEventListener("click", () => {
 
-            select("create-articles")
-
-
-        })
-    document.querySelector("#manuscript").addEventListener("click", () => {
-        // history.pushState(null, null, '?paging=' + "1")
-        (document.querySelector("#drafts") as HTMLInputElement).className = ""
-            (document.querySelector("#announce") as HTMLInputElement).className = ""
-                (document.querySelector("#updatearticle") as HTMLInputElement).className = "displaynone"
-                    (document.querySelector("#cancelupdate") as HTMLInputElement).className = "displaynone"
-        article_display("drafts")
-        select("manuscript")
-        sessionStorage.setItem("navigation_article", "manuscript")
-    })
-
-    const dynamic = document.querySelector("#dynamic")
     dynamic.className = "navigation-article-show"
 
 })
@@ -662,7 +671,7 @@ window.addEventListener("load", () => {
     let text;
     let full_screen_content_right = document.querySelector("#full_screen_content_right")
     let un_full_screen_content_right = document.querySelector("#un_full_screen_content_right")
-    let full_screen_content_left = document.querySelector("#full_screen_content_left")
+    let full_screen_content_left: HTMLTextAreaElement = document.querySelector("#full_screen_content_left")
     let un_full_screen_content_left = (document.querySelector("#un_full_screen_content_left") as HTMLTextAreaElement)
 
     if (sessionStorage.getItem("content") != null) {
@@ -703,7 +712,7 @@ window.addEventListener("load", () => {
     }
 
     let category = (document.querySelector("#category") as HTMLSpanElement)
-    category.addEventListener('click', (e) => {
+    category.addEventListener('click', (e: any) => {
         sessionStorage.setItem("category", e.target.value)
 
     })
@@ -722,8 +731,9 @@ window.addEventListener("load", () => {
 
     full_screen_content_left.addEventListener('input', combineDebounceThrottle(() => {
 
-        text = full_screen_content_left.value;
+        text = full_screen_content_left.value
         sessionStorage.setItem("content", text)
+        let full_screen_div_right = document.querySelector("#full_screen_div_right")
         if (full_screen_div_right.className == "content-right-full") {
             let temp = document.createElement("div")
             full_screen_content_right.innerHTML = ""
@@ -733,12 +743,14 @@ window.addEventListener("load", () => {
             }
             full_screen_content_right.appendChild(temp)
         }
-    }), 500)
+
+    }, 500))
 
     un_full_screen_content_left.addEventListener('input', combineDebounceThrottle(() => {
 
         text = un_full_screen_content_left.value;
         sessionStorage.setItem("content", text)
+        let un_full_screen_div_right = document.querySelector("#un_full_screen_div_right")
         if (un_full_screen_div_right.className == "content-right-full") {
             let temp = document.createElement("div")
             un_full_screen_content_right.innerHTML = ""
@@ -750,6 +762,8 @@ window.addEventListener("load", () => {
         }
 
     }, 500))
+
+
 })
 window.addEventListener("load", () => {
 
@@ -782,7 +796,7 @@ window.addEventListener("load", () => {
 
         layout.className = "layout_hidden"
         full_screen_show.className = "full_screen"
-        let full_screen_content_left = document.querySelector("#full_screen_content_left")
+        let full_screen_content_left: HTMLTextAreaElement = document.querySelector("#full_screen_content_left")
         full_screen_content_left.value = sessionStorage.getItem("content")
         let full_screen_div_right = document.querySelector("#full_screen_div_right")
         if (full_screen_div_right.className == "content-right-full") {
@@ -809,7 +823,7 @@ window.addEventListener("load", () => {
         addAuxiliary(un_full_screen_content_left, "**", 1, 1)
     })
 
-    document.querySelector("#un_full_color").addEventListener("change", (event) => {
+    document.querySelector("#un_full_color").addEventListener("change", (event: any) => {
 
 
         addAuxiliary(un_full_screen_content_left, "<span style=\"color:" + event.target.value + "\"></span>", 0, 0)
@@ -859,7 +873,7 @@ window.addEventListener("load", () => {
         addAuxiliary(full_screen_content_left, "**", 1, 1)
     })
 
-    document.querySelector("#full_color").addEventListener("change", (event) => {
+    document.querySelector("#full_color").addEventListener("change", (event: any) => {
 
 
         addAuxiliary(full_screen_content_left, "<span style=\"color:" + event.target.value + "\"></span>", 0, 0)
@@ -902,13 +916,13 @@ window.addEventListener("load", () => {
 window.addEventListener("load", () => {
 
     let flag = 1
-    function addscrollListener(e) {
+    function addscrollListener(e: any) {
 
 
-        let full_screen_content_left = document.querySelector("#full_screen_content_left")
-        let full_screen_content_right = document.querySelector("#full_screen_div_right")
+        let full_screen_content_left = document.querySelector("#full_screen_content_left") as HTMLTextAreaElement
+        let full_screen_content_right = document.querySelector("#full_screen_div_right") as HTMLDivElement
         let un_full_screen_content_left = (document.querySelector("#un_full_screen_content_left") as HTMLTextAreaElement)
-        let un_full_screen_content_right = document.querySelector("#un_full_screen_div_right")
+        let un_full_screen_content_right = document.querySelector("#un_full_screen_div_right") as HTMLDivElement
 
         e.addEventListener("scroll", combineDebounceThrottle(function () {
             if (flag == 1) {
@@ -954,7 +968,7 @@ window.addEventListener("load", () => {
 
         let scrollHeight = e.scrollHeight
         let clientHeight = e.clientHeight
-        let ratio = Number(sessionStorage.getItem("ratio"))
+        let ratio = parseInt(sessionStorage.getItem("ratio"))
         let scrollTop = ratio * (scrollHeight - clientHeight)
         e.scrollTop = scrollTop
 
@@ -966,29 +980,32 @@ window.addEventListener("load", () => {
 })
 window.addEventListener("load", () => {
 
-
-    (document.querySelector("#updatearticle") as HTMLInputElement).addEventListener("click", () => {
-        update_article()
-            (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
+    let updatearticle: any = document.querySelector("#updatearticle")
+    updatearticle.addEventListener("click", () => {
+        update_article();
+        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
     })
-        (document.querySelector("#announce") as HTMLInputElement).addEventListener("click", () => {
+    let announce: any = document.querySelector("#announce")
 
-            announce_article()
-                (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
 
-        })
-        (document.querySelector("#drafts") as HTMLInputElement).addEventListener("click", () => {
+    announce.addEventListener("click", () => {
 
-            drafts_article()
-                (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
-        })
+        announce_article();
+        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
+    })
+    let drafts: any = document.querySelector("#drafts")
+    drafts.addEventListener("click", () => {
 
-        (document.querySelector("#cancelupdate") as HTMLInputElement).addEventListener("click", () => {
+        drafts_article();
+        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
+    })
+    let cancelupdate: any = document.querySelector("#cancelupdate")
+    cancelupdate.addEventListener("click", () => {
 
-            sessionStorage.setItem("article_index", "")
-                (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
-        })
-    let dynamic = document.querySelector("#dynamic")
+        sessionStorage.setItem("article_index", "");
+        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
+    })
+    let dynamic: any = document.querySelector("#dynamic")
     dynamic.click()
     change_page()
 })
