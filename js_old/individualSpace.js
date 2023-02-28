@@ -114,8 +114,12 @@ function create(article_json, init_domain_json, index) {
 
     div_button1.type = "button";
     div_button1.addEventListener("click", async () => {
-        sessionStorage.setItem("category_delete", article_json[indexx]["category"])
-        sessionStorage.setItem("article_index", indexx)
+        sessionStorage.setItem("category_delete", article_json[indexx]["category"]);
+        sessionStorage.setItem("category", article_json[indexx]["category"]);
+        sessionStorage.setItem("article_index", indexx);
+        sessionStorage.setItem("title", article_json[indexx]["title"]);
+        sessionStorage.setItem("synopsis", article_json[indexx]["synopsis"]);
+        document.querySelector("#title").value = article_json[indexx]["title"];
         document.querySelector("#title").value = article_json[indexx]["title"]
         document.querySelector("#synopsis").value = article_json[indexx]["synopsis"]
         document.querySelector("#category").value = article_json[indexx]["category"]
