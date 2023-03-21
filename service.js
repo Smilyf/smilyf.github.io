@@ -19,7 +19,7 @@ async function article_announce(jsons, res) {
                 if (!err) {
                     let ans = data.toString()
                     if (ans == "") {
-                        ans = "{}"
+                        ans = "{}" 
                     }
                     resolve(ans);
                 } else {
@@ -28,6 +28,7 @@ async function article_announce(jsons, res) {
             });
         });
     }
+    
     const open_json_one_old = async function (url) {
 
         return new Promise(function (resolve, reject) {
