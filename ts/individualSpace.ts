@@ -532,14 +532,13 @@ async function init_domain() {
     let text_ = await fetch(url)
 
     let text = await text_.json()
-    length = Object.keys(text).length;
-
+   
     let select = (document.querySelector("#category") as HTMLSpanElement)
     select.innerHTML = ""
-    for (let i = 1; i <= length; i++) {
+    for (let x of Object.keys(text)) {
         let option = document.createElement("option")
-        option.innerHTML = text[i]["label"]
-        option.value = text[i]["index"]
+        option.innerHTML = text[x]["label"]
+        option.value = text[x]["index"]
         select.appendChild(option)
     }
     return text

@@ -21,16 +21,17 @@ var length = 0
 function create(text: any, index: string) {
     let temp = document.createElement("div")
     let h1 = document.createElement("a")
-    h1.innerHTML = marked.parse(text[index]["title"])
+    let indexx = Object.keys(text).sort(function (a, b) { return parseInt(b) - parseInt(a); })[parseInt(index) - 1];
+    h1.innerHTML = marked.parse(text[indexx]["title"])
     let div_p = document.createElement("div")
     div_p.className = "div_p"
     let title = document.createElement("div")
     title.className = "title_a"
-    div_p.innerHTML = marked.parse(text[index]["content"])
+    div_p.innerHTML = marked.parse(text[indexx]["content"])
     // let indexx = Object.keys(text).sort(function (a, b) { return b - a })[index - 1]
     let div_s = document.createElement("div")
     div_s.className = "div_s"
-    h1.href = "./html/domain.html" + "?domain=" + text[index]["index"]
+    h1.href = "./html/domain.html" + "?domain=" + text[indexx]["index"]
 
     title.appendChild(h1)
     temp.appendChild(title)

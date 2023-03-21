@@ -468,13 +468,12 @@ function init_domain() {
         let url = getBasePath() + "article/domain.json";
         let text_ = yield fetch(url);
         let text = yield text_.json();
-        length = Object.keys(text).length;
         let select = document.querySelector("#category");
         select.innerHTML = "";
-        for (let i = 1; i <= length; i++) {
+        for (let x of Object.keys(text)) {
             let option = document.createElement("option");
-            option.innerHTML = text[i]["label"];
-            option.value = text[i]["index"];
+            option.innerHTML = text[x]["label"];
+            option.value = text[x]["index"];
             select.appendChild(option);
         }
         return text;
