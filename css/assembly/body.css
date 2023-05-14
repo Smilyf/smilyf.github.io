@@ -78,6 +78,13 @@ body{
     /* backdrop-filter: blur(0.8rem); */
 
 }
+.body .backimg{
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    object-fit:cover;
+}
+
 
 
 

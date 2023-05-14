@@ -352,7 +352,7 @@ header .search>.input->input {
     height: 80%;
     outline: none;
     border: 0;
-    
+    background: none;
     color:var(--header-font-color);
     margin: 0.1rem 0.1rem;
 
