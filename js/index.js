@@ -81,6 +81,7 @@ function init_page() {
             break;
         }
     }
+   
 }
 function init_index() {
     return __awaiter(this, void 0, void 0, function* () {

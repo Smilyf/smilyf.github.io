@@ -6,12 +6,14 @@
     flex-direction: column;
     align-items: center;
     min-height: 25rem;
-    background: black;
+    background: var(--banner-color);
     display: flex;
     justify-content: space-evenly;
-    color: #fff;
+    color:var(--banner-font-color);
     position: relative;
     border-bottom: 0.1rem solid rgb(177, 177, 177);
+    /* backdrop-filter: blur(1rem); */
+    
 }
 
 .banner>.description {
@@ -30,7 +32,7 @@
     font-weight: 100;
     letter-spacing: 0.5rem;
     line-height: 4.5rem;
-    color: rgba(255, 255, 255, 0.936);
+    color:var(--header-font-color);
 
 }
 
@@ -45,7 +47,7 @@
 .banner>.search {
     min-width: 35%;
     height: 4rem;
-    border: 0.05rem solid #fff;
+    border: 0.05rem solid var(--banner-border-color);
     border-radius: 50px;
     padding: 0rem 1.5rem;
     display: flex;
@@ -98,7 +100,7 @@
 .search>.input->input::placeholder {
 
     font-size: 1.1em;
-    color: #fff;
+    color:var(--header-font-color);
 }
 
 .search .search-complex {
@@ -128,8 +130,8 @@
     height: 80%;
     outline: none;
     border: 0;
-    background: #0f0f0f00;
-    color: rgb(255, 255, 255);
+    background: #ba1f1f00;
+    color:var(--header-font-color);
     margin: 0.1rem 0.1rem;
 
 }
