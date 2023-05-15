@@ -199,7 +199,7 @@ header a:hover {
 
 header .navigation>div:hover {
 
-    background: var(--banner-hover-color);
+    background: var(--header-hover-color);
     border-radius: 0.8rem;
 }
 
@@ -217,7 +217,7 @@ header .navigation>div>div {
     top: 3rem;
     min-height: 4rem;
     width: 15rem;
-    background: var(--header-color);
+    background: var(--header-hover-color);
     border: 0.1rem solid var(--header-border-color);
     border-radius: 0.5rem;
     text-align: center;
@@ -256,7 +256,7 @@ header .navigation>div>div>div>div {
 
 
 header .navigation>div>div>div:hover {
-    background: var(--banner-hover-color);
+    background:var(--header-hover-in-color);
 }
 
 header .search-s {

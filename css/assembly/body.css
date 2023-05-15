@@ -49,18 +49,19 @@ body[theme='dark']{
 body[theme='light']{
     color-scheme: light;
     --header-color: #68157668;
-    --header-font-color:  #000000;
+    --header-font-color:  #ffffff;
     --header-border-color:  #000000;
-    --header-srarch-border-color:  #000000;
+    --header-srarch-border-color:  #e0e0e0;
     --header-border: #b54c4cc0;
-    --header-svg: #000000c0;
-    --banner-hover-color: #3d6cd0b3;
+    --header-svg: #cececec0;
+    --header-hover-color: #607ebf;
+    --header-hover-in-color: #3735c4cf;
     --layout-color: rgba(185, 185, 185, 0);
     
     --banner-color: #40408684;
     --banner-border-color: #ffffff;
     --banner-font-color: #ffffff;
-
+    --banner-hover-color: #3d6cd0b3;
 }
 body{
     
@@ -81,8 +82,11 @@ body{
 .body .backimg{
     position: fixed;
     z-index: -1;
-    width: 100%;
-    object-fit:cover;
+    /* width: 100vw;
+     */
+     height: 100vh;
+    object-fit:fill;
+
 }
 
 

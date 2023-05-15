@@ -2,11 +2,11 @@
 @import url("./google-light.css");
 
 .content-show {
-    margin-top: 5rem;
+  
     margin-bottom: 1rem;
     padding: 1rem 1rem;
     min-height: 100vh;
-    width: 60%;
+    width: 100%;
     display: flex;
     background: #ffffff;
     color: #0f0f0f;
