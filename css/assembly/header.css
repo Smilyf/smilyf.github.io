@@ -16,8 +16,6 @@ header {
     flex-wrap: wrap;
     padding: 0.5rem 0;
     backdrop-filter: blur(1rem);
-   
-    
 }
 
 header .logos {
@@ -111,6 +109,7 @@ header>.navigation-simplify:hover>div {
     /*动画持续时间*/
     -webkit-animation-name: fade-in;
     /*针对webkit内核*/
+    background: var(--banner-hover-color);
 
 
 }
@@ -136,15 +135,17 @@ header .navigation-simplify>div>div {
     justify-content: center;
     align-items: center;
     border-radius: 0.6rem;
+    
 }
 
 header .navigation-simplify>div>div>div {
     width: 85%;
     border-left: 0.3rem solid var(--header-border-color);
+    
 }
 
 header .navigation-simplify>div>div:hover {
-    background: var(--banner-hover-color);
+    background: var(--header-hover-in-color);
 }
 
 header>.navigation {
