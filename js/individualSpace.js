@@ -820,3 +820,35 @@ window.addEventListener("load", () => {
     dynamic.click();
     change_page();
 });
+
+window.addEventListener("load", () => {
+    const un_full_screen_content_left=document.querySelector("#un_full_screen_content_left")
+
+    un_full_screen_content_left.addEventListener("keydown", (e) => {
+
+        if (e.keyCode == 9) {
+            e.preventDefault();
+            addAuxiliary(un_full_screen_content_left,"    ",4,4)
+        }
+
+    })
+
+    const full_screen_content_left=document.querySelector("#full_screen_content_left")
+
+    full_screen_content_left.addEventListener("keydown", (e) => {
+
+        if (e.keyCode == 9) {
+            e.preventDefault();
+            addAuxiliary(full_screen_content_left,"",4,4)
+        }
+
+    })
+
+
+
+
+
+
+
+
+    })

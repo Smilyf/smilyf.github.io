@@ -62,6 +62,8 @@ body[theme='light']{
     --banner-border-color: #ffffff;
     --banner-font-color: #ffffff;
     --banner-hover-color: #3d6cd0b3;
+
+    --individualSpace-background-color: #9c46b64f;
 }
 body{
     
