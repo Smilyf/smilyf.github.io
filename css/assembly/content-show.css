@@ -53,7 +53,9 @@
     width: 90%;
     margin: 1rem 1rem;
 }
-
+.markdown-body pre:hover .copy{
+    display: flex;
+   }
 .copy {
     height: 3rem;
     width: 3rem;

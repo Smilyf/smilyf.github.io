@@ -754,45 +754,60 @@ window.addEventListener("load", () => {
     });
 });
 window.addEventListener("load", () => {
-    let flag = 1;
+    sessionStorage.setItem("scrollEvent", "");
     function addscrollListener(e) {
         let full_screen_content_left = document.querySelector("#full_screen_content_left");
-        let full_screen_content_right = document.querySelector("#full_screen_div_right");
+        let full_screen_div_right = document.querySelector("#full_screen_div_right");
         let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left");
-        let un_full_screen_content_right = document.querySelector("#un_full_screen_div_right");
+        let un_full_screen_div_right = document.querySelector("#un_full_screen_div_right");
         e.addEventListener("scroll", combineDebounceThrottle(function () {
-            if (flag == 1) {
+            if (e.id.toString() == sessionStorage.getItem("scrollEvent") || sessionStorage.getItem("scrollEvent") == "") {
                 let scrollTop = e.scrollTop;
                 let scrollHeight = e.scrollHeight;
                 let clientHeight = e.clientHeight;
                 let ratio = scrollTop / (scrollHeight - clientHeight);
                 sessionStorage.setItem("ratio", ratio.toString());
-                set_scroll(full_screen_content_left);
-                set_scroll(full_screen_content_right);
-                set_scroll(un_full_screen_content_left);
-                set_scroll(un_full_screen_content_right);
-                set_scroll(un_full_screen_content_right);
-                flag = 0;
+                sessionStorage.setItem("scrollEvent", e.id.toString());
+
+                if (e.id.toString() == "full_screen_content_left") {
+                    set_scroll(full_screen_div_right);
+                }
+                if (e.id.toString() == "full_screen_div_right") {
+                    set_scroll(full_screen_content_left);
+                }
+                if (e.id.toString() == "un_full_screen_content_left") {
+
+                    set_scroll(un_full_screen_div_right);
+                }
+                if (e.id.toString() == "un_full_screen_div_right") {
+                    set_scroll(un_full_screen_content_left);
+                }
+               
+
             }
             else {
-                flag = 1;
+                sessionStorage.setItem("scrollEvent", "");
             }
+
         }, 500));
     }
     let full_screen_content_left = document.querySelector("#full_screen_content_left");
-    let full_screen_content_right = document.querySelector("#full_screen_div_right");
+    let full_screen_div_right = document.querySelector("#full_screen_div_right");
     let un_full_screen_content_left = document.querySelector("#un_full_screen_content_left");
-    let un_full_screen_content_right = document.querySelector("#un_full_screen_div_right");
+    let un_full_screen_div_right = document.querySelector("#un_full_screen_div_right");
     addscrollListener(full_screen_content_left);
-    addscrollListener(full_screen_content_right);
+    addscrollListener(full_screen_div_right);
     addscrollListener(un_full_screen_content_left);
-    addscrollListener(un_full_screen_content_right);
+    addscrollListener(un_full_screen_div_right);
+
     function set_scroll(e) {
         let scrollHeight = e.scrollHeight;
         let clientHeight = e.clientHeight;
-        let ratio = parseInt(sessionStorage.getItem("ratio"));
+        let ratio = parseFloat(sessionStorage.getItem("ratio"));
         let scrollTop = ratio * (scrollHeight - clientHeight);
-        e.scrollTop = scrollTop;
+        
+        e.scrollTo(0,scrollTop)
+        // e.scrollTop = scrollTop;
     }
 });
 window.addEventListener("load", () => {
@@ -822,33 +837,27 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("load", () => {
-    const un_full_screen_content_left=document.querySelector("#un_full_screen_content_left")
+    const un_full_screen_content_left = document.querySelector("#un_full_screen_content_left")
 
     un_full_screen_content_left.addEventListener("keydown", (e) => {
 
         if (e.keyCode == 9) {
             e.preventDefault();
-            addAuxiliary(un_full_screen_content_left,"    ",4,4)
+            addAuxiliary(un_full_screen_content_left, "    ", 4, 4)
         }
 
     })
 
-    const full_screen_content_left=document.querySelector("#full_screen_content_left")
+    const full_screen_content_left = document.querySelector("#full_screen_content_left")
 
     full_screen_content_left.addEventListener("keydown", (e) => {
 
         if (e.keyCode == 9) {
             e.preventDefault();
-            addAuxiliary(full_screen_content_left,"",4,4)
+            addAuxiliary(full_screen_content_left, "", 4, 4)
         }
 
     })
 
 
-
-
-
-
-
-
-    })
+})

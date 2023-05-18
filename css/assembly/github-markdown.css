@@ -945,10 +945,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   border-radius: 6px;
   position: relative;
 }
-.markdown-body pre:hover .copy{
- display: flex;
- 
-}
+
 
 .markdown-body pre code,
 .markdown-body pre tt {

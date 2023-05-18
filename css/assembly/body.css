@@ -64,6 +64,8 @@ body[theme='light']{
     --banner-hover-color: #3d6cd0b3;
 
     --individualSpace-background-color: #9c46b64f;
+
+    --createArticle-background-color:rgb(255, 255, 255);
 }
 body{
     

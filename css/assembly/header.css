@@ -117,8 +117,8 @@ header>.navigation-simplify:hover>div {
 header>.navigation-simplify:hover {
     background: rgba(114, 120, 158, 0.5);
     border-radius: 0.8rem;
-
 }
+
 
 header>.navigation-simplify svg {
     fill: var(--header-svg);

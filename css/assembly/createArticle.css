@@ -4,6 +4,7 @@
 .markdown-body {
     box-sizing: border-box;
     height: 100%;
+    padding: 0.5rem 0.5rem;
 }
 
 .create {
@@ -175,6 +176,8 @@
     border: 0.1rem solid #717171;
     padding: 0.5rem 0.5rem;
     font-size: 1.2rem;
+    cursor :default;
+    
 }
 
 /* .article-content > .content textarea::-webkit-scrollbar {
@@ -194,6 +197,7 @@
     border: 0.1rem solid #717171;
     font-size: 1.2rem;
     padding: 0.5rem 0.5rem;
+    cursor :default;
 
 }
 
@@ -206,6 +210,7 @@
     overflow-y: auto;
     overflow-x: auto;
     /* padding: 0.5rem 0.5rem; */
+    background: var(--createArticle-background-color);
 
 }
 
