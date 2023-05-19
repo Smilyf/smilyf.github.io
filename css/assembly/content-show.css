@@ -53,6 +53,10 @@
     width: 90%;
     margin: 1rem 1rem;
 }
+.content-show svg {
+    width: 90%;
+    margin: 1rem 1rem;
+}
 .markdown-body pre:hover .copy{
     display: flex;
    }

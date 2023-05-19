@@ -783,13 +783,12 @@ window.addEventListener("load", () => {
                     set_scroll(un_full_screen_content_left);
                 }
                
-
             }
             else {
                 sessionStorage.setItem("scrollEvent", "");
             }
 
-        }, 500));
+        }, 10));
     }
     let full_screen_content_left = document.querySelector("#full_screen_content_left");
     let full_screen_div_right = document.querySelector("#full_screen_div_right");
