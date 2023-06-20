@@ -978,33 +978,27 @@ window.addEventListener("load", () => {
 
 })
 window.addEventListener("load", () => {
-
-    let updatearticle: any = document.querySelector("#updatearticle")
+    let updatearticle = document.querySelector("#updatearticle");
     updatearticle.addEventListener("click", () => {
         update_article();
-        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
-    })
-    let announce: any = document.querySelector("#announce")
-
-
+        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click();
+    });
+    let announce = document.querySelector("#announce");
     announce.addEventListener("click", () => {
-
         announce_article();
-        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
-    })
-    let drafts: any = document.querySelector("#drafts")
+        document.querySelector("#dynamic"  ).click();
+    });
+    let drafts = document.querySelector("#drafts");
     drafts.addEventListener("click", () => {
-
         drafts_article();
-        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
-    })
-    let cancelupdate: any = document.querySelector("#cancelupdate")
+        document.querySelector("#manuscript" ).click();
+    });
+    let cancelupdate = document.querySelector("#cancelupdate");
     cancelupdate.addEventListener("click", () => {
-
         sessionStorage.setItem("article_index", "");
-        (document.querySelector("#" + sessionStorage.getItem("navigation_article")) as HTMLDivElement).click()
-    })
-    let dynamic: any = document.querySelector("#dynamic")
-    dynamic.click()
-    change_page()
-})
+        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click();
+    });
+    let dynamic = document.querySelector("#dynamic");
+    dynamic.click();
+    change_page();
+});

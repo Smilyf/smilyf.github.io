@@ -38,15 +38,12 @@
     .layout .layout-content {
         width: 90%;
         max-width:none;
-       
     }
 
     .layout .catalogue {
         display: none;
-
     }
     .layout .label{
         display: none;
     }
-    
 }

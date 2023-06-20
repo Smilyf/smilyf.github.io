@@ -175,9 +175,9 @@ window.addEventListener("load", () => {
         });
     }
 });
-window.addEventListener("load", () => {
-    time();
-});
+// window.addEventListener("load", () => {
+//     //time();
+// });
 function time() {
     let nowDate = new Date();
     let sencond = ``;

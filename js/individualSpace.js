@@ -247,7 +247,7 @@ function announce_article() {
         });
         let resp_ = yield resp.text();
         sessionStorage.setItem("article_index", "");
-        console.log(resp_);
+        //console.log(resp_);
     });
 }
 function drafts_article() {
@@ -435,12 +435,14 @@ function select(content_index) {
         const create_articles = document.querySelector("#create-articles");
         if (content_index == "dynamic") {
             dynamic.className = "navigation-article-show";
+            sessionStorage.setItem("article_index","")
         }
         else {
             dynamic.className = "navigation-article-hidden";
         }
         if (content_index == "manuscript") {
             manuscript.className = "navigation-article-show";
+            sessionStorage.setItem("article_index","")
         }
         else {
             manuscript.className = "navigation-article-hidden";
@@ -788,7 +790,7 @@ window.addEventListener("load", () => {
                 sessionStorage.setItem("scrollEvent", "");
             }
 
-        }, 10));
+        }, 0));
     }
     let full_screen_content_left = document.querySelector("#full_screen_content_left");
     let full_screen_div_right = document.querySelector("#full_screen_div_right");
@@ -818,12 +820,12 @@ window.addEventListener("load", () => {
     let announce = document.querySelector("#announce");
     announce.addEventListener("click", () => {
         announce_article();
-        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click();
+        document.querySelector("#dynamic"  ).click();
     });
     let drafts = document.querySelector("#drafts");
     drafts.addEventListener("click", () => {
         drafts_article();
-        document.querySelector("#" + sessionStorage.getItem("navigation_article")).click();
+        document.querySelector("#manuscript" ).click();
     });
     let cancelupdate = document.querySelector("#cancelupdate");
     cancelupdate.addEventListener("click", () => {
@@ -853,7 +855,7 @@ window.addEventListener("load", () => {
 
         if (e.keyCode == 9) {
             e.preventDefault();
-            addAuxiliary(full_screen_content_left, "", 4, 4)
+            addAuxiliary(full_screen_content_left, "    ", 4, 4)
         }
 
     })
