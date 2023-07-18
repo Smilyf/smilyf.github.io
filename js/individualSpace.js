@@ -282,6 +282,7 @@ function announce_article() {
         body_["category_delete"] = sessionStorage.getItem("category_delete");
         body_["state"] = "announce";
         body_["author"] = "Smily";
+        console.log(body_)
         let resp = yield fetch(url, {
             method: 'POST',
             body: JSON.stringify(body_),

@@ -8,45 +8,45 @@ hljs.registerLanguage('go', go);
 const renderer = new marked.Renderer()
 let originParagraph = renderer.paragraph.bind(renderer)
 renderer.paragraph = (text) => {
-  const blockRegex = /\$\$[^\$]*\$\$/g
-  const inlineRegex = /\$[^\$]*\$/g
-  let blockExprArray = text.match(blockRegex)
-  let inlineExprArray = text.match(inlineRegex)
-  for (let i in blockExprArray) {
-    const expr = blockExprArray[i]
-    const result = renderMathsExpression(expr)
-    text = text.replace(expr, result)
-  }
-  for (let i in inlineExprArray) {
-    const expr = inlineExprArray[i]
-    const result = renderMathsExpression(expr)
-    text = text.replace(expr, result)
-  }
-  return originParagraph(text)
+    const blockRegex = /\$\$[^\$]*\$\$/g
+    const inlineRegex = /\$[^\$]*\$/g
+    let blockExprArray = text.match(blockRegex)
+    let inlineExprArray = text.match(inlineRegex)
+    for (let i in blockExprArray) {
+        const expr = blockExprArray[i]
+        const result = renderMathsExpression(expr)
+        text = text.replace(expr, result)
+    }
+    for (let i in inlineExprArray) {
+        const expr = inlineExprArray[i]
+        const result = renderMathsExpression(expr)
+        text = text.replace(expr, result)
+    }
+    return originParagraph(text)
 }
-function renderMathsExpression (expr) {
-  if (expr[0] === '$' && expr[expr.length - 1] === '$') {
-    let displayStyle = false
-    expr = expr.substr(1, expr.length - 2)
+function renderMathsExpression(expr) {
     if (expr[0] === '$' && expr[expr.length - 1] === '$') {
-      displayStyle = true
-      expr = expr.substr(1, expr.length - 2)
+        let displayStyle = false
+        expr = expr.substr(1, expr.length - 2)
+        if (expr[0] === '$' && expr[expr.length - 1] === '$') {
+            displayStyle = true
+            expr = expr.substr(1, expr.length - 2)
+        }
+        let html = null
+        try {
+            html = katex.renderToString(expr)
+        } catch (e) {
+            console.err(e)
+        }
+        if (displayStyle && html) {
+            html = html.replace(/class="katex"/g, 'class="katex katex-block" style="display: block;"')
+        }
+        return html
+    } else {
+        return null
     }
-    let html = null
-    try {
-      html = katex.renderToString(expr)
-    } catch (e) {
-      console.err(e)
-    }
-    if (displayStyle && html) {
-      html = html.replace(/class="katex"/g, 'class="katex katex-block" style="display: block;"')
-    }
-    return html
-  } else {
-    return null
-  }
 }
-marked.setOptions({renderer: renderer})
+marked.setOptions({ renderer: renderer })
 
 
 
@@ -58,7 +58,7 @@ function getBasePath() {
     var basePath = obj.protocol + "//" + obj.host + "/" + contextPath;
     return basePath;
 }
-window.addEventListener('load', () => {
+window.addEventListener('load', async() => {
 
     let href = window.location.href
     let domain = href.match(/\?domain=(.*)/)[1];
@@ -69,60 +69,57 @@ window.addEventListener('load', () => {
     var artshow = document.querySelector("#content-sss")
     // artshow.style.display = "inline-block"
     let url = "../article/" + domain + "/md/" + index + ".md"
-    fetch(url)
-        .then((data) => { 
-           
-            return data.text() })
-
-        .then((text) => {
-
-            let temp = document.createElement("div")
-            temp.innerHTML = marked.parse(text)
-            for (const element of temp.querySelectorAll("code")) {
+    let data = await fetch(url)
+    let text = await data.text()
 
 
-                hljs.highlightElement(element);
+    let temp = document.createElement("div")
+    temp.innerHTML = marked.parse(text)
+    for (const element of temp.querySelectorAll("code")) {
 
+
+        hljs.highlightElement(element);
+
+    }
+    for (const element of temp.querySelectorAll("pre")) {
+
+        let copy = document.createElement("div")
+        copy.addEventListener("click",
+            async () => {
+                try {
+
+                    await navigator.clipboard.writeText(element.textContent.trim())
+                    let inf = document.createElement("div")
+                    inf.className = "inf"
+                    inf.innerHTML = "复制成功"
+                    document.querySelector("html").appendChild(inf)
+                    setTimeout(() => {
+                        inf.remove()
+                    }, 800)
+
+
+                } catch (err) {
+                    let inf = document.createElement("div")
+                    inf.className = "inf"
+                    inf.innerHTML = "复制失败"
+                    document.querySelector("html").appendChild(inf)
+                    setTimeout(() => {
+                        inf.remove()
+                    }, 800)
+
+                    console.error('Failed to copy: ', err)
+
+                }
             }
-            for (const element of temp.querySelectorAll("pre")) {
+        )
+        copy.title = "复制"
+        copy.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'><path fill='none' d='M0 0h24v24H0z'/><path d='M7 6V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1.001 1.001 0 0 1 3 21l.003-14c0-.552.45-1 1.006-1H7zM5.002 8L5 20h10V8H5.002zM9 6h8v10h2V4H9v2zm-2 5h6v2H7v-2zm0 4h6v2H7v-2z'  fill='rgba(89,89,89,1)'/></svg>"
+        copy.className = "copy"
+        element.appendChild(copy);
+    }
 
-                let copy = document.createElement("div")
-                copy.addEventListener("click",
-                    async () => {
-                        try {
+    artshow.appendChild(temp)
 
-                            await navigator.clipboard.writeText(element.textContent.trim())
-                            let inf = document.createElement("div")
-                            inf.className = "inf"
-                            inf.innerHTML = "复制成功"
-                            document.querySelector("html").appendChild(inf)
-                            setTimeout(() => {
-                                inf.remove()
-                            }, 800)
-
-
-                        } catch (err) {
-                            let inf = document.createElement("div")
-                            inf.className = "inf"
-                            inf.innerHTML = "复制失败"
-                            document.querySelector("html").appendChild(inf)
-                            setTimeout(() => {
-                                inf.remove()
-                            }, 800)
-
-                            console.error('Failed to copy: ', err)
-
-                        }
-                    }
-                )
-                copy.title = "复制"
-                copy.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'><path fill='none' d='M0 0h24v24H0z'/><path d='M7 6V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1.001 1.001 0 0 1 3 21l.003-14c0-.552.45-1 1.006-1H7zM5.002 8L5 20h10V8H5.002zM9 6h8v10h2V4H9v2zm-2 5h6v2H7v-2zm0 4h6v2H7v-2z'  fill='rgba(89,89,89,1)'/></svg>"
-                copy.className = "copy"
-                element.appendChild(copy);
-            }
-
-            artshow.appendChild(temp)
-        })
 })
 
 

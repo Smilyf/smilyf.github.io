@@ -264,6 +264,7 @@ async function announce_article() {
     body_["category_delete"] = sessionStorage.getItem("category_delete")
     body_["state"] = "announce"
     body_["author"] = "Smily"
+    console.log(body_)
     let resp = await fetch(url,
         {
             method: 'POST',

@@ -277,7 +277,9 @@ server.on('request', (req, res) => {
     else {
         url_t = req.url
     }
+    //console.log("." + url_t)
     switch (url_t) {
+        
         case "/favicon.ico":
             break;
         case "/articleAannounce":
@@ -352,6 +354,7 @@ server.on('request', (req, res) => {
                 break;
             }
         default:
+           
             fs.readFile("." + url_t, function (err, data) {
                 if (err) {
                     console.log(err);
