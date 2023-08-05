@@ -1,21 +1,237 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-">
 
 <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app" />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <link rel="manifest" href="/manifest.json" />
-    <title>React App</title>
-    <script defer="defer" src="/static/js/main.68747517.js"></script>
-    <link href="/static/css/main.073c9b0a.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YAM</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/assembly/time.css">
+  <script type="module" src="./js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="shortcut icon" href="./images/YY.ico" type="image/x-icon">
+
 </head>
 
-<body><noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+<body theme='light'>
+
+  <div class="body">
+    <!-- <img class="backimg" src="https://w.wallhaven.cc/full/ex/wallhaven-ex9gwo.png" alt=""> -->
+    <img class="backimg" src="https://w.wallhaven.cc/full/x6/wallhaven-x6775z.jpg" alt="">
+    
+    <!-- <div class="time">
+      <div class="secondBox"></div>
+      <div class="minuteBox"></div>
+      <div class="hourBox"></div>
+      <div class="dayBox"></div>
+      <div class="mounthBox"></div>
+      <div class="yearBox"></div>
+    </div>  -->
+    <header>
+
+      <div class="logos">
+        <div class="image"><img src="./images/picwish1.png" alt=""></div>
+        <div class="logo-a">
+          <div class="logo-top"></div>
+          <div class="logo-buttom"><a href="./index.html">YAM</a></div>
+        </div>
+      </div>
+      <div class="navigation-simplify">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
+        </svg>
+        <div>
+          <div>
+            <div><a href="./index.html">首页</a></div>
+          </div>
+          <div>
+            <div><a href="">参考文档</a></div>
+          </div>
+          <div>
+            <div><a href="">学习</a></div>
+          </div>
+          <div>
+            <div><a href="">发现</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="navigation">
+        <div>
+          <a href="./index.html">首页</a>
+        </div>
+        <div>
+          <a href="javascript:void(0)">参考文档</a>
+          <div>
+            <div>
+              <div><a href="">C++</a></div>
+            </div>
+            <div>
+              <div><a href="">Java</a></div>
+            </div>
+            <div>
+              <div><a href="">Python</a></div>
+            </div>
+            <div>
+              <div><a href="">C#</a></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a href="javascript:void(0)">学习</a>
+          <div>
+            <div>
+              <div><a href="">IT技术</a></div>
+            </div>
+            <div>
+              <div><a href="">动画摄影</a></div>
+            </div>
+            <div>
+              <div><a href="">生物</a></div>
+            </div>
+            <div>
+              <div><a href="">科学运动</a></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a href="javascript:void(0)">发现</a>
+          <!-- <div>
+            <div>
+              <div><a href="">排行榜</a></div>
+            </div>
+            <div>
+              <div><a href="">每日推荐</a></div>
+            </div>
+            <div>
+              <div><a href="">放松一下</a></div>
+            </div>
+          </div> -->
+        </div>
+        <div>
+          <a href="javascript:void(0)">友情链接</a>
+          <div>
+            <div>
+              <div><a href="https://www.acwing.com/">AcWing</a></div>
+            </div>
+            <div>
+              <div><a href="https://developer.mozilla.org/en-US/">MDN</a></div>
+            </div>
+            <div>
+              <div><a href="https://github.com/">Github</a></div>
+            </div>
+            <div>
+              <div><a href="https://wallhaven.cc/">wallhaven</a></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="search-s">
+        <div class="search">
+          <div class="input-">
+            <input type="search" placeholder="搜索" />
+          </div>
+          <div class="search-images">
+            <div class="search-complex">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
+              </svg>
+            </div>
+            <div class="image-">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                  d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user" id="identity-visitor">
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path d="M4 22a8 8 0 1 1 16 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z" />
+        </svg> -->
+        <!-- <div>
+          <div>
+            <div><a href="./html/login.html">登录</a></div>
+          </div>
+          <div>
+            <div><a href="./html/register.html">注册</a></div>
+          </div>
+        </div> -->
+      </div>
+      <!-- <div class="user-hidden" id="identity-user">
+        <img src="./images/Y.ico" alt="">
+        <div>
+          <div>
+            <div><a href="./html/information.html">个人信息</a></div>
+          </div>
+          <div>
+            <div><a href="./html/individualSpace.html">个人空间</a></div>
+          </div>
+          <div>
+            <div><button id="exit">退出</button></div>
+          </div>
+        </div>
+      </div> -->
+    </header>
+    <div class="banner">
+
+      <div class="description">
+        <!-- <h1>标准文档与学术交流共享</h1> -->
+        <h1></h1>
+        <h3>
+          Share standard reference materials and academic exchanges in different fields
+        </h3>
+      </div>
+      <div class="search">
+        <div class="input-">
+          <input type="search" placeholder="搜索" />
+        </div>
+        <div class="search-images">
+          <div class="search-complex">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
+            </svg>
+          </div>
+          <div class="image-">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="layout">
+
+      <div class="layout-content">
+        <div class="articles"></div>
+      </div>
+    </div>
+    <div class="paging" id="paging">
+      <button class="previous-page">上一页</button>
+      <div class="paging-index"></div>
+      <button class="next-page">下一页</button>
+      <input type="text">
+      <button class="next-page">跳转</button>
+    </div>
+    <div class="sbottom">
+      <div>
+        <a href="./html/individualSpace.html">@Smily</a>
+      </div>
+
+    </div>
+  </div>
+
 </body>
 
 </html>
