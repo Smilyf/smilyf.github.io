@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+   
+        window.addEventListener('load', () => {
+            console.log(window.location.pathname.toString() + window.location.search.toString() + window.location.hash.toString())
+            sessionStorage.setItem('indexa', window.location.pathname.toString() + window.location.search.toString() + window.location.hash.toString())
+            window.location.href = '/'
+        })
+    
+</script>
