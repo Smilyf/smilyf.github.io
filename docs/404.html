@@ -8,15 +8,13 @@
 </head>
 
 <body>
+    
 </body>
-
 </html>
 <script>
-   
-        window.addEventListener('load', () => {
-            console.log(window.location.pathname.toString() + window.location.search.toString() + window.location.hash.toString())
-            sessionStorage.setItem('indexa', window.location.pathname.toString() + window.location.search.toString() + window.location.hash.toString())
-            window.location.href = '/'
-        })
-    
+    window.addEventListener('load', () => {
+        console.log(window.location.pathname.toString() + window.location.search.toString() + window.location.hash.toString())
+        sessionStorage.setItem('indexa', window.location.pathname.toString() + window.location.search.toString() + window.location.hash.toString())
+        window.location.href = '/'
+    })
 </script>
