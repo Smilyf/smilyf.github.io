@@ -9,7 +9,7 @@ async function article_announce(jsons, res) {
     var tempSnowflake = new Snowflake(1n, 1n, 0n);
     let tempId = tempSnowflake.nextId();
     let url = "./article/" + jsons["category"] + "/article.json"
-
+    let url_all = "./article/article.json"
     let url_md = "./article/" + jsons["category"] + "/md/" + tempId + ".md"
     let url2_json_one = "./article/" + jsons["category"] + "/json/" + tempId + ".json"
     const open_article_json = async function (url) {
@@ -19,7 +19,7 @@ async function article_announce(jsons, res) {
                 if (!err) {
                     let ans = data.toString()
                     if (ans == "") {
-                        ans = "{}"
+                        ans = "{}" 
                     }
                     resolve(ans);
                 } else {
@@ -28,7 +28,7 @@ async function article_announce(jsons, res) {
             });
         });
     }
-
+    
     const open_json_one_old = async function (url) {
 
         return new Promise(function (resolve, reject) {
@@ -54,6 +54,7 @@ async function article_announce(jsons, res) {
         articles_json_content["category"] = jsons["category"]
         articles_json_content["state"] = jsons["state"]
         articles_json_content["author"] = jsons["author"]
+        articles_json_content["url"] = "/article/" + jsons["category"] + "/md/" + tempId + ".md"
         let myDate = new Date();
         let year = myDate.getFullYear();
         let month = myDate.getMonth() + 1;
@@ -154,6 +155,11 @@ async function article_announce(jsons, res) {
         await write_article_json(url, article_json)
         await write_article_json_one(url2_json_one, article_json[tempId])
         await write_article_md(url_md, jsons["content"])
+
+        let article_json_all = await open_article_json(url_all)
+        article_json_all = await create_article_json(tempId, article_json_all, jsons)
+        await write_article_json(url_all, article_json_all)
+
         res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
         res.end("Announce successful");
     } catch (error) {
@@ -173,6 +179,7 @@ async function article_delete(jsons, res) {
 
     let index = jsons["index"]
     let url = "./article/" + jsons["category_delete"] + "/article.json"
+    let url_all = "./article/article.json"
     let url1 = "./article/" + jsons["category_delete"] + "/md/" + index + ".md"
     let url2 = "./article/" + jsons["category_delete"] + "/json/" + index + ".json"
     //手写 fs.readfilesync()
@@ -236,13 +243,20 @@ async function article_delete(jsons, res) {
             });
         });
     }
-    let article_json = await open_article_json(url)
+    
     try {
+        let article_json = await open_article_json(url)
         article_json = JSON.parse(article_json)
         delete article_json[index]
         await write_article_json(url, article_json)
         await delete_article_md(url1)
         await delete_article_json_one(url2)
+        
+        let article_json_all = await open_article_json(url_all)
+        article_json_all = JSON.parse(article_json_all)
+        delete article_json_all[index]
+        await write_article_json(url_all, article_json_all)
+        
         res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
         res.end("Delect successful");
     } catch (error) {
@@ -279,7 +293,7 @@ server.on('request', (req, res) => {
     }
     //console.log("." + url_t)
     switch (url_t) {
-
+        
         case "/favicon.ico":
             break;
         case "/articleAannounce":
@@ -354,25 +368,12 @@ server.on('request', (req, res) => {
                 break;
             }
         default:
-
+           
             fs.readFile("." + url_t, function (err, data) {
                 if (err) {
-                    fs.readFile("./404.html", function (err, data) {
-                        if (err) {
-                            console.log(err);
+                    console.log(err);
 
-                            res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
-                        }
-
-                        else {
-
-                            res.writeHead(200, { "Content-Type": "text/html;charset=UTF-8" });
-
-                            res.end(data);
-
-                        }
-
-                    });
+                    res.writeHead(404, { "Content-Type": "text/html;charset=UTF-8" });
                 }
                 else {
                     res.writeHead(200, { "Content-Type": convert_Content_Type(url_t) });
